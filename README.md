@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+Los casos del estado de Litestrat WEB
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+0: Se debe definir "Influencer", "Organización" y el nombre de la influencia que ejerce sobre el Influencer sobre la Organización
 
-## Available Scripts
+1: La organización ha sido creada, se despliega y aparece el icono de goal semi-transparente para proceder a crear el goal
 
-In the project directory, you can run:
+1 -> 2: Creando un goal
 
-### `npm start`
+2: Al crear el goal se despliegan las estrategias bajo el goal creado/seleccionado. Aparece otro icono de goal semi-transparente a la derecha del goal creado/seleccionado para dar la posibilidad de crear un nuevo goal. Aparece un icono de tactica semi-transparente abajo de goal (con cierto offset a la derecha) para poder crear una estrategia
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2 -> 2: Creando otro goal
+2 -> 3: Creando una estrategia para un goal seleccionado
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3: Al crear una estrategia para un goal seleccionado, se despliega sobre la estrategia creada/seleccionada un contenedor de las tácticas, con una tactica semi-transparente con un boton a su derecha para proceder a crearla. 
 
-### `npm test`
+3 -> 2: Creando otro goal
+3 -> 3: Creando otra estrategia
+3 -> 4: Creando una táctica
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4: Al crear una táctica aparece sobre esta el icono/boton con la posibilidad de crear/asignar una unidad organizacional a la táctica relacionada. También se despliega bajo de la táctica creada/seleccionada un contenedor de objetivos (vertical) con un objetivo semi-transparente y a su derecha un boton para crear un objetivo.
 
-### `npm run build`
+4 -> 2: Creando otro goal
+4 -> 3: Creando otra estrategia
+4 -> 4: Creando una táctica
+4 -> 5: Creando/asignando una unidad organizacional a una táctica**
+4 -> 6: Creando un objetivo dentro de la táctica seleccionada
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5: Al crear/asignar un equipo de trabajo a una táctica la táctica queda lista (algo mas deberia pasar para indicar el cambio de estado?)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+5 -> 2: Creando otro goal
+5 -> 3: Creando otra estrategia
+5 -> 4: Creando una táctica
+5 -> 5: Creando/asignando una unidad organizacional a una táctica**
+5 -> 6: Creando un objetivo dentro de la táctica seleccionada
 
-### `npm run eject`
+6: Al crear un objetivo dentro de una táctica. Se desplaza un espacio hacia abajo el objetivo semitransparente de creación. Aquí se puede crear/asignar un rol al objetivo
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+6 -> 2: Creando otro goal
+6 -> 3: Creando otra estrategia
+6 -> 4: Creando una táctica
+6 -> 5: Creando/asignando una unidad organizacional a una táctica**
+6 -> 6: Creando un objetivo dentro de la táctica seleccionada
+6 -> 7: Creando/asignando un rol a un objetivo
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+/// Colors: https://colorhunt.co/palette/f5e8c7deba9d9e77776f4c5b
