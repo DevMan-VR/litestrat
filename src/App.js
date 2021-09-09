@@ -12,13 +12,15 @@ import ObjectiveView from "./components/Objective/Objective.view.js";
 import Organization from './components/Organization/Organization.model.js'
 import Goal from './components/Goal/Goal.model.js';
 import Strategy from './components/Strategy/Strategy.model.js';
+import Tactic from './components/Tactic/Tactic.model.js';
+import Objective from './components/Objective/Objective.model.js';
 
 //Icons
 import goalIcon from './assets/goal-icon.png';
 import strategyIcon from './assets/strategy-icon.png';
 import tacticIcon from "./assets/tactic-icon.png";
 import objectiveIcon from "./assets/objective-icon.png";
-import Tactic from './components/Tactic/Tactic.model.js';
+
 
 
 function App() {
@@ -83,6 +85,7 @@ function App() {
             var tactic = element
             tactic.index = index
 
+
             setState(prevState => {
                 return{
                     ...prevState,
@@ -90,6 +93,26 @@ function App() {
                         ...prevState.organization,
                         tacticSelected: element,
                         objectiveSelected: null
+
+                }
+
+                }
+                
+            })
+            break;
+
+            case 'objective':
+
+            var objective = element
+            objective.index = index
+
+
+            setState(prevState => {
+                return{
+                    ...prevState,
+                    organization: {
+                        ...prevState.organization,
+                        objectiveSelected: element
 
                 }
 
@@ -106,7 +129,8 @@ function App() {
     const addElement = (type) => {
         switch(type) {
             case 'goal':
-                var idGoal = "g1"
+                var index = Math.floor(Math.random()*10)
+                var idGoal = "g"+index
                 var title = idGoal+ " Title"
                 var description = "description"
 
@@ -127,7 +151,10 @@ function App() {
                 break;
 
             case 'strategy':
-                var idStrategy =  "s1"
+                var idGoal = state.organization.goalSelected.id
+                var index = Math.floor(Math.random()*10)
+                var idStrategy =  idGoal+"s"+index
+
                 var title = idStrategy+ " Title"
                 var description = "description"
 
@@ -141,7 +168,10 @@ function App() {
                 break;
 
             case 'tactic':
-                var idTactic = "t1"
+                var idStrategy = state.organization.strategySelected.id
+                var index = Math.floor(Math.random()*10)
+                var idTactic =  idStrategy+"t"+index
+
                 var title = idTactic+ " Title"
                 var description = "description"
 
@@ -153,6 +183,27 @@ function App() {
                 var newState = {...state}
                 newState.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.push(tactic)
                 console.log("NEW TACTIC")
+                console.log(newState)
+                setState(newState)
+                break;
+
+            case 'objective':
+                var idTactic =  state.organization.tacticSelected.id
+                var index = Math.floor(Math.random()*10)
+
+                var idObjective = idTactic+"g"+index
+                var title = idObjective+ " Title"
+                var description = "description"
+
+                var goalSelected = state.organization.goalSelected
+                var strategySelected = state.organization.strategySelected
+                var tacticSelected = state.organization.tacticSelected
+
+                var objective = new Objective(idObjective,null,null,null,title,description,null,false)
+
+                var newState = {...state}
+                newState.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics[tacticSelected.index].objectives.push(objective)
+                console.log("NEW OBJECTIVE")
                 console.log(newState)
                 setState(newState)
                 break;
@@ -251,16 +302,19 @@ function App() {
         var objectiveSection
         if(state.organization.tacticSelected){
             objectiveSection = (
-                <div style={styles.lsRow}>
-                        <div className="objectiveContainer">
+                <div style={styles.lsColumn}>
+                        <div style={styles.column}>
                             {state.organization.tacticSelected.objectives.map((objective, index) => {
-                                <ObjectiveView id={objective.id} key={objective.id} objective={objective} onClick={() => console.log("selecting node objective")} />
+                                return(
+                                    <ObjectiveView id={objective.id} key={objective.id} objective={objective} onClick={() => selectNode(index, objective, 'objective')} />
+
+                                )
     
                             })}
     
                         </div>
     
-                        <AddBtn icon={objectiveIcon} title="Objective Title" description="Description" onClick={() => {}} />
+                        <AddBtn icon={objectiveIcon} title="Objective Title" description="Description" onClick={() => addElement('objective')} />
                         
                     </div>
             )
@@ -282,6 +336,8 @@ function App() {
                 {renderStrategySection()}
 
                 {renderTacticSection()}
+
+                {renderObjectiveSection()}
                 
 
 
@@ -319,12 +375,19 @@ const styles = {
         flexDirection: 'row',
         marginLeft: '5em',
         marginTop: '2em',
-        backgroundColor: 'yellow'
     },
 
     lsColumn: {
+        display: 'flex',
+        flexDirection: 'column',
         marginLeft: '5em',
         marginTop: '2em'
+    },
+
+    column: {
+        display: 'flex',
+        flexDirection: 'column',
+        width: '12em'
     },
 
     goalContainer: {
