@@ -11,13 +11,14 @@ import ObjectiveView from "./components/Objective/Objective.view.js";
 //Models
 import Organization from './components/Organization/Organization.model.js'
 import Goal from './components/Goal/Goal.model.js';
-
+import Strategy from './components/Strategy/Strategy.model.js';
 
 //Icons
 import goalIcon from './assets/goal-icon.png';
 import strategyIcon from './assets/strategy-icon.png';
 import tacticIcon from "./assets/tactic-icon.png";
 import objectiveIcon from "./assets/objective-icon.png";
+import Tactic from './components/Tactic/Tactic.model.js';
 
 
 function App() {
@@ -31,26 +32,72 @@ function App() {
 
 
     //selectNode(goal, index)
-    const selectNode = (index, type, element) => {
+    const selectNode = (index, element, type) => {
         switch(type) {
-            case 'goal':{
+            case 'goal':
 
-                var goal = element
-                goal.index = index
+            var goal = element
+            goal.index = index
 
-                setState(prevState => {
-                    return{
-                        ...prevState,
-                        organization: {
-                            ...prevState.organization,
-                            goalSelected: element
+            setState(prevState => {
+                return{
+                    ...prevState,
+                    organization: {
+                        ...prevState.organization,
+                        goalSelected: element,
+                        strategySelected: null,
+                        tacticSelected: null,
+                        objectiveSelected: null
 
-                    }
+                }
 
-                    }
-                    
-                })
-            }
+                }
+                
+            })
+            break;
+
+            case 'strategy':
+
+            var strategy = element
+            strategy.index = index
+
+            setState(prevState => {
+                return{
+                    ...prevState,
+                    organization: {
+                        ...prevState.organization,
+                        strategySelected: element,
+                        tacticSelected: null,
+                        objectiveSelected: null
+
+                }
+
+                }
+                
+            })
+            break;
+
+
+            case 'tactic':
+
+            var tactic = element
+            tactic.index = index
+
+            setState(prevState => {
+                return{
+                    ...prevState,
+                    organization: {
+                        ...prevState.organization,
+                        tacticSelected: element,
+                        objectiveSelected: null
+
+                }
+
+                }
+                
+            })
+            break;
+            
         }
 
     }
@@ -77,6 +124,40 @@ function App() {
                         }
                     }
                 })
+                break;
+
+            case 'strategy':
+                var idStrategy =  "s1"
+                var title = idStrategy+ " Title"
+                var description = "description"
+
+                var goalSelected = state.organization.goalSelected
+                var strategy = new Strategy(idStrategy,null,null,null,title,description,null,false)
+                var newState = {...state}
+                newState.organization.goals[goalSelected.index].strategies.push(strategy)
+                console.log("NEW STRATEGY")
+                console.log(newState)
+                setState(newState)
+                break;
+
+            case 'tactic':
+                var idTactic = "t1"
+                var title = idTactic+ " Title"
+                var description = "description"
+
+                var goalSelected = state.organization.goalSelected
+                var strategySelected = state.organization.strategySelected
+
+                var tactic = new Tactic(idTactic,null,null,null,title,description,null,false)
+
+                var newState = {...state}
+                newState.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.push(tactic)
+                console.log("NEW TACTIC")
+                console.log(newState)
+                setState(newState)
+                break;
+                
+                
         }
     }
 
@@ -85,7 +166,10 @@ function App() {
             <div style={styles.lsRow}>
                     <div syle={styles.goalContainer}>
                         {state.organization.goals.map((goal, index) => {
-                            <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => selectNode(index, goal, 'goal')} />
+                            return(
+                                <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => selectNode(index, goal, 'goal')} />
+
+                            )
 
                         })}
 
@@ -102,18 +186,22 @@ function App() {
     const renderStrategySection = () => {
 
         var strategySection
-        if(state.organization.goalSelected){
+        var goalSelected = state.organization.goalSelected
+
+        if(goalSelected){
             strategySection = (
                 <div style={styles.lsRow}>
                         <div className="strategyContainer">
-                            {state.organization.goalSelected.strategies.map((strategy, index) => {
-                                <StrategyView id={strategy.id} key={strategy.id} strategy={strategy} onClick={() => console.log("selecting node strategy")} />
+                            {state.organization.goals[goalSelected.index].strategies.map((strategy, index) => {
+                                return(
+                                    <StrategyView id={strategy.id} key={strategy.id} strategy={strategy} onClick={() => selectNode(index, strategy, 'strategy')} />
+                                )
     
                             })}
     
                         </div>
     
-                        <AddBtn icon={strategyIcon} title="Strategy Title" description="Description" onClick={() => {}} />
+                        <AddBtn icon={strategyIcon} title="Strategy Title" description="Description" onClick={() => addElement('strategy')} />
                         
                     </div>
             )
@@ -129,18 +217,23 @@ function App() {
     const renderTacticSection = () => {
 
         var tacticSection
-        if(state.organization.strategySelected){
+        var goalSelected = state.organization.goalSelected
+        var strategySelected = state.organization.strategySelected
+        
+        if(goalSelected && strategySelected){
             tacticSection = (
                 <div style={styles.lsRow}>
                         <div className="tacticContainer">
-                            {state.organization.strategySelected.tactics.map((tactic, index) => {
-                                <TacticView id={tactic.id} key={tactic.id} tactic={tactic} onClick={() => console.log("selecting node tactic")} />
+                            {state.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.map((tactic, index) => {
+                                return(
+                                    <TacticView id={tactic.id} key={tactic.id} tactic={tactic} onClick={() => selectNode(index, tactic, 'tactic')} />
+                                )
     
                             })}
     
                         </div>
     
-                        <AddBtn icon={tacticIcon} title="Tactic Title" description="Description" onClick={() => {}} />
+                        <AddBtn icon={tacticIcon} title="Tactic Title" description="Description" onClick={() => addElement('tactic')} />
                         
                     </div>
             )
@@ -184,24 +277,11 @@ function App() {
             <div style={styles.litestratContainer}>
                 <p>Dummy Organization</p>
 
-                <div style={styles.lsRow}>
-                    <div syle={styles.goalContainer}>
-                        {state.organization.goals.map((goal,index) => {
-                            <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => selectNode(index, goal, 'goal')} />
-
-                        })}
-
-                    </div>
-
-                    <AddBtn icon={goalIcon} title="Goal Title" description="Description" onClick={() => addElement('goal')} />
-                    
-                </div>
+                {renderGoalSection()}
 
                 {renderStrategySection()}
 
                 {renderTacticSection()}
-
-                {renderObjectiveSection()}
                 
 
 
@@ -235,6 +315,8 @@ const styles = {
     },
 
     lsRow: {
+        display: 'flex',
+        flexDirection: 'row',
         marginLeft: '5em',
         marginTop: '2em',
         backgroundColor: 'yellow'
@@ -247,7 +329,8 @@ const styles = {
 
     goalContainer: {
         backgroundColor: 'red',
-        width: '200px'
+        width: '200px',
+        
     }
 
     
