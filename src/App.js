@@ -1,6 +1,4 @@
 import React, {useState, useEffect, Fragment} from 'react'
-import Organization from './components/Organization/Organization.model.js'
-
 
 //Views
 import AddBtn from './components/Helpers/AddBtn.js';
@@ -11,6 +9,8 @@ import ObjectiveView from "./components/Objective/Objective.view.js";
 
 
 //Models
+import Organization from './components/Organization/Organization.model.js'
+import Goal from './components/Goal/Goal.model.js';
 
 
 //Icons
@@ -31,21 +31,67 @@ function App() {
 
 
     //selectNode(goal, index)
+    const selectNode = (index, type, element) => {
+        switch(type) {
+            case 'goal':{
+
+                var goal = element
+                goal.index = index
+
+                setState(prevState => {
+                    return{
+                        ...prevState,
+                        organization: {
+                            ...prevState.organization,
+                            goalSelected: element
+
+                    }
+
+                    }
+                    
+                })
+            }
+        }
+
+    }
 
     //addElement(type)
+    const addElement = (type) => {
+        switch(type) {
+            case 'goal':
+                var idGoal = "g1"
+                var title = idGoal+ " Title"
+                var description = "description"
+
+                var goal = new Goal(idGoal,null,null,null,title,description,null,false)
+
+                setState(prevState => {
+                    return{
+                        ...prevState,
+                        organization: {
+                            ...prevState.organization,
+                            goals: [
+                                ...prevState.organization.goals,
+                                goal
+                            ]
+                        }
+                    }
+                })
+        }
+    }
 
     const renderGoalSection = () => {
         var goalSection = (
             <div style={styles.lsRow}>
-                    <div className="goalContainer">
+                    <div syle={styles.goalContainer}>
                         {state.organization.goals.map((goal, index) => {
-                            <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => console.log("selecting node goal")} />
+                            <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => selectNode(index, goal, 'goal')} />
 
                         })}
 
                     </div>
 
-                    <AddBtn icon={goalIcon} title="Goal Title" description="Description" onClick={() => {}} />
+                    <AddBtn icon={goalIcon} title="Goal Title" description="Description" onClick={() => addElement('goal')} />
                     
                 </div>
         )
@@ -138,7 +184,18 @@ function App() {
             <div style={styles.litestratContainer}>
                 <p>Dummy Organization</p>
 
-                {renderGoalSection()}
+                <div style={styles.lsRow}>
+                    <div syle={styles.goalContainer}>
+                        {state.organization.goals.map((goal,index) => {
+                            <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => selectNode(index, goal, 'goal')} />
+
+                        })}
+
+                    </div>
+
+                    <AddBtn icon={goalIcon} title="Goal Title" description="Description" onClick={() => addElement('goal')} />
+                    
+                </div>
 
                 {renderStrategySection()}
 
@@ -179,12 +236,18 @@ const styles = {
 
     lsRow: {
         marginLeft: '5em',
-        marginTop: '2em'
+        marginTop: '2em',
+        backgroundColor: 'yellow'
     },
 
     lsColumn: {
         marginLeft: '5em',
         marginTop: '2em'
+    },
+
+    goalContainer: {
+        backgroundColor: 'red',
+        width: '200px'
     }
 
     
