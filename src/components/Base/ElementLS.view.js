@@ -2,14 +2,14 @@ import React from 'react'
 import ButtonWrapper from '../Helpers/ButtonWrapper/ButtonWrapper.js'
 
 const ElementLSView = ({element, onClick, icon, containerStyle}) => {
-    const {title, description, until} = element
+    const {title, description, until, isSelected} = element
 
     return(
 
-        <ButtonWrapper onClick={onClick}>
+        <ButtonWrapper isSelected={isSelected} onClick={onClick}>
 
         
-            <div style={containerStyle}>
+            <div style={styles.elementStyle}>
 
                     <div style={styles.icon}>
                         {/** ICON ELEMENT */}

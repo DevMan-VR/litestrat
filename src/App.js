@@ -22,6 +22,10 @@ import tacticIcon from "./assets/tactic-icon.png";
 import objectiveIcon from "./assets/objective-icon.png";
 
 
+//Constants
+import {Gray} from './constants/Colors.js'
+
+
 
 function App() {
     const [state, setState] = useState({
@@ -35,11 +39,25 @@ function App() {
 
     //selectNode(goal, index)
     const selectNode = (index, element, type) => {
+
+        
+
         switch(type) {
             case 'goal':
 
+            //reset prev goal selected (if there is one)
+            if(state.organization.goalSelected){
+                var goalSelectedPrev = state.organization.goalSelected
+                goalSelectedPrev.isSelected = false
+
+            }
+            
+
             var goal = element
             goal.index = index
+            goal.isSelected = true
+
+           
 
             setState(prevState => {
                 return{
@@ -47,11 +65,8 @@ function App() {
                     organization: {
                         ...prevState.organization,
                         goalSelected: element,
-                        strategySelected: null,
-                        tacticSelected: null,
-                        objectiveSelected: null
 
-                }
+                    }
 
                 }
                 
@@ -217,6 +232,7 @@ function App() {
             <div style={styles.lsRow}>
                     <div syle={styles.goalContainer}>
                         {state.organization.goals.map((goal, index) => {
+                            
                             return(
                                 <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => selectNode(index, goal, 'goal')} />
 
@@ -391,6 +407,7 @@ const styles = {
     },
 
     goalContainer: {
+        display: 'flex',
         backgroundColor: 'red',
         width: '200px',
         

@@ -11,7 +11,7 @@ class Organization extends ElementLS{
         this.goalSelected = null
         this.strategySelected = null
         this.tacticSelected = null
-        this.goals = [...fillGoals(0)]
+        this.goals = [...fillGoals(2)]
 
     }
 

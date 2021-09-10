@@ -46,3 +46,6 @@ Los casos del estado de Litestrat WEB
 
 
 /// Colors: https://colorhunt.co/palette/f5e8c7deba9d9e77776f4c5b
+
+
+*** Falta aplicar la lógica de los seleccionados a cada elemento del array, ver la posibilidad si se pueden guardar los seleccionados...

@@ -1,0 +1,254 @@
+{
+    organization: {
+        name: "Dummy Organization",
+        goalSelected: null,
+        strategySelected: null,
+        tacticSelected: null
+        id: null,
+        sceneId: null,
+        userId: null,
+        fatherId: null,
+        title: "Nombre organizacion",
+        description:"Description",
+        until: "15/10/21",
+        isSelected: true,
+        isVisible: true
+
+
+        goals: [
+          {
+            title: "Goal 1",
+            description: "This is the description of G1",
+            until: "14-09-21",
+            isSelected: false,
+            strategies: [
+              {
+                title: "Strategy 1",
+                description: "This is the description of S1",
+                until: "12-09-21",
+                isSelected: false,
+                tactics:[
+                  {
+                    title: "Tactic 1",
+                    description: "This is the description of S1",
+                    until: "12-09-21",
+                    responsibleTeam: null,
+                    isSelected: false,
+                    objectives: [
+                      {
+                        title: "Objective 1",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false,
+                      },
+                      {
+                        title: "Objective 2",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      }
+                    ]
+                  },
+                  {
+                    title: "Tactic 2",
+                    description: "This is the description of S1",
+                    until: "12-09-21",
+                    responsibleTeam: null,
+                    isSelected: false,
+                    objectives: [
+                      {
+                        title: "Objective 3",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      },
+                      {
+                        title: "Objective 4",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                title: "Strategy 2",
+                description: "This is the description of S1",
+                until: "12-09-21",
+                isSelected: false,
+                tactics:[
+                  {
+                    title: "Tactic 4",
+                    description: "This is the description of S1",
+                    until: "12-09-21",
+                    responsibleTeam: null,
+                    isSelected: false,
+                    objectives: [
+                      {
+                        title: "Objective 5",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                        
+                      },
+                      {
+                        title: "Objective 6",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false,
+                      }
+                    ]
+                  },
+                  {
+                    title: "Tactic 5",
+                    description: "This is the description of S1",
+                    until: "12-09-21",
+                    responsibleTeam: null,
+                    isSelected: false,
+                    objectives: [
+                      {
+                        title: "Objective 7",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      },
+                      {
+                        title: "Objective 8",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            title: "Goal 2",
+            description: "This is the description of G1",
+            until: "14-09-21",
+            isSelected: false,
+            strategies: [
+              {
+                title: "Strategy 1",
+                description: "This is the description of S1",
+                until: "12-09-21",
+                isSelected: false,
+                tactics:[
+                  {
+                    title: "Tactic 1",
+                    description: "This is the description of S1",
+                    until: "12-09-21",
+                    responsibleTeam: null,
+                    isSelected: false,
+                    objectives: [
+                      {
+                        title: "Objective 1",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      },
+                      {
+                        title: "Objective 2",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      }
+                    ]
+                  },
+                  {
+                    title: "Tactic 2",
+                    description: "This is the description of S1",
+                    until: "12-09-21",
+                    responsibleTeam: null,
+                    isSelected: false,
+                    objectives: [
+                      {
+                        title: "Objective 3",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      },
+                      {
+                        title: "Objective 4",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                title: "Strategy 2",
+                description: "This is the description of S1",
+                until: "12-09-21",
+                isSelected: false,
+                tactics:[
+                  {
+                    title: "Tactic 3",
+                    description: "This is the description of S1",
+                    until: "12-09-21",
+                    responsibleTeam: null,
+                    isSelected: false,
+                    objectives: [
+                      {
+                        title: "Objective 5",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      },
+                      {
+                        title: "Objective 6",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      }
+                    ]
+                  },
+                  {
+                    title: "Tactic 4",
+                    description: "This is the description of S1",
+                    until: "12-09-21",
+                    responsibleTeam: null,
+                    isSelected: false,
+                    objectives: [
+                      {
+                        title: "Objective 7",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      },
+                      {
+                        title: "Objective 8",
+                        description: "This is the description of S1",
+                        until: "12-09-21",
+                        responsibleUnit: null,
+                        isSelected: false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+}
