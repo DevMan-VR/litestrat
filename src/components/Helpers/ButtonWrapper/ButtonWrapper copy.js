@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './ButtonWrapper.css'
 
 
-const ButtonWrapper = ({onClick, children}) => {
+const ElementWrapper = ({onClick, children, style}) => {
 
     //const [isHover, setIsHover] = useState(false)
     
@@ -11,7 +11,7 @@ const ButtonWrapper = ({onClick, children}) => {
 
     return(
 
-        <button
+        <button style={style}
         onClick={
             onClick
         }>{children}</button>
@@ -22,4 +22,4 @@ const ButtonWrapper = ({onClick, children}) => {
 
 
 
-export default ButtonWrapper
+export default ElementWrapper

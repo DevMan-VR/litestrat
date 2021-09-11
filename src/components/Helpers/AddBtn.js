@@ -60,5 +60,19 @@ const styles = {
     }
 }
 
+const btnStyles = {
+    isSelectedColor: {
+        backgroundColor: 'rgb(170, 170, 170)'    
+    },
+    isHoverColor: { 
+        backgroundColor: 'rgb(216, 216, 216)'
+    },
+    normalColor: {
+        backgroundColor: 'white'
+    }
+}
+
+
+
 
 export default AddBtn;

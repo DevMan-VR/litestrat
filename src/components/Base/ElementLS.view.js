@@ -1,12 +1,77 @@
 import React, {Fragment} from 'react'
-import ButtonWrapper from '../Helpers/ButtonWrapper/ButtonWrapper.js'
+import ElementWrapper from '../Helpers/ButtonWrapper/ButtonWrapper copy'
+import { Gray1, Gray2, Gray3 } from '../../constants/Colors'
 
-const ElementLSView = ({element, onClick, icon, containerStyle}) => {
+const ElementLSView = ({element, onClick, icon, styling, type}) => {
     const {title, description, until, isSelected} = element
+
+    const isHover = false
+
+    const {isHoverColor, isSelectedColor,normalColor } = styling
+    var style
+
+    if(isHover){
+        style = isHoverColor
+    } else if (isSelected){
+        style = isSelectedColor
+    } else {
+        style = normalColor
+    }
+
+
+    let divColor;
+    switch(type){
+        case 'goal':
+            divColor = Gray1;
+            break;
+        
+        case 'strategy': 
+            divColor = Gray2;
+            break;
+        
+        case 'tactic':
+            divColor = Gray3;
+        
+        case 'objective':
+            divColor = Gray3;
+    }
+
+    const styles = {
+        icon: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+        elementStyle: {
+            display: 'flex',
+            flexDirection: 'row'
+        },
+        content: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
+        },
+        btnIconStyle: {
+            display: 'flex',
+        },
+        relativeDiv: {
+            position: 'relative'
+        },
+    
+        absoluteDiv: {
+            position: 'absolute',
+            top: '-5px',
+            backgroundColor: divColor,
+            height: '40px',
+            width: '100%',
+            zIndex: '5px'
+        },
+    }
+    
 
     return(
         <div>
-            <ButtonWrapper isSelected={isSelected} onClick={onClick}>
+            <ElementWrapper isSelected={isSelected} onClick={onClick} style={style}>
 
             
                 <div style={styles.elementStyle}>
@@ -26,7 +91,7 @@ const ElementLSView = ({element, onClick, icon, containerStyle}) => {
                                 
                         </div>
                 </div>
-            </ButtonWrapper>
+            </ElementWrapper>
 
             {   isSelected ?
                     <div style={styles.relativeDiv}>
@@ -41,41 +106,9 @@ const ElementLSView = ({element, onClick, icon, containerStyle}) => {
     )
 }
 
-const styles = {
-    icon: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    elementStyle: {
-        display: 'flex',
-        flexDirection: 'row'
-    },
-    content: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center'
-    },
-    btnIconStyle: {
-        display: 'flex',
-    },
-    relativeDiv: {
-        position: 'relative'
-    },
 
-    absoluteDiv: {
-        position: 'absolute',
-        top: '-5px',
-        backgroundColor: 'rgb(170, 170, 170)',
-        height: '40px',
-        width: '100%',
-        zIndex: '5px'
-    },
 
-    container: {
 
-    }
-}
 
 
 export default ElementLSView

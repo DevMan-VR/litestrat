@@ -1,8 +1,11 @@
 button {
-    border: none
+    border: none;
+    color: none;
+    background-color: none;
 }
 
 button:hover {
     /*background-color: rgb(216, 216, 216);*/
     cursor: pointer;
+    /*border: 1px solid black;*/
 }

@@ -355,7 +355,7 @@ function App() {
         
         if(goalSelected && strategySelected){
             tacticSection = (
-                <div style={styles.lsRow}>
+                <div style={styles.tacticRow}>
                         
                         {state.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.map((tactic, index) => {
                             return(
@@ -384,8 +384,8 @@ function App() {
         var objectiveSection
         if(state.organization.tacticSelected){
             objectiveSection = (
-                <div style={styles.lsColumn}>
-                        <div style={styles.column}>
+                <div style={styles.objectiveColumn}>
+                        
                             {state.organization.tacticSelected.objectives.map((objective, index) => {
                                 return(
                                     <ObjectiveView id={objective.id} key={objective.id} objective={objective} onClick={() => selectNode(index, objective, 'objective')} />
@@ -394,7 +394,7 @@ function App() {
     
                             })}
     
-                        </div>
+                        
     
                         <AddBtn icon={objectiveIcon} title="Objective Title" description="Description" onClick={() => addElement('objective')} />
                         
@@ -478,12 +478,30 @@ const styles = {
         backgroundColor: 'red',
         
         
-    },
+    }, 
     strategyRow: {
         display: 'flex',
         flexDirection: 'row',
+        marginLeft: '5em',
+        marginTop: '2em',
         backgroundColor: Gray1
     },
+
+    tacticRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginLeft: '5em',
+        marginTop: '2em',
+        backgroundColor: Gray2
+    },
+
+    objectiveColumn: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginLeft: '5em',
+        marginTop: '2em',
+        backgroundColor: Gray3
+    }
 
     
 }
