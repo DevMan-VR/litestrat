@@ -1,34 +1,43 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import ButtonWrapper from '../Helpers/ButtonWrapper/ButtonWrapper.js'
 
 const ElementLSView = ({element, onClick, icon, containerStyle}) => {
     const {title, description, until, isSelected} = element
 
     return(
+        <div>
+            <ButtonWrapper isSelected={isSelected} onClick={onClick}>
 
-        <ButtonWrapper isSelected={isSelected} onClick={onClick}>
+            
+                <div style={styles.elementStyle}>
 
-        
-            <div style={styles.elementStyle}>
-
-                    <div style={styles.icon}>
-                        {/** ICON ELEMENT */}
-                        <img src={icon} alt="ICON" />
-                    </div>
-                    <div style={styles.elementStyle}>
-                        <div style={styles.content}>
-                            {/** TITLE ELEMENT */}
-                            <div>{title}</div>
-
-                            {/** DESCRIPTION ELEMENT */}
-                            <div>{description}</div>
+                        <div style={styles.icon}>
+                            {/** ICON ELEMENT */}
+                            <img src={icon} alt="ICON" />
                         </div>
-                            
-                    </div>
+                        <div style={styles.elementStyle}>
+                            <div style={styles.content}>
+                                {/** TITLE ELEMENT */}
+                                <div>{title}</div>
 
-            </div>
-        
-        </ButtonWrapper>
+                                {/** DESCRIPTION ELEMENT */}
+                                <div>{description}</div>
+                            </div>
+                                
+                        </div>
+                </div>
+            </ButtonWrapper>
+
+            {   isSelected ?
+                    <div style={styles.relativeDiv}>
+                        <div style={styles.absoluteDiv}>
+                     
+                        </div>
+                    </div>
+                :
+                    <Fragment></Fragment>
+            } 
+        </div>
     )
 }
 
@@ -49,6 +58,22 @@ const styles = {
     },
     btnIconStyle: {
         display: 'flex',
+    },
+    relativeDiv: {
+        position: 'relative'
+    },
+
+    absoluteDiv: {
+        position: 'absolute',
+        top: '-5px',
+        backgroundColor: 'gray',
+        height: '30px',
+        width: '100%',
+        zIndex: '5px'
+    },
+
+    container: {
+
     }
 }
 
