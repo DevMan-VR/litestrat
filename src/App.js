@@ -23,7 +23,7 @@ import objectiveIcon from "./assets/objective-icon.png";
 
 
 //Constants
-import {Gray} from './constants/Colors.js'
+import {Gray1, Gray2, Gray3} from './constants/Colors.js'
 
 
 
@@ -323,7 +323,7 @@ function App() {
 
         if(goalSelected){
             strategySection = (
-                <div style={styles.lsRow}>
+                <div style={styles.strategyRow}>
                         
                         {state.organization.goals[goalSelected.index].strategies.map((strategy, index) => {
                             return(
@@ -478,7 +478,12 @@ const styles = {
         backgroundColor: 'red',
         
         
-    }
+    },
+    strategyRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        backgroundColor: Gray1
+    },
 
     
 }

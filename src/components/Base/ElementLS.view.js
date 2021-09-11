@@ -66,8 +66,8 @@ const styles = {
     absoluteDiv: {
         position: 'absolute',
         top: '-5px',
-        backgroundColor: 'gray',
-        height: '30px',
+        backgroundColor: 'rgb(170, 170, 170)',
+        height: '40px',
         width: '100%',
         zIndex: '5px'
     },
