@@ -49,3 +49,18 @@ Los casos del estado de Litestrat WEB
 
 
 *** Falta aplicar la lógica de los seleccionados a cada elemento del array, ver la posibilidad si se pueden guardar los seleccionados...
+
+
+El paso siguiente es:
+
+--- Previo a la creación de cada elemento, definir un modal de creación. CHECK
+---> Logica de ADD BUTTON y MODAL como modificar el cuerpo original de datos (organization) CHECK
+
+
+El paso siguiente es:
+--> Terminar la lógica de CREATABLE para tacticas y para objetivos.
+*Cuando elijas un equipo para una tactica, los roles luego derivan del equipo seleccionado! (relativamente OK)
+
+
+
+***Hay un desorden a la hora de crear asignar un team a una tactica y un rol a un objetivo, todavia está desordenada esa lógica, lo ideal seria mejorarla para que tenga posibilidad de gestionar data via get/post de forma correspondiente.

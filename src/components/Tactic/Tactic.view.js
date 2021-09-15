@@ -9,6 +9,7 @@ import { Gray2, Gray3 } from '../../constants/Colors'
 const TacticView = ({tactic, onClick}) => {
     return(
         <ElementLSView element={tactic} onClick={onClick} icon={icon} styling={btnStyles} type="tactic"/> 
+
     )
 }
 

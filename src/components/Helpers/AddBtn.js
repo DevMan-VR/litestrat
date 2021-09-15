@@ -3,7 +3,7 @@ import btnIcon from '../../assets/btn-icon.png'
 import styled from 'styled-components'
 import ButtonWrapper from './ButtonWrapper/ButtonWrapper.js'
 
-const AddBtn = ({icon, title, description, onClick}) => {
+const AddBtn = ({icon, title, description, addElement, type}) => {
 
     return(
             <div style={styles.containerStyle}>
@@ -22,7 +22,7 @@ const AddBtn = ({icon, title, description, onClick}) => {
                     </div>
                     <div style={styles.btnIconStyle}>
                         {/** ICON BTN */}
-                        <ButtonWrapper onClick={onClick}>
+                        <ButtonWrapper addElement={addElement} type={type}>
                             <img src={btnIcon} alt="ADD" />
                         </ButtonWrapper>
                         

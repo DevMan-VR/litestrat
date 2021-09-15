@@ -20,16 +20,19 @@ import goalIcon from './assets/goal-icon.png';
 import strategyIcon from './assets/strategy-icon.png';
 import tacticIcon from "./assets/tactic-icon.png";
 import objectiveIcon from "./assets/objective-icon.png";
-
+import teamIcon from './assets/team-icon.png'
 
 //Constants
 import {Gray1, Gray2, Gray3} from './constants/Colors.js'
 
 
+//Dummy Data
+import { teamsDummy } from './data/dummy.js';
 
 function App() {
     const [state, setState] = useState({
-        organization: new Organization()
+        organization: new Organization(),
+        teams: teamsDummy
     })
 
     useEffect(() => {
@@ -85,7 +88,7 @@ function App() {
                     ...prevState,
                     organization: {
                         ...prevState.organization,
-                        goalSelected: element,
+                        goalSelected: goal,
 
                     }
 
@@ -126,7 +129,7 @@ function App() {
                     ...prevState,
                     organization: {
                         ...prevState.organization,
-                        strategySelected: element,
+                        strategySelected: strategy,
                         tacticSelected: null,
                         objectiveSelected: null
 
@@ -164,7 +167,7 @@ function App() {
                     ...prevState,
                     organization: {
                         ...prevState.organization,
-                        tacticSelected: element,
+                        tacticSelected: tactic,
                         objectiveSelected: null
 
                 }
@@ -193,7 +196,7 @@ function App() {
                     ...prevState,
                     organization: {
                         ...prevState.organization,
-                        objectiveSelected: element
+                        objectiveSelected: objective
 
                 }
 
@@ -207,15 +210,18 @@ function App() {
     }
 
     //addElement(type)
-    const addElement = (type) => {
+    const addElement = (type, data) => {
+        const {title, description, until} = data
+
         switch(type) {
             case 'goal':
+
+                
+
                 var index = Math.floor(Math.random()*10)
                 var idGoal = "g"+index
-                var title = idGoal+ " Title"
-                var description = "description"
 
-                var goal = new Goal(idGoal,null,null,null,title,description,null,false)
+                var goal = new Goal(idGoal,null,null,null,title,description,until,false)
 
                 setState(prevState => {
                     return{
@@ -230,17 +236,15 @@ function App() {
                     }
                 })
                 break;
-
+            
             case 'strategy':
+
                 var idGoal = state.organization.goalSelected.id
                 var index = Math.floor(Math.random()*10)
                 var idStrategy =  idGoal+"s"+index
 
-                var title = idStrategy+ " Title"
-                var description = "description"
-
                 var goalSelected = state.organization.goalSelected
-                var strategy = new Strategy(idStrategy,null,null,null,title,description,null,false)
+                var strategy = new Strategy(idStrategy,null,null,null,title,description,until,false)
                 var newState = {...state}
                 newState.organization.goals[goalSelected.index].strategies.push(strategy)
                 console.log("NEW STRATEGY")
@@ -249,17 +253,18 @@ function App() {
                 break;
 
             case 'tactic':
+
                 var idStrategy = state.organization.strategySelected.id
                 var index = Math.floor(Math.random()*10)
                 var idTactic =  idStrategy+"t"+index
 
-                var title = idTactic+ " Title"
-                var description = "description"
-
                 var goalSelected = state.organization.goalSelected
                 var strategySelected = state.organization.strategySelected
 
-                var tactic = new Tactic(idTactic,null,null,null,title,description,null,false)
+                var tactic = new Tactic(idTactic,null,null,null,title,description,until,false)
+
+                tactic.team = data.team;
+                //tactic.team = {...teamsDummy[0]} //por mientras es fijo... (pre-creado)
 
                 var newState = {...state}
                 newState.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.push(tactic)
@@ -269,18 +274,17 @@ function App() {
                 break;
 
             case 'objective':
+
                 var idTactic =  state.organization.tacticSelected.id
                 var index = Math.floor(Math.random()*10)
 
                 var idObjective = idTactic+"g"+index
-                var title = idObjective+ " Title"
-                var description = "description"
 
                 var goalSelected = state.organization.goalSelected
                 var strategySelected = state.organization.strategySelected
                 var tacticSelected = state.organization.tacticSelected
 
-                var objective = new Objective(idObjective,null,null,null,title,description,null,false)
+                var objective = new Objective(idObjective,null,null,null,title,description,until,false)
 
                 var newState = {...state}
                 newState.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics[tacticSelected.index].objectives.push(objective)
@@ -308,7 +312,7 @@ function App() {
 
                     
 
-                    <AddBtn icon={goalIcon} title="Goal Title" description="Description" onClick={() => addElement('goal')} />
+                    <AddBtn icon={goalIcon} title="Goal Title" description="Description" addElement={addElement} type="goal" />
                     
                 </div>
         )
@@ -334,7 +338,7 @@ function App() {
     
                         
     
-                        <AddBtn icon={strategyIcon} title="Strategy Title" description="Description" onClick={() => addElement('strategy')} />
+                        <AddBtn icon={strategyIcon} title="Strategy Title" description="Description" addElement={addElement} type="strategy" />
                         
                     </div>
             )
@@ -366,7 +370,7 @@ function App() {
     
                         
     
-                        <AddBtn icon={tacticIcon} title="Tactic Title" description="Description" onClick={() => addElement('tactic')} />
+                        <AddBtn icon={tacticIcon} title="Tactic Title" description="Description" addElement={addElement} type="tactic" />
                         
                     </div>
             )
@@ -396,9 +400,15 @@ function App() {
     
                         
     
-                        <AddBtn icon={objectiveIcon} title="Objective Title" description="Description" onClick={() => addElement('objective')} />
+                        <AddBtn icon={objectiveIcon} title="Objective Title" description="Description" addElement={addElement} type="objective" />
                         
-                    </div>
+                        <div style={styles.relativeDiv}>
+                            <div style={styles.absoluteDiv}>
+                                <img src={teamIcon} alt="TEAM 1"/>
+                                <div>Organization unit 1</div>
+                            </div>
+                        </div>
+                </div>
             )
         } else {
             objectiveSection = (<Fragment></Fragment>)
@@ -432,6 +442,19 @@ function App() {
 
 
 const styles = {
+    relativeDiv: {
+        position: 'relative',
+        marginBottom: '3em'
+    },
+
+    absoluteDiv: {
+        position: 'absolute',
+        top: '0px',
+        right: '10px',
+        height: '30px',
+        width: '30px',
+        zIndex: '5px'
+    },
     body: {
         display: 'flex',
         justifyContent: 'center',
@@ -500,7 +523,8 @@ const styles = {
         flexDirection: 'column',
         marginLeft: '5em',
         marginTop: '2em',
-        backgroundColor: Gray3
+        backgroundColor: Gray3,
+        width: '25em'
     }
 
     

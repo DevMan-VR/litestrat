@@ -20,7 +20,7 @@ const styles = {
 
 const btnStyles = {
     isSelectedColor: {
-        backgroundColor: Gray2   
+        backgroundColor: Gray2  
     },
     isHoverColor: { 
         backgroundColor: 'rgb(216, 216, 216)'

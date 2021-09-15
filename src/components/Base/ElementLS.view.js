@@ -1,11 +1,17 @@
 import React, {Fragment} from 'react'
-import ElementWrapper from '../Helpers/ButtonWrapper/ButtonWrapper copy'
+import ElementWrapper from '../Helpers/ElementWrapper'
 import { Gray1, Gray2, Gray3 } from '../../constants/Colors'
+
+import personIcon from '../../assets/person.png'
 
 const ElementLSView = ({element, onClick, icon, styling, type}) => {
     const {title, description, until, isSelected} = element
 
     const isHover = false
+    let isTactic = false
+    let isObjective = false
+
+    console.log("SOY EL STYLING EN ELMENTLS VIEW: ", styling)
 
     const {isHoverColor, isSelectedColor,normalColor } = styling
     var style
@@ -18,6 +24,8 @@ const ElementLSView = ({element, onClick, icon, styling, type}) => {
         style = normalColor
     }
 
+
+    console.log("STYLE IS: ", style)
 
     let divColor;
     switch(type){
@@ -37,6 +45,13 @@ const ElementLSView = ({element, onClick, icon, styling, type}) => {
     }
 
     const styles = {
+        personIcon: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginLeft: '2em'
+        },
         icon: {
             display: 'flex',
             justifyContent: 'center',
@@ -69,9 +84,25 @@ const ElementLSView = ({element, onClick, icon, styling, type}) => {
     }
     
 
+    const renderRole = () => {
+        var role;
+
+        if(type === 'objective'){
+            role = (
+                <div style={styles.personIcon}>
+
+                    <img src={personIcon} alt="person"/>
+                    <div> Role 1 </div>
+
+                </div>
+            )
+        }
+
+        return role
+    }
     return(
         <div>
-            <ElementWrapper isSelected={isSelected} onClick={onClick} style={style}>
+            <ElementWrapper element={element} isSelected={isSelected} onClick={onClick} style={style}>
 
             
                 <div style={styles.elementStyle}>
@@ -90,6 +121,9 @@ const ElementLSView = ({element, onClick, icon, styling, type}) => {
                             </div>
                                 
                         </div>
+
+
+                        {renderRole()}
                 </div>
             </ElementWrapper>
 
