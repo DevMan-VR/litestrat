@@ -1,13 +1,15 @@
 import React from 'react'
-import icon from "../../assets/goal-icon.png"
-import ElementLSView from '../Base/ElementLS.view.js'
+
+import GoalIcon from '../../assets/icons/GoalIcon'
+
+import ElementLSView from '../Base/ElementLS.view.svg'
 
 import { Gray1, Gray0 } from '../../constants/Colors'
 
 const GoalView = ({goal, onClick}) => {
 
     return(
-            <ElementLSView element={goal} onClick={onClick} icon={icon} styling={btnStyles} type="goal"/>
+            <ElementLSView element={goal} onClick={onClick} SVG={GoalIcon} styling={btnStyles} type="goal"/>
     
     )
 }

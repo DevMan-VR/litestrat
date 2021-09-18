@@ -3,14 +3,14 @@ import PlusButtonIcon from '../../assets/icons/PlusButtonIcon.js'
 import styled from 'styled-components'
 import ButtonWrapper from './ButtonWrapper/ButtonWrapper.js'
 
-const AddBtn = ({icon, title, description, addElement, type}) => {
+const AddBtnSVG_2 = ({SVG, title, description, addElement, type}) => {
 
     return(
             <div style={styles.containerStyle}>
 
                 <div style={styles.icon}>
                     {/** ICON ELEMENT */}
-                    <img src={icon} alt="ICON" />
+                    <SVG />
                 </div>
                 <div style={styles.elementStyle}>
                     <div style={styles.content}>
@@ -75,4 +75,4 @@ const btnStyles = {
 
 
 
-export default AddBtn;
+export default AddBtnSVG_2;

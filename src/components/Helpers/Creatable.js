@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import CreatableSelect from 'react-select/creatable';
 
-export const Creatable = ({options,type, setData}) => {
+export const Creatable = ({options=null,type, setData}) => {
 
   const handleChange = (newValue, actionMeta) => {
     console.group('Value Changed');
@@ -24,6 +24,7 @@ export const Creatable = ({options,type, setData}) => {
         onChange={handleChange}
         onInputChange={handleInputChange}
         options={options}
+        placeholder={"¿A que organización influencia?"}
       />
     );
   

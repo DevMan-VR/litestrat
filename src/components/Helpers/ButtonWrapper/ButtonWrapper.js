@@ -23,6 +23,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
     const [until, setUntil] = useState(null)
     const [role, setRole] = useState(null)
     const [team, setTeam] = useState(null)
+    const [organization, setOrganization] = useState(null)
 
     //const [isTactic,setIsTactic] = useState(false)
     //const [isObjective, setIsObjective] = useState(false)
@@ -48,8 +49,18 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
     let elementType
     let isTactic = false
     let isObjective = false
+    let isExternalActor = false
+    let descriptionLabel = "Descripción"
+    let titleLabel = "Título"
 
     switch(type){
+        case 'externalActor':
+            elementTitle = "Nuevo Actor Externo"
+            elementType = "Actor Externo"
+            isExternalActor = true
+            descriptionLabel = "¿Como influencia a la organización?"
+            titleLabel = "¿Como se llama el Actor Externo?"
+            break;
         case 'goal':
             elementTitle = "Nueva Meta"
             elementType = "Meta"
@@ -91,6 +102,25 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
           setUntil(e.target.value)
       }
 
+      const handleSubmitExternalActor = (e) => {
+        console.log("CREATING AN EXTERNAL ACTOR!")
+        e.preventDefault()
+
+        //Preparing the object
+        var element = {
+          title: title,
+          influenceDescription: description, //influence description
+          influencedOrganization: organization,
+        }
+
+        addElement(type, element)
+        setOpen(false)
+
+        setTitle('')
+        setDescription('')
+        setOrganization(null)
+      }
+
       const handleSubmit = (e) => {
         console.log("CREATING AN ELEMENT!")
         e.preventDefault()
@@ -116,11 +146,15 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
         setUntil(null)
       }
 
+      let definitiveSubmit
+      if(isExternalActor) definitiveSubmit = handleSubmitExternalActor
+      else definitiveSubmit = handleSubmit
+
 
 
       const renderCreatable = () => {
 
-        if(!isTactic && !isObjective) {
+        if(!isTactic && !isObjective && !isExternalActor) {
           return (<Fragment/>)
         }
 
@@ -152,9 +186,22 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
 
           return (<Creatable options={options} type={type} setData={setRole}/>)
 
+        } else if(isExternalActor){
+          //No options at first...
+          return (<Creatable setData={setOrganization} />)
+
+
         }
 
         
+      }
+
+      const renderUntil = () => {
+        if(isExternalActor){
+          return <Fragment />
+        } else {
+          return <Datepicker setUntil={setUntil} />
+        }
       }
 
     return(
@@ -183,7 +230,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
                 <FormControl >
                     <TextField
                             id="descriptionID"
-                            label="Título"
+                            label={titleLabel}
                             multiline
                             rows={1}
                             value={title}
@@ -196,7 +243,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
                 <FormControl className={classes.formField}>
                     <TextField
                         id="descriptionID"
-                        label="Descripción"
+                        label={descriptionLabel}
                         multiline
                         rows={4}
                         value={description}
@@ -206,11 +253,12 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
                 </FormControl>
 
                 <div>
-                    <Datepicker setUntil={setUntil} />
+                    {renderUntil()}
+                    
                     
                 </div>
 
-                <div>
+                <div className={classes.creatable}>
 
                 {renderCreatable()}
 
@@ -221,7 +269,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
 
 
                 <div style={{display: 'flex', justifyContent: 'center', marginTop: '3em'}}>
-                  <button className={classes.addButton} type="button" style={{border: 'none', cursor: 'pointer'}} onClick={handleSubmit}>
+                  <button className={classes.addButton} type="button" style={{border: 'none', cursor: 'pointer'}} onClick={definitiveSubmit}>
                     Agregar {elementType}
                   </button>
 
@@ -239,6 +287,9 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
 
 
 const useStyles = makeStyles((theme) => ({
+    creatable: {
+      marginTop: '1em'
+    },
     modal: {
       display: 'flex',
       alignItems: 'center',
@@ -250,7 +301,9 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2, 4, 3),
       width: 500,
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      borderRadius: '2em'
+
     },
     form : {
         display: 'flex',
@@ -269,7 +322,12 @@ const useStyles = makeStyles((theme) => ({
   
     addButton: {
       width: 300,
-      height: 50
+      height: 50,
+      borderRadius: '2em',
+      backgroundColor: '#00B289',
+      color: 'whitesmoke',
+      fontSize: '1.2em',
+      fontWeight: '700'
     }
     
   }));

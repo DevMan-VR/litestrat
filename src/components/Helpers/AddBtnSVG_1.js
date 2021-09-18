@@ -3,23 +3,18 @@ import PlusButtonIcon from '../../assets/icons/PlusButtonIcon.js'
 import styled from 'styled-components'
 import ButtonWrapper from './ButtonWrapper/ButtonWrapper.js'
 
-const AddBtn = ({icon, title, description, addElement, type}) => {
+const AddBtnSVG_1 = ({SVG, title, description, addElement, type}) => {
 
     return(
             <div style={styles.containerStyle}>
 
                 <div style={styles.icon}>
                     {/** ICON ELEMENT */}
-                    <img src={icon} alt="ICON" />
+                    <SVG />
+                    {/** TITLE ELEMENT */}
+                    <div style={styles.content}>{title}</div>
                 </div>
                 <div style={styles.elementStyle}>
-                    <div style={styles.content}>
-                        {/** TITLE ELEMENT */}
-                        <div>{title}</div>
-
-                        {/** DESCRIPTION ELEMENT */}
-                        <div>{description}</div>
-                    </div>
                     <div style={styles.btnIconStyle}>
                         {/** ICON BTN */}
                         <ButtonWrapper addElement={addElement} type={type}>
@@ -42,8 +37,10 @@ const styles = {
     },
     icon: {
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        
     },
     elementStyle: {
         display: 'flex',
@@ -53,9 +50,13 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        width: '7em',
+        marginTop: '0.5em'
     },
     btnIconStyle: {
         display: 'flex',
+        alignItems: 'center',
+        marginBottom: '2.7em'
         
     }
 }
@@ -75,4 +76,4 @@ const btnStyles = {
 
 
 
-export default AddBtn;
+export default AddBtnSVG_1;

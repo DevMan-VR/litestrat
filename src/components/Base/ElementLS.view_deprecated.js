@@ -4,7 +4,7 @@ import { Gray1, Gray2, Gray3 } from '../../constants/Colors'
 
 import personIcon from '../../assets/person.png'
 
-const ElementLSView = ({element, onClick, icon, styling, type}) => {
+const ElementLSView_deprecated = ({element, onClick, icon, styling, type}) => {
     const {title, description, until, isSelected} = element
 
     const isHover = false
@@ -145,4 +145,4 @@ const ElementLSView = ({element, onClick, icon, styling, type}) => {
 
 
 
-export default ElementLSView
+export default ElementLSView_deprecated

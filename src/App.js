@@ -1,11 +1,15 @@
-import React, {useState, useEffect, Fragment} from 'react'
+import React, {useState, useEffect, Fragment, useRef} from 'react'
 
 //Views
-import AddBtn from './components/Helpers/AddBtn.js';
-import GoalView from "./components/Goal/Goal.view.js";
-import StrategyView from "./components/Strategy/Strategy.view.js";
-import TacticView from "./components/Tactic/Tactic.view.js";
-import ObjectiveView from "./components/Objective/Objective.view.js";
+import AddBtn from './components/Helpers/AddBtn.js'
+
+import AddBtnSVG_1 from './components/Helpers/AddBtnSVG_1.js'; //For text at bottom
+import AddBtnSVG_2 from './components/Helpers/AddBtnSVG_2.js'; //For text aside
+import GoalView from "./components/Goal/Goal.view.svg.js";
+//import StrategyView from "./components/Strategy/Strategy.view.js";
+//import TacticView from "./components/Tactic/Tactic.view.js";
+//import ObjectiveView from "./components/Objective/Objective.view.js";
+import ExternalActorView from './components/ExternalActor/ExternalActor.view.svg.js';
 
 
 //Models
@@ -14,13 +18,16 @@ import Goal from './components/Goal/Goal.model.js';
 import Strategy from './components/Strategy/Strategy.model.js';
 import Tactic from './components/Tactic/Tactic.model.js';
 import Objective from './components/Objective/Objective.model.js';
+import ExternalActor from './components/ExternalActor/ExternalActor.model.js';
 
-//Icons
-import goalIcon from './assets/goal-icon.png';
-import strategyIcon from './assets/strategy-icon.png';
-import tacticIcon from "./assets/tactic-icon.png";
-import objectiveIcon from "./assets/objective-icon.png";
-import teamIcon from './assets/team-icon.png'
+//SVGs
+import GoalIcon from './assets/icons/GoalIcon.js';
+import StrategyIcon from './assets/icons/StrategyIcon.js';
+import TacticIcon from './assets/icons/TacticIcon.js';
+import ObjectiveIcon from './assets/icons/ObjectiveIcon.js';
+import ExternalActorIcon from './assets/icons/ExternalActorIcon.js';
+import InfluencingArrowIcon from './assets/icons/InfluencingArrowIcon.js';
+import OrganizationIcon from './assets/icons/OrganizationIcon.js';
 
 //Constants
 import {Gray1, Gray2, Gray3} from './constants/Colors.js'
@@ -29,15 +36,43 @@ import {Gray1, Gray2, Gray3} from './constants/Colors.js'
 //Dummy Data
 import { teamsDummy } from './data/dummy.js';
 
+//Icons
+//import goalIcon from './assets/goal-icon.png';
+//import strategyIcon from './assets/strategy-icon.png';
+//import tacticIcon from "./assets/tactic-icon.png";
+//import objectiveIcon from "./assets/objective-icon.png";
+//import teamIcon from './assets/team-icon.png'
+//import externalActor from './assets/external-actor.png'
+
+
+
+
+
+
 function App() {
     const [state, setState] = useState({
-        organization: new Organization(),
-        teams: teamsDummy
+        organization: null, //new Organization(),
+        teams: teamsDummy,
+        externalActor: null
     })
+
+
+    let goalIcon = null
+    let strategyIcon = null
+    let tacticIcon = null
+    let objectiveIcon = null
+    let teamIcon = null
+    let externalActor = null
+
+
+    let externalActorRef = useRef(null)
+    let organizationRef = useRef(null)
+
 
     useEffect(() => {
         console.log("Cambio de estado: ", state)
     }, [state])
+
 
 
     //selectNode(goal, index)
@@ -214,6 +249,28 @@ function App() {
         const {title, description, until} = data
 
         switch(type) {
+            case 'externalActor':
+
+                
+
+                var index = Math.floor(Math.random()*10)
+                var idExternalActor = "EX_ACT"+index
+                
+                var {label} = data.influencedOrganization
+                console.log("LABEL IS::: ",label)
+                var externalActor = new ExternalActor(idExternalActor,null,null,data.title,data.influenceDescription,label) //(idGoal,null,null,null,title,description,until,false)
+                
+                console.log("EL CREADO ES :", externalActor)
+                console.log()
+                setState(prevState => {
+                    return{
+                        ...prevState,
+                        externalActor: externalActor,
+                        organization : new Organization()
+                    }
+                })
+                break;
+
             case 'goal':
 
                 
@@ -312,14 +369,14 @@ function App() {
 
                     
 
-                    <AddBtn icon={goalIcon} title="Goal Title" description="Description" addElement={addElement} type="goal" />
+                    <AddBtnSVG_2 SVG={GoalIcon} title="Goal Title" description="Description" addElement={addElement} type="goal" />
                     
                 </div>
         )
 
         return goalSection
     }
-
+/*
     const renderStrategySection = () => {
 
         var strategySection
@@ -402,8 +459,8 @@ function App() {
     
                         <AddBtn icon={objectiveIcon} title="Objective Title" description="Description" addElement={addElement} type="objective" />
                         
-                        <div style={styles.relativeDiv}>
-                            <div style={styles.absoluteDiv}>
+                        <div style={styles.relativeDivTeam}>
+                            <div style={styles.absoluteDivTeam}>
                                 <img src={teamIcon} alt="TEAM 1"/>
                                 <div>Organization unit 1</div>
                             </div>
@@ -417,24 +474,105 @@ function App() {
 
         return objectiveSection
     }
+*/
+    const renderOrganization = () => {
+        var organization;
+
+        if(state.externalActor){
+            organization = (
+                <div style={styles.litestratContainer}>
+
+                    <div style={styles.organizationHeader}>
+                        {/** ORGANIZATION SVG  */}
+                        <div style={{display:'flex',justifyContent:'center', alignItems: 'center', marginLeft: '5em'}}>
+                            <OrganizationIcon />
+                        </div>
+                        
+                        <div>
+                            <p>{state.externalActor.influencedOrganization}</p>
+                        </div>
+                        
+                    </div>
+            
+                    
+                
+                    {renderGoalSection()}
+                {/*
+                    {renderStrategySection()}
+
+                    {renderTacticSection()}
+
+                    {renderObjectiveSection()}
+                                            
+                */}
+
+                </div>
+ 
+            )
+        } else {
+            organization = <Fragment/>
+        }
+
+        return organization;
+    }
+
+    const renderExternalActor = () => {
+        var extActor;
+        if(state.externalActor){
+
+            extActor = (
+                <div className="InfluencerRow" style={styles.influencerRow}>
+                    <div ref={externalActorRef} className="InfluencerContainer" style={styles.influencerContainer}>
+                        <ExternalActorView  externalActor={state.externalActor} onClick={() => console.log("do nothing... (log)")}/>
+                        
+                    </div>
+
+                    {/**INFLUENCING ARROW */}
+                    <div style={{marginLeft: '0.3em'}}>
+                        <InfluencingArrowIcon />
+                    </div>
+                    
+                </div>
+            )
+        } else {
+            extActor = (
+                <div className="InfluencerRow" style={styles.influencerRow}>
+                    <div className="InfluencerContainer" style={styles.influencerContainer}>
+                        <AddBtnSVG_1 SVG={ExternalActorIcon} title="External Actor Name" description="Description" addElement={addElement} type="externalActor" />
+
+                    </div>
+                </div>
+            )
+        }
+
+        return extActor
+    }
 
     return (
-        <div style={styles.body}>
-            <div style={styles.litestratContainer}>
-                <p>Dummy Organization</p>
+        <div style={styles.body} onClick={(e) => {
+            var x = e.pageX
+            var y = e.pageY
 
-                {renderGoalSection()}
+            return console.log(`Mouse Clicked in (${x},${y})`)
+        }}>
 
-                {renderStrategySection()}
+            <div className="NavBarRow">
+                <div className="InfluencerContainer">
+                    <p>Navbar ROW</p>
 
-                {renderTacticSection()}
-
-                {renderObjectiveSection()}
-                
-
-
+                </div>
             </div>
+
+            
+
+            {renderExternalActor()}
+            
+            {renderOrganization()}
+
+
         </div>
+
+        
     )
 
 
@@ -442,12 +580,51 @@ function App() {
 
 
 const styles = {
-    relativeDiv: {
+    organizationHeader: {
+        display: 'flex',
+        backgroundColor: '#1E4E79',
+        fontSize: '2em',
+        borderTopLeftRadius:'2em',
+        borderTopRightRadius: '2em',
+        color: 'whitesmoke',
+        fontWeight: '700'
+        
+
+    },
+    influencerRow: {
+        display: 'flex'
+    },
+
+    influencerContainerTransparent: {
+        width: '72px',
+        height: '72px',
+        marginLeft: '3em',
+        opacity: '0.3'
+    },
+
+    influencerContainer: {
+        width: '72px',
+        height: '72px',
+        marginLeft: '3em'
+    },
+
+    organizationRow: {
+        display: 'flex',
+        justifyContent: 'center'
+    },
+
+    organizationContainer: {
+        width: '72px',
+        height: '72px',
+        
+    },
+
+    relativeDivTeam: {
         position: 'relative',
         marginBottom: '3em'
     },
 
-    absoluteDiv: {
+    absoluteDivTeam: {
         position: 'absolute',
         top: '0px',
         right: '10px',
@@ -455,11 +632,21 @@ const styles = {
         width: '30px',
         zIndex: '5px'
     },
+    relativeDivOrg: {
+        position: 'relative',
+    },
+
+    absoluteDivOrg: {
+        position: 'absolute',
+        top: '15px',
+        left: '-80px',
+        height: '30px',
+        width: '30px',
+        zIndex: '5px'
+    },
     body: {
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        
+        flexDirection: 'column',
         height: '100vh',
         width: '100vw',
         
@@ -468,17 +655,20 @@ const styles = {
     litestratContainer: {
         display: 'flex',
         flexDirection: 'column',
-        marginTop: '5em',
-        backgroundColor: 'gray',
-        width: '1200px',
-        height: '800px',
-        backgroundColor: '#f2f2f2'
+        //marginTop: '3em',
+        marginLeft: '15em',
+        backgroundColor: 'whitesmoke',
+        width: '1000px',
+        height: '700px',
+        boxShadow: "-2px 2px 10px #9E9E9E",
+        borderRadius: '4em'
+
     },
 
     lsRow: {
         display: 'flex',
         flexDirection: 'row',
-        marginLeft: '5em',
+        marginLeft: '2em',
         marginTop: '2em',
     },
 
