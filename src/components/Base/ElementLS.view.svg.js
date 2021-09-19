@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 import ElementWrapper from '../Helpers/ElementWrapper'
-import { Gray1, Gray2, Gray3 } from '../../constants/Colors'
+import { Gray0, Gray1, Gray2, Gray3 } from '../../constants/Colors'
 
 import RoleIcon from '../../assets/icons/RoleIcon'
 
@@ -22,7 +22,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
     }
 
     
-
+    
     var flexDirection
     var mLeft = '0px'
     var mTop = '0px'
@@ -98,7 +98,8 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
             justifyContent: 'center',
             alignItems: 'center',
             marginLeft: mLeft,
-            marginTop: mTop
+            marginTop: mTop,
+            width: '7em'
 
         },
         btnIconStyle: {
@@ -126,6 +127,8 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
     }
     
 
+    console.log("STYLE FINALE IS: ", style)
+
     const renderRole = () => {
         var role;
 
@@ -143,7 +146,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
         return role
     }
     return(
-        <div >
+        <div  >
             <ElementWrapper element={element} isSelected={isSelected} onClick={onClick} style={style}>
 
             

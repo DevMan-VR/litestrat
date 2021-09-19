@@ -1,14 +1,14 @@
 import React from 'react'
-import icon from "../../assets/tactic-icon.png"
 
-import ElementLSView from '../Base/ElementLS.view.js'
+import ElementLSView from '../Base/ElementLS.view.svg.js'
 
 import { Gray2, Gray3 } from '../../constants/Colors'
+import TacticIcon from '../../assets/icons/TacticIcon.js'
 
 
 const TacticView = ({tactic, onClick}) => {
     return(
-        <ElementLSView element={tactic} onClick={onClick} icon={icon} styling={btnStyles} type="tactic"/> 
+        <ElementLSView element={tactic} onClick={onClick} SVG={TacticIcon} styling={btnStyles} type="tactic"/> 
 
     )
 }

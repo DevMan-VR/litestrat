@@ -59,7 +59,8 @@ const styles = {
     icon: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: '0.5em'
     },
     elementStyle: {
         display: 'flex',

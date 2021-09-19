@@ -3,7 +3,10 @@ import React, {useState, useEffect, Fragment, useRef} from 'react'
 
 //Views
 import ExternalActorView from './components/ExternalActor/ExternalActor.view.svg.js';
-import GoalView from "./components/Goal/Goal.view.svg.js";
+import GoalView from "./components/Goal/Goal.view.js";
+import StrategyView from './components/Strategy/Strategy.view.js';
+import TacticView from './components/Tactic/Tactic.view.js';
+
 import AddBtnSVG_1 from './components/Helpers/AddBtn/AddBtnSVG_1.js'; //For text at bottom
 import AddBtnSVG_2 from './components/Helpers/AddBtn/AddBtnSVG_2.js'; //For text aside
 
@@ -68,6 +71,10 @@ const Litestrat = () => {
 
     //Add Element FX
     const addElement = (type, data) => {
+
+        //Getting a clone object of current scene
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+        var updatedScene = {...scene}
     
         switch(type) {
             case 'externalActor':
@@ -78,9 +85,7 @@ const Litestrat = () => {
                 var externalActor = new ExternalActor(idExternalActor,null,null,data.title,data.influenceDescription,label)
                 console.log("EL CREADO ES :", externalActor)
 
-                //Getting a clone object of current scene
-                var scene = state.workspace.scenes[state.workspace.sceneIndex]
-                var updatedScene = {...scene}
+                
 
                 //Adding External Actor & Organization
                 updatedScene.externalActor = externalActor
@@ -102,25 +107,26 @@ const Litestrat = () => {
                 })
                 break;
     
-    /*
-            case 'goal':
     
-                
+            case 'goal':
     
                 var index = Math.floor(Math.random()*10)
                 var idGoal = "g"+index
     
-                var goal = new Goal(idGoal,null,null,null,title,description,until,false)
+                var goal = new Goal(idGoal,null,null,null,data.title,data.description,data.until,false)
+
+                //Adding a new Goal
+                updatedScene.organization.goals.push(goal)
+                
+                var scenes = [...state.workspace.scenes]
+                scenes[state.workspace.sceneIndex] = updatedScene
     
                 setState(prevState => {
                     return{
                         ...prevState,
-                        organization: {
-                            ...prevState.organization,
-                            goals: [
-                                ...prevState.organization.goals,
-                                goal
-                            ]
+                        workspace: {
+                            ...prevState.workspace,
+                            scenes: [...scenes]
                         }
                     }
                 })
@@ -128,40 +134,44 @@ const Litestrat = () => {
             
             case 'strategy':
     
-                var idGoal = state.organization.goalSelected.id
+                var idGoal = state.workspace.scenes[state.workspace.sceneIndex].goalSelected.id
                 var index = Math.floor(Math.random()*10)
                 var idStrategy =  idGoal+"s"+index
     
-                var goalSelected = state.organization.goalSelected
-                var strategy = new Strategy(idStrategy,null,null,null,title,description,until,false)
+                var goalSelected = state.workspace.scenes[state.workspace.sceneIndex].goalSelected
+                var strategy = new Strategy(idStrategy,null,null,null,data.title,data.description,data.until,false)
+
                 var newState = {...state}
-                newState.organization.goals[goalSelected.index].strategies.push(strategy)
+                newState.workspace.scenes[newState.workspace.sceneIndex].organization.goals[goalSelected.index].strategies.push(strategy)
+
                 console.log("NEW STRATEGY")
                 console.log(newState)
                 setState(newState)
                 break;
     
             case 'tactic':
-    
-                var idStrategy = state.organization.strategySelected.id
+                var scene = state.workspace.scenes[state.workspace.sceneIndex]
+
+                var idStrategy =  scene.strategySelected.id
                 var index = Math.floor(Math.random()*10)
                 var idTactic =  idStrategy+"t"+index
     
-                var goalSelected = state.organization.goalSelected
-                var strategySelected = state.organization.strategySelected
+                var goalSelected = scene.goalSelected
+                var strategySelected = scene.strategySelected
     
-                var tactic = new Tactic(idTactic,null,null,null,title,description,until,false)
+                var tactic = new Tactic(idTactic,null,null,null,data.title,data.description,data.until,false)
     
                 tactic.team = data.team;
                 //tactic.team = {...teamsDummy[0]} //por mientras es fijo... (pre-creado)
     
                 var newState = {...state}
-                newState.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.push(tactic)
+                newState.workspace.scenes[state.workspace.sceneIndex].organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.push(tactic)
+                
                 console.log("NEW TACTIC")
                 console.log(newState)
                 setState(newState)
                 break;
-    
+    /*
             case 'objective':
     
                 var idTactic =  state.organization.tacticSelected.id
@@ -185,6 +195,171 @@ const Litestrat = () => {
         */
 
         }
+    }
+
+
+    //Select Element FX
+    const selectNode = (index, element, type) => {
+
+
+        switch(type) {
+            case 'goal':
+
+            //reset prev goal selected (if there is one)
+            if(state.workspace.scenes[state.workspace.sceneIndex].goalSelected){
+                state.workspace.scenes[state.workspace.sceneIndex].goalSelected.isSelected = false
+                state.workspace.scenes[state.workspace.sceneIndex].goalSelected = null
+                //reset prev strategy selected (if there is one)
+                if(state.workspace.scenes[state.workspace.sceneIndex].strategySelected){
+                    state.workspace.scenes[state.workspace.sceneIndex].strategySelected.isSelected = false
+                    state.workspace.scenes[state.workspace.sceneIndex].strategySelected = null
+                    //reset prev tactic selected (if there is one)
+                    if(state.workspace.scenes[state.workspace.sceneIndex].tacticSelected){
+                        state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.isSelected = false
+                        state.workspace.scenes[state.workspace.sceneIndex].tacticSelected = null
+                    }
+                }
+            }
+            
+            var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
+
+
+            var goal = element
+            goal.index = index
+            goal.isSelected = true
+
+            scene.goalSelected = goal
+
+            var updatedScenes = [...state.workspace.scenes]
+
+            updatedScenes[state.workspace.sceneIndex] = scene
+           
+        
+            setState(prevState => {
+                return{
+                    ...prevState,
+                    workspace: {
+                        ...prevState.workspace,
+                        scenes: updatedScenes
+
+                    }
+
+                }
+                
+            })
+            break;
+
+            
+            case 'strategy':
+
+            //reset prev strategy selected (if there is one)
+            if(state.workspace.scenes[state.workspace.sceneIndex].strategySelected){
+                state.workspace.scenes[state.workspace.sceneIndex].strategySelected.isSelected = false
+                state.workspace.scenes[state.workspace.sceneIndex].strategySelected = null
+
+                //reset prev tactic selected (if there is one)
+                if(state.workspace.scenes[state.workspace.sceneIndex].tacticSelected){
+                    state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.isSelected = false
+                    state.workspace.scenes[state.workspace.sceneIndex].tacticSelected = null
+                }
+            }
+            
+            var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
+
+
+            var strategy = element
+            strategy.index = index
+            strategy.isSelected = true
+
+            scene.strategySelected = strategy
+
+            var updatedScenes = [...state.workspace.scenes]
+
+            updatedScenes[state.workspace.sceneIndex] = scene
+
+
+            setState(prevState => {
+                return{
+                    ...prevState,
+                    workspace: {
+                        ...prevState.workspace,
+                        scenes: updatedScenes
+
+                    }
+
+                }
+                
+            })
+            break;
+
+       
+            case 'tactic':
+
+            //reset prev tactic selected (if there is one)
+            if(state.workspace.scenes[state.workspace.sceneIndex].tacticSelected){
+                state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.isSelected = false
+                state.workspace.scenes[state.workspace.sceneIndex].tacticSelected = null
+            }
+            
+            var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
+
+            var tactic = element
+            tactic.index = index
+            tactic.isSelected = true
+
+            scene.tacticSelected = tactic
+
+            var updatedScenes = [...state.workspace.scenes]
+
+            updatedScenes[state.workspace.sceneIndex] = scene
+
+
+            setState(prevState => {
+                return{
+                    ...prevState,
+                    workspace: {
+                        ...prevState.workspace,
+                        scenes: updatedScenes
+
+                    }
+
+                }
+                
+            })
+            break;
+ /*
+            case 'objective':
+
+            //reset prev tactic selected (if there is one)
+            if(state.organization.objectiveSelected){
+                var objectiveSelectedPrev = state.organization.objectiveSelected
+                objectiveSelectedPrev.isSelected = false
+
+            }
+
+            var objective = element
+            objective.index = index
+            //objective.isSelected = true
+
+
+            setState(prevState => {
+                return{
+                    ...prevState,
+                    organization: {
+                        ...prevState.organization,
+                        objectiveSelected: objective
+
+                }
+
+                }
+                
+            })
+            break;
+
+            */
+            
+        }
+
     }
 
 
@@ -316,13 +491,20 @@ const Litestrat = () => {
                             style={
                                 {
                                     ...styles.organizationCard,
-                                    backgroundColor: 'whitesmoke',
+                                    backgroundColor: '#FFFFFF',
                                     height: '100%',
                                     width: '100%',
                                     zIndex: '1'
                                     
                                 }
-                            }>
+                            }
+                        >
+                            
+                            {renderGoals()}
+                        
+                            
+
+                            
 
                         </div>
                         
@@ -331,13 +513,16 @@ const Litestrat = () => {
                             style={
                                 {
                                     ...styles.organizationCard,
-                                    backgroundColor: 'palegoldenrod',
+                                    backgroundColor: '#F2F2F2',
                                     height: '80%',
                                     width: '98%',
                                     zIndex: '5'
                                     
                                 }
-                            }>
+                        }>
+
+                            {renderStrategies()}
+
 
                         </div>
 
@@ -345,12 +530,14 @@ const Litestrat = () => {
                                 style={
                                     {
                                         ...styles.organizationCard,
-                                        backgroundColor: 'palegreen',
+                                        backgroundColor: '#DCDCDC',
                                         height: '60%',
                                         width: '96%',
                                         zIndex: '10'
                                     }
-                                }>
+                        }>
+
+                            {renderTactics()}
 
 
                         </div>
@@ -359,7 +546,7 @@ const Litestrat = () => {
                                 style={
                                     {
                                         ...styles.organizationCard,
-                                        backgroundColor: 'palevioletred',
+                                        backgroundColor: '#D0D0D0',
                                         height: '40%',
                                         width: '94%',
                                         zIndex: '15'
@@ -387,38 +574,83 @@ const Litestrat = () => {
         return organization;
     }
 
-    const renderGoalSection = () => {
+ 
+    const renderGoals = () => {
 
-        var isFirst = false;
         var scene = state.workspace.scenes[state.workspace.sceneIndex]
 
-        if(scene.organization.goals.length === 0){
-            isFirst = true;
+        return(
+            <div className="GoalArea" style={{display:'flex',alignItems:'flex-end', width: '85%', height: '100px', marginTop: '1em', marginLeft: '15%'}}>
+                                
+                {scene.organization.goals.map((goal, index) => {
+            
+                        return(
+                            <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => selectNode(index, goal, 'goal')} />
+            
+                        )
+            
+                })}
+
+                <AddBtnSVG_2 isFirst={scene.organization.goals.length === 0} SVG={GoalIcon} title="Goal Title" description="Description" addElement={addElement} type="goal" />
+
+            </div>
+
+        )
+        
+    }
+
+    const renderStrategies = () => {
+
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+        var strategies
+
+        if(scene.goalSelected){
+            strategies = (
+        
+                <div className="StrategyArea" style={{display:'flex',alignItems:'flex-end', width: '85%', height: '100px', marginTop: '1em', marginLeft: '15%'}}>
+
+                    {scene.goalSelected.strategies.map((strategy, index) => {
+                        return (
+                            <StrategyView id={strategy.id} key={strategy.id} strategy={strategy} onClick={() => selectNode(index, strategy, 'strategy')} />
+                        )
+                    })}
+                
+                    <AddBtnSVG_2 isFirst={scene.goalSelected.strategies.length === 0} SVG={StrategyIcon} title="Strategy Title" description="Description" addElement={addElement} type="strategy" />
+                </div>
+            )
+        } else {
+            strategies = <Fragment></Fragment>
         }
 
-        var goalSection = (
-            <div style={styles.lsRow}>
-                    
-                        {scene.organization.goals.map((goal, index) => {
-                            
-                            return(
-                                <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => console.log("SELECTING GOAL") /*selectNode(index, goal, 'goal')*/} />
-
-                            )
-
-                        })}
-
-                    
-
-                    <AddBtnSVG_2 isFirst={isFirst} SVG={GoalIcon} title="Goal Title" description="Description" addElement={addElement} type="goal" />
-                    
-                </div>
-        )
-
-        return goalSection
+        return strategies
     }
 
 
+    const renderTactics = () => {
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+        var tactics
+
+        if(scene.strategySelected){
+            tactics = (
+        
+                <div className="TacticArea" style={{display:'flex',alignItems:'flex-end', width: '85%', height: '100px', marginTop: '1em', marginLeft: '15%'}}>
+
+                    {scene.strategySelected.tactics.map((tactic, index) => {
+                        return (
+                            <TacticView id={tactic.id} key={tactic.id} tactic={tactic} onClick={() => selectNode(index, tactic, 'tactic')} />
+                        )
+                    })}
+                
+                    <AddBtnSVG_2 isFirst={scene.strategySelected.tactics.length === 0} SVG={TacticIcon} title="Tactic Title" description="Description" addElement={addElement} type="tactic" />
+                </div>
+            )
+        } else {
+            tactics = <Fragment></Fragment>
+        }
+
+        return tactics
+        
+    }
 
     //Todas las vistas están aqui
     return(
