@@ -1,0 +1,12 @@
+/*
+.addButton {
+    background-color: gainsboro; 
+    color: rgb(51, 51, 51);
+    transition: all 1s ease-in;
+
+}
+*/
+button:hover {
+    background-color:'#00b289' ;
+    color: 'whitesmoke';
+}

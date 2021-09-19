@@ -1,37 +1,53 @@
 import React from 'react'
-import PlusButtonIcon from '../../assets/icons/PlusButtonIcon.js'
-import styled from 'styled-components'
-import ButtonWrapper from './ButtonWrapper/ButtonWrapper.js'
+import PlusButtonIcon from '../../../assets/icons/PlusButtonIcon.js'
+import AddBtnWrapper from './AddBtnWrapper.js'
 
-const AddBtn = ({icon, title, description, addElement, type}) => {
+const AddBtnSVG_2 = ({isFirst, SVG, title, addElement, type}) => {
 
-    return(
+    var addBtn
+
+    if(isFirst){
+       addBtn = ( 
+           
             <div style={styles.containerStyle}>
 
                 <div style={styles.icon}>
                     {/** ICON ELEMENT */}
-                    <img src={icon} alt="ICON" />
+                    <SVG />
                 </div>
                 <div style={styles.elementStyle}>
                     <div style={styles.content}>
                         {/** TITLE ELEMENT */}
                         <div>{title}</div>
-
-                        {/** DESCRIPTION ELEMENT */}
-                        <div>{description}</div>
+                        
                     </div>
                     <div style={styles.btnIconStyle}>
                         {/** ICON BTN */}
-                        <ButtonWrapper addElement={addElement} type={type}>
+                        <AddBtnWrapper addElement={addElement} type={type}>
                             <PlusButtonIcon/>
-                        </ButtonWrapper>
+                        </AddBtnWrapper>
                         
                     </div>
                         
                 </div>
 
             </div>
-    )
+       )
+
+    } else {
+        addBtn = (
+            <div style={styles.btnIconStyle}>
+                {/** ICON BTN */}
+                <AddBtnWrapper addElement={addElement} type={type}>
+                    <PlusButtonIcon/>
+                </AddBtnWrapper>
+                
+            </div>
+        )
+    }
+
+    return addBtn
+
 }
 
 const styles = {
@@ -53,9 +69,13 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        marginLeft: '0.5em',
+
     },
     btnIconStyle: {
         display: 'flex',
+        marginLeft: '0.5em',
+        alignItems: 'center'
         
     }
 }
@@ -75,4 +95,4 @@ const btnStyles = {
 
 
 
-export default AddBtn;
+export default AddBtnSVG_2;

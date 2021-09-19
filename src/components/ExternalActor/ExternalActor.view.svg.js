@@ -8,8 +8,7 @@ import { Gray0 } from '../../constants/Colors'
 const ExternalActorView = ({externalActor, onClick}) => {
     return(
             <Fragment>
-                <ElementLSView element={externalActor} onClick={onClick} SVG={ExternalActorIcon} styling={btnStyles} type="externalActor"/>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>{externalActor.title}</div>
+                <ElementLSView textPosition="down" element={externalActor} onClick={onClick} SVG={ExternalActorIcon} styling={btnStyles} type="externalActor"/>
             </Fragment>
 
         
@@ -19,7 +18,7 @@ const ExternalActorView = ({externalActor, onClick}) => {
 const styles = {
     containerStyle: {
         display: 'flex',
-        marginRight: '3em',
+        marginRight: '1em',
     }
 }
 
@@ -31,7 +30,7 @@ const btnStyles = {
         backgroundColor: 'none'
     },
     normalColor: {
-        backgroundColor: 'white'
+        backgroundColor: 'unset'
     }
 }
 

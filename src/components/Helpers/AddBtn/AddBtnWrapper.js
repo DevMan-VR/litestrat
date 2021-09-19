@@ -1,4 +1,3 @@
-import './ButtonWrapper.css'
 import React, {useState, useEffect, Fragment} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -12,11 +11,11 @@ import {Creatable} from '../Creatable';
 
 import {teamsDummy} from '../../../data/dummy'
 
-const ButtonWrapper = ({addElement, children, type, element}) => {
+const AddBtnWrapper = ({addElement, children, type, element}) => {
 
 
     //const [isHover, setIsHover] = useState(false)
-    const classes = useStyles();
+    
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = useState(null)
     const [description, setDescription] = useState(null)
@@ -214,7 +213,8 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
         <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        className={classes.modal}
+        className="modal"
+        style={styles.modal}
         open={open}
         onClose={handleClose}
         closeAfterTransition
@@ -224,9 +224,9 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
+          <div style={styles.paper} className="paper">
             <h2 id="transition-modal-title"> {elementTitle} </h2>
-            <form className={classes.form} noValidate autoComplete="off">
+            <form className="form" style={styles.form} noValidate autoComplete="off">
                 <FormControl >
                     <TextField
                             id="descriptionID"
@@ -240,7 +240,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
                     
                 </FormControl>
 
-                <FormControl className={classes.formField}>
+                <FormControl style={styles.formField} className="FormField">
                     <TextField
                         id="descriptionID"
                         label={descriptionLabel}
@@ -258,7 +258,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
                     
                 </div>
 
-                <div className={classes.creatable}>
+                <div className="Creatable" style={styles.creatable}>
 
                 {renderCreatable()}
 
@@ -269,7 +269,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
 
 
                 <div style={{display: 'flex', justifyContent: 'center', marginTop: '3em'}}>
-                  <button className={classes.addButton} type="button" style={{border: 'none', cursor: 'pointer'}} onClick={definitiveSubmit}>
+                  <button style={styles.addButton} className="addButton" type="button" onClick={definitiveSubmit}>
                     Agregar {elementType}
                   </button>
 
@@ -286,7 +286,8 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
 }
 
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
+
     creatable: {
       marginTop: '1em'
     },
@@ -296,9 +297,9 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
     },
     paper: {
-      backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+      backgroundColor: 'whitesmoke',
+      boxShadow: '2px 2px 3px',
+      padding: '3em',
       width: 500,
       display: 'flex',
       flexDirection: 'column',
@@ -325,9 +326,13 @@ const useStyles = makeStyles((theme) => ({
       height: 50,
       borderRadius: '2em',
       fontSize: '1.2em',
-      fontWeight: '700'
+      fontWeight: '700',
+      border: 'none',
+      cursor: 'pointer',
+      backgroundColor: '#00b289',
+      color:'whitesmoke'
     }
     
-  }));
+  };
 
-export default ButtonWrapper
+export default AddBtnWrapper

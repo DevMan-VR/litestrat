@@ -1,9 +1,8 @@
 import React from 'react'
-import PlusButtonIcon from '../../assets/icons/PlusButtonIcon.js'
-import styled from 'styled-components'
-import ButtonWrapper from './ButtonWrapper/ButtonWrapper.js'
+import PlusButtonIcon from '../../../assets/icons/PlusButtonIcon.js'
+import AddBtnWrapper from './AddBtnWrapper.js'
 
-const AddBtnSVG_1 = ({SVG, title, description, addElement, type}) => {
+const AddBtnSVG_1 = ({SVG, title, addElement, type}) => {
 
     return(
             <div style={styles.containerStyle}>
@@ -17,9 +16,9 @@ const AddBtnSVG_1 = ({SVG, title, description, addElement, type}) => {
                 <div style={styles.elementStyle}>
                     <div style={styles.btnIconStyle}>
                         {/** ICON BTN */}
-                        <ButtonWrapper addElement={addElement} type={type}>
+                        <AddBtnWrapper addElement={addElement} type={type}>
                             <PlusButtonIcon/>
-                        </ButtonWrapper>
+                        </AddBtnWrapper>
                         
                     </div>
                         
@@ -29,7 +28,7 @@ const AddBtnSVG_1 = ({SVG, title, description, addElement, type}) => {
     )
 }
 
-const styles = {
+var styles = {
     containerStyle: {
         display: 'flex',
         opacity: 0.4,
@@ -61,17 +60,7 @@ const styles = {
     }
 }
 
-const btnStyles = {
-    isSelectedColor: {
-        backgroundColor: 'rgb(170, 170, 170)'    
-    },
-    isHoverColor: { 
-        backgroundColor: 'rgb(216, 216, 216)'
-    },
-    normalColor: {
-        backgroundColor: 'white'
-    }
-}
+
 
 
 

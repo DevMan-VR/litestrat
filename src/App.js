@@ -1,15 +1,17 @@
-import React, {useState, useEffect, Fragment, useRef} from 'react'
+/*import React, {useState, useEffect, Fragment, useRef} from 'react'
 
 //Views
-import AddBtn from './components/Helpers/AddBtn.js'
+import ExternalActorView from './components/ExternalActor/ExternalActor.view.svg.js';
+import GoalView from "./components/Goal/Goal.view.svg.js";
 
 import AddBtnSVG_1 from './components/Helpers/AddBtnSVG_1.js'; //For text at bottom
 import AddBtnSVG_2 from './components/Helpers/AddBtnSVG_2.js'; //For text aside
-import GoalView from "./components/Goal/Goal.view.svg.js";
+
+
 //import StrategyView from "./components/Strategy/Strategy.view.js";
 //import TacticView from "./components/Tactic/Tactic.view.js";
 //import ObjectiveView from "./components/Objective/Objective.view.js";
-import ExternalActorView from './components/ExternalActor/ExternalActor.view.svg.js';
+
 
 
 //Models
@@ -21,13 +23,7 @@ import Objective from './components/Objective/Objective.model.js';
 import ExternalActor from './components/ExternalActor/ExternalActor.model.js';
 
 //SVGs
-import GoalIcon from './assets/icons/GoalIcon.js';
-import StrategyIcon from './assets/icons/StrategyIcon.js';
-import TacticIcon from './assets/icons/TacticIcon.js';
-import ObjectiveIcon from './assets/icons/ObjectiveIcon.js';
-import ExternalActorIcon from './assets/icons/ExternalActorIcon.js';
-import InfluencingArrowIcon from './assets/icons/InfluencingArrowIcon.js';
-import OrganizationIcon from './assets/icons/OrganizationIcon.js';
+
 
 //Constants
 import {Gray1, Gray2, Gray3} from './constants/Colors.js'
@@ -355,6 +351,12 @@ function App() {
     }
 
     const renderGoalSection = () => {
+
+        var isFirst = false;
+        if(state.organization.goals.length === 0){
+            isFirst = true;
+        }
+
         var goalSection = (
             <div style={styles.lsRow}>
                     
@@ -369,7 +371,7 @@ function App() {
 
                     
 
-                    <AddBtnSVG_2 SVG={GoalIcon} title="Goal Title" description="Description" addElement={addElement} type="goal" />
+                    <AddBtnSVG_2 isFirst={isFirst} SVG={GoalIcon} title="Goal Title" description="Description" addElement={addElement} type="goal" />
                     
                 </div>
         )
@@ -474,7 +476,7 @@ function App() {
 
         return objectiveSection
     }
-*/
+
     const renderOrganization = () => {
         var organization;
 
@@ -483,7 +485,7 @@ function App() {
                 <div style={styles.litestratContainer}>
 
                     <div style={styles.organizationHeader}>
-                        {/** ORGANIZATION SVG  */}
+                        {/** ORGANIZATION SVG  
                         <div style={{display:'flex',justifyContent:'center', alignItems: 'center', marginLeft: '5em'}}>
                             <OrganizationIcon />
                         </div>
@@ -497,14 +499,14 @@ function App() {
                     
                 
                     {renderGoalSection()}
-                {/*
+                {/* Falta ahora agregar el Strategy
                     {renderStrategySection()}
 
                     {renderTacticSection()}
 
                     {renderObjectiveSection()}
                                             
-                */}
+                
 
                 </div>
  
@@ -527,7 +529,7 @@ function App() {
                         
                     </div>
 
-                    {/**INFLUENCING ARROW */}
+                    {/**INFLUENCING ARROW 
                     <div style={{marginLeft: '0.3em'}}>
                         <InfluencingArrowIcon />
                     </div>
@@ -721,3 +723,5 @@ const styles = {
 }
 
 export default App;
+
+*/
