@@ -7,7 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Datepicker from '../Datepicker';
 
-import {Creatable} from '../Creatable';
+import { CreatableExternalActor } from '../Creatable/CreatableExternalActor';
+import { CreatableTactic } from '../Creatable/CreatableTactic';
+import { CreatableObjective } from '../Creatable/CreatableObjective';
 
 import {teamsDummy} from '../../../data/dummy'
 
@@ -170,7 +172,7 @@ const AddBtnWrapper = ({addElement, children, type, element}) => {
             }
           })
 
-          return (<Creatable options={options} type={type} setData={setTeam}/>)
+          return (<CreatableTactic options={options} type={type} setData={setTeam}/>)
 
         } else if (isObjective){
           console.log(teams) 
@@ -183,11 +185,11 @@ const AddBtnWrapper = ({addElement, children, type, element}) => {
             }
           })
 
-          return (<Creatable options={options} type={type} setData={setRole}/>)
+          return (<CreatableObjective options={options} type={type} setData={setRole}/>)
 
         } else if(isExternalActor){
           //No options at first...
-          return (<Creatable setData={setOrganization} />)
+          return (<CreatableExternalActor setData={setOrganization} />)
 
 
         }

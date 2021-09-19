@@ -6,6 +6,7 @@ import ExternalActorView from './components/ExternalActor/ExternalActor.view.svg
 import GoalView from "./components/Goal/Goal.view.js";
 import StrategyView from './components/Strategy/Strategy.view.js';
 import TacticView from './components/Tactic/Tactic.view.js';
+import ObjectiveView from './components/Objective/Objective.view';
 
 import AddBtnSVG_1 from './components/Helpers/AddBtn/AddBtnSVG_1.js'; //For text at bottom
 import AddBtnSVG_2 from './components/Helpers/AddBtn/AddBtnSVG_2.js'; //For text aside
@@ -150,14 +151,14 @@ const Litestrat = () => {
                 break;
     
             case 'tactic':
-                var scene = state.workspace.scenes[state.workspace.sceneIndex]
+                
 
                 var idStrategy =  scene.strategySelected.id
                 var index = Math.floor(Math.random()*10)
                 var idTactic =  idStrategy+"t"+index
     
-                var goalSelected = scene.goalSelected
-                var strategySelected = scene.strategySelected
+                var goalSelected = updatedScene.goalSelected
+                var strategySelected = updatedScene.strategySelected
     
                 var tactic = new Tactic(idTactic,null,null,null,data.title,data.description,data.until,false)
     
@@ -171,7 +172,7 @@ const Litestrat = () => {
                 console.log(newState)
                 setState(newState)
                 break;
-    /*
+
             case 'objective':
     
                 var idTactic =  state.organization.tacticSelected.id
@@ -179,11 +180,11 @@ const Litestrat = () => {
     
                 var idObjective = idTactic+"g"+index
     
-                var goalSelected = state.organization.goalSelected
-                var strategySelected = state.organization.strategySelected
-                var tacticSelected = state.organization.tacticSelected
+                var goalSelected = updatedScene.goalSelected
+                var strategySelected = updatedScene.strategySelected
+                var tacticSelected = updatedScene.tacticSelected
     
-                var objective = new Objective(idObjective,null,null,null,title,description,until,false)
+                var objective = new Objective(idObjective,null,null,null,data.title,data.description,data.until,false)
     
                 var newState = {...state}
                 newState.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics[tacticSelected.index].objectives.push(objective)
@@ -192,7 +193,7 @@ const Litestrat = () => {
                 setState(newState)
                 break;
                 
-        */
+        
 
         }
     }
@@ -201,6 +202,7 @@ const Litestrat = () => {
     //Select Element FX
     const selectNode = (index, element, type) => {
 
+        var updatedScenes = [...state.workspace.scenes]
 
         switch(type) {
             case 'goal':
@@ -209,14 +211,23 @@ const Litestrat = () => {
             if(state.workspace.scenes[state.workspace.sceneIndex].goalSelected){
                 state.workspace.scenes[state.workspace.sceneIndex].goalSelected.isSelected = false
                 state.workspace.scenes[state.workspace.sceneIndex].goalSelected = null
+
                 //reset prev strategy selected (if there is one)
                 if(state.workspace.scenes[state.workspace.sceneIndex].strategySelected){
                     state.workspace.scenes[state.workspace.sceneIndex].strategySelected.isSelected = false
                     state.workspace.scenes[state.workspace.sceneIndex].strategySelected = null
+
                     //reset prev tactic selected (if there is one)
                     if(state.workspace.scenes[state.workspace.sceneIndex].tacticSelected){
                         state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.isSelected = false
                         state.workspace.scenes[state.workspace.sceneIndex].tacticSelected = null
+
+                        //reset prev objective selected (if there is one)
+                        if(state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected){
+                            state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected.isSelected = false
+                            state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected = null
+
+                        }
                     }
                 }
             }
@@ -230,23 +241,8 @@ const Litestrat = () => {
 
             scene.goalSelected = goal
 
-            var updatedScenes = [...state.workspace.scenes]
-
             updatedScenes[state.workspace.sceneIndex] = scene
            
-        
-            setState(prevState => {
-                return{
-                    ...prevState,
-                    workspace: {
-                        ...prevState.workspace,
-                        scenes: updatedScenes
-
-                    }
-
-                }
-                
-            })
             break;
 
             
@@ -261,6 +257,13 @@ const Litestrat = () => {
                 if(state.workspace.scenes[state.workspace.sceneIndex].tacticSelected){
                     state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.isSelected = false
                     state.workspace.scenes[state.workspace.sceneIndex].tacticSelected = null
+
+                    //reset prev objective selected (if there is one)
+                    if(state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected){
+                        state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected.isSelected = false
+                        state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected = null
+
+                    }
                 }
             }
             
@@ -273,23 +276,8 @@ const Litestrat = () => {
 
             scene.strategySelected = strategy
 
-            var updatedScenes = [...state.workspace.scenes]
-
             updatedScenes[state.workspace.sceneIndex] = scene
 
-
-            setState(prevState => {
-                return{
-                    ...prevState,
-                    workspace: {
-                        ...prevState.workspace,
-                        scenes: updatedScenes
-
-                    }
-
-                }
-                
-            })
             break;
 
        
@@ -299,6 +287,13 @@ const Litestrat = () => {
             if(state.workspace.scenes[state.workspace.sceneIndex].tacticSelected){
                 state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.isSelected = false
                 state.workspace.scenes[state.workspace.sceneIndex].tacticSelected = null
+
+                //reset prev objective selected (if there is one)
+                if(state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected){
+                    state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected.isSelected = false
+                    state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected = null
+
+                }
             }
             
             var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
@@ -309,56 +304,43 @@ const Litestrat = () => {
 
             scene.tacticSelected = tactic
 
-            var updatedScenes = [...state.workspace.scenes]
-
             updatedScenes[state.workspace.sceneIndex] = scene
 
-
-            setState(prevState => {
-                return{
-                    ...prevState,
-                    workspace: {
-                        ...prevState.workspace,
-                        scenes: updatedScenes
-
-                    }
-
-                }
-                
-            })
             break;
- /*
+ 
             case 'objective':
 
             //reset prev tactic selected (if there is one)
-            if(state.organization.objectiveSelected){
-                var objectiveSelectedPrev = state.organization.objectiveSelected
-                objectiveSelectedPrev.isSelected = false
+            if(state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected){
+                state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected.isSelected = false
+                state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected = null
 
             }
 
             var objective = element
             objective.index = index
-            //objective.isSelected = true
+            objective.isSelected = true
 
-
-            setState(prevState => {
-                return{
-                    ...prevState,
-                    organization: {
-                        ...prevState.organization,
-                        objectiveSelected: objective
-
-                }
-
-                }
-                
-            })
-            break;
-
-            */
+            scene.objectiveSelected = objective
             
+            updatedScenes[state.workspace.sceneIndex] = scene
+
+            break;  
         }
+
+        //End switch and setting 
+        setState(prevState => {
+            return{
+                ...prevState,
+                workspace: {
+                    ...prevState.workspace,
+                    scenes: updatedScenes
+
+                }
+
+            }
+            
+        })
 
     }
 
@@ -409,7 +391,6 @@ const Litestrat = () => {
     
             <div className="LitestratBody" style={style}>
     
-                
                     {renderExternalActor()}
 
                     {renderOrganization()}
@@ -551,7 +532,10 @@ const Litestrat = () => {
                                         width: '94%',
                                         zIndex: '15'
                                     }
-                                }>
+                        }>
+
+                            {renderObjectives()}
+                            
 
 
                         </div>
@@ -591,7 +575,7 @@ const Litestrat = () => {
             
                 })}
 
-                <AddBtnSVG_2 isFirst={scene.organization.goals.length === 0} SVG={GoalIcon} title="Goal Title" description="Description" addElement={addElement} type="goal" />
+                <AddBtnSVG_2 isFirst={scene.organization.goals.length === 0} SVG={GoalIcon} title="Nombre de Meta" description="Description" addElement={addElement} type="goal" />
 
             </div>
 
@@ -615,7 +599,7 @@ const Litestrat = () => {
                         )
                     })}
                 
-                    <AddBtnSVG_2 isFirst={scene.goalSelected.strategies.length === 0} SVG={StrategyIcon} title="Strategy Title" description="Description" addElement={addElement} type="strategy" />
+                    <AddBtnSVG_2 isFirst={scene.goalSelected.strategies.length === 0} SVG={StrategyIcon} title="Nombre de Estrategia" description="Description" addElement={addElement} type="strategy" />
                 </div>
             )
         } else {
@@ -641,7 +625,7 @@ const Litestrat = () => {
                         )
                     })}
                 
-                    <AddBtnSVG_2 isFirst={scene.strategySelected.tactics.length === 0} SVG={TacticIcon} title="Tactic Title" description="Description" addElement={addElement} type="tactic" />
+                    <AddBtnSVG_2 isFirst={scene.strategySelected.tactics.length === 0} SVG={TacticIcon} title="Nombre de Táctica" description="Description" addElement={addElement} type="tactic" />
                 </div>
             )
         } else {
@@ -649,6 +633,32 @@ const Litestrat = () => {
         }
 
         return tactics
+        
+    }
+
+    const renderObjectives = () => {
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+        var objectives
+
+        if(scene.tacticSelected){
+            objectives = (
+        
+                <div className="ObjectiveArea" style={{display:'flex',alignItems:'flex-end', width: '85%', height: '100px', marginTop: '1em', marginLeft: '15%'}}>
+
+                    {scene.strategySelected.tactics.map((objective, index) => {
+                        return (
+                            <ObjectiveView id={objective.id} key={objective.id} objective={objective} onClick={() => selectNode(index, objective, 'objective')} />
+                        )
+                    })}
+                
+                    <AddBtnSVG_2 isFirst={scene.tacticSelected.objectives.length === 0} SVG={ObjectiveIcon} title="Nombre de Objetivo" description="Description" addElement={addElement} type="objective" />
+                </div>
+            )
+        } else {
+            objectives = <Fragment></Fragment>
+        }
+
+        return objectives
         
     }
 

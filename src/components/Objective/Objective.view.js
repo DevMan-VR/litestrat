@@ -1,13 +1,13 @@
 import React from 'react'
-import icon from "../../assets/objective-icon.png"
+import ObjectiveIcon from '../../assets/icons/ObjectiveIcon'
 
-import ElementLSView from '../Base/ElementLS.view.js'
+import ElementLSView from '../Base/ElementLS.view.svg.js'
 
 import { Gray3, Gray0 } from '../../constants/Colors'
 
 const ObjectiveView = ({objective, onClick}) => {
     return(
-        <ElementLSView element={objective} onClick={onClick} icon={icon} styling={btnStyles} type="objective"/> 
+        <ElementLSView element={objective} onClick={onClick} SVG={ObjectiveIcon} styling={btnStyles} type="objective"/> 
     )
 }
 
@@ -20,13 +20,14 @@ const styles = {
 
 const btnStyles = {
     isSelectedColor: {
-        backgroundColor: Gray3   
+        backgroundColor: Gray3 ,
     },
     isHoverColor: { 
-        backgroundColor: 'rgb(216, 216, 216)'
+        backgroundColor: 'rgb(216, 216, 216)',
     },
     normalColor: {
-        backgroundColor: Gray3
+        backgroundColor: Gray3,
+
     }
 }
 
