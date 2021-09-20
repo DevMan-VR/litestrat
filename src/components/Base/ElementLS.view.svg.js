@@ -60,9 +60,19 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
             divColor = Gray3;
     }
 
+    if(type === 'objective'){
+        style = {
+            ...style,
+            borderTopLeftRadius:'3em',
+            borderTopRightRadius: '3em',
+            height: '100%',
+            borderTopLeftRadius: '1.5em',
+            borderBottomLeftRadius: '1.5em',
+            borderTopRightRadius: '2.5em',
+            borderBottomRightRadius: '2.5em',
+        }
 
-    
-    if(type!== 'externalActor'){
+    } else if(type!== 'externalActor'){
         style = {
             ...style,
             borderTopLeftRadius:'3em',
@@ -79,7 +89,8 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            marginLeft: '2em'
+            marginLeft: '2em',
+            marginRight: '1em'
         },
         icon: {
             display: 'flex',
@@ -99,7 +110,9 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
             alignItems: 'center',
             marginLeft: mLeft,
             marginTop: mTop,
-            width: '7em'
+            width: '7em',
+
+           
 
         },
         btnIconStyle: {
@@ -167,7 +180,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
                 </div>
             </ElementWrapper>
 
-            {   isSelected ?
+            {   isSelected && type !== 'objective' ?
                     <div style={styles.relativeDiv}>
                         <div style={styles.absoluteDiv}>
                      

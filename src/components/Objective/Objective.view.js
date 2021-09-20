@@ -7,14 +7,23 @@ import { Gray3, Gray0 } from '../../constants/Colors'
 
 const ObjectiveView = ({objective, onClick}) => {
     return(
-        <ElementLSView element={objective} onClick={onClick} SVG={ObjectiveIcon} styling={btnStyles} type="objective"/> 
+        <div style={styles.containerStyle}>
+            <ElementLSView element={objective} onClick={onClick} SVG={ObjectiveIcon} styling={btnStyles} type="objective"/> 
+
+        </div>  
     )
 }
 
 const styles = {
     containerStyle: {
-        display: 'flex',
-        marginRight: '3em',
+        boxSizing: 'border-box', 
+        border: '0.2em solid #838383', 
+        borderTopLeftRadius: '1.5em',
+        borderBottomLeftRadius: '1.5em',
+        borderTopRightRadius: '2.5em',
+        borderBottomRightRadius: '2.5em',
+        borderStyle: 'dashed',
+        marginRight: '1em'
     }
 }
 

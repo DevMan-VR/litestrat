@@ -175,7 +175,7 @@ const Litestrat = () => {
 
             case 'objective':
     
-                var idTactic =  state.organization.tacticSelected.id
+                var idTactic =  scene.tacticSelected.id
                 var index = Math.floor(Math.random()*10)
     
                 var idObjective = idTactic+"g"+index
@@ -187,7 +187,7 @@ const Litestrat = () => {
                 var objective = new Objective(idObjective,null,null,null,data.title,data.description,data.until,false)
     
                 var newState = {...state}
-                newState.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics[tacticSelected.index].objectives.push(objective)
+                newState.workspace.scenes[state.workspace.sceneIndex].organization.goals[goalSelected.index].strategies[strategySelected.index].tactics[tacticSelected.index].objectives.push(objective)
                 console.log("NEW OBJECTIVE")
                 console.log(newState)
                 setState(newState)
@@ -203,6 +203,7 @@ const Litestrat = () => {
     const selectNode = (index, element, type) => {
 
         var updatedScenes = [...state.workspace.scenes]
+        var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
 
         switch(type) {
             case 'goal':
@@ -232,7 +233,7 @@ const Litestrat = () => {
                 }
             }
             
-            var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
+            
 
 
             var goal = element
@@ -267,8 +268,6 @@ const Litestrat = () => {
                 }
             }
             
-            var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
-
 
             var strategy = element
             strategy.index = index
@@ -296,8 +295,6 @@ const Litestrat = () => {
                 }
             }
             
-            var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
-
             var tactic = element
             tactic.index = index
             tactic.isSelected = true
@@ -442,7 +439,6 @@ const Litestrat = () => {
     }
 
 
-
     const renderOrganization = () => {
         var organization;
 
@@ -466,79 +462,16 @@ const Litestrat = () => {
                     </div>
 
                     <div style={{position: 'relative', display: 'flex', alignItems: 'baseline', height: '100%', width: '100%'}}>
+                    
                         
-                        <div 
-                            className="GoalRow" 
-                            style={
-                                {
-                                    ...styles.organizationCard,
-                                    backgroundColor: '#FFFFFF',
-                                    height: '100%',
-                                    width: '100%',
-                                    zIndex: '1'
-                                    
-                                }
-                            }
-                        >
-                            
-                            {renderGoals()}
+                        {renderGoalRow()}
                         
-                            
-
-                            
-
-                        </div>
                         
-                        <div 
-                            className="StrategyRow" 
-                            style={
-                                {
-                                    ...styles.organizationCard,
-                                    backgroundColor: '#F2F2F2',
-                                    height: '80%',
-                                    width: '98%',
-                                    zIndex: '5'
-                                    
-                                }
-                        }>
+                        {renderStrategyRow()}
 
-                            {renderStrategies()}
+                        {renderTacticRow()}
 
-
-                        </div>
-
-                        <div className="TacticRow"
-                                style={
-                                    {
-                                        ...styles.organizationCard,
-                                        backgroundColor: '#DCDCDC',
-                                        height: '60%',
-                                        width: '96%',
-                                        zIndex: '10'
-                                    }
-                        }>
-
-                            {renderTactics()}
-
-
-                        </div>
-
-                        <div className="ObjectiveRow"
-                                style={
-                                    {
-                                        ...styles.organizationCard,
-                                        backgroundColor: '#D0D0D0',
-                                        height: '40%',
-                                        width: '94%',
-                                        zIndex: '15'
-                                    }
-                        }>
-
-                            {renderObjectives()}
-                            
-
-
-                        </div>
+                        {renderObjectiveRow()}
 
                     </div>
 
@@ -558,7 +491,41 @@ const Litestrat = () => {
         return organization;
     }
 
- 
+    const renderGoalRow = () => {
+        var goalRow;
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+
+
+        if(scene.organization){
+            goalRow = (
+                    <div 
+                        className="GoalRow" 
+                        style={
+                            {
+                                ...styles.organizationCard,
+                                backgroundColor: '#FFFFFF',
+                                height: '100%',
+                                width: '100%',
+                                zIndex: '1'
+                                
+                            }
+                        }
+                    >
+                                        
+                        {renderGoals()}
+
+                    </div>
+                
+
+            )
+        } else {
+            goalRow = <Fragment/>
+        }
+        
+
+        return goalRow
+    }
+
     const renderGoals = () => {
 
         var scene = state.workspace.scenes[state.workspace.sceneIndex]
@@ -581,6 +548,40 @@ const Litestrat = () => {
 
         )
         
+    }
+
+
+    const renderStrategyRow = () => {
+        
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+        var strategyRow;
+
+        if(scene.goalSelected){
+            strategyRow = (
+                <div 
+                    className="StrategyRow" 
+                    style={
+                        {
+                            ...styles.organizationCard,
+                            backgroundColor: '#F2F2F2',
+                            height: '80%',
+                            width: '98%',
+                            zIndex: '5'
+                            
+                        }
+                }>
+
+                    {renderStrategies()}
+
+
+                </div>
+            )
+        } else {
+            strategyRow = <Fragment/>
+        }
+
+        return strategyRow
+
     }
 
     const renderStrategies = () => {
@@ -609,6 +610,36 @@ const Litestrat = () => {
         return strategies
     }
 
+    const renderTacticRow = () => {
+        
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+        var tacticRow;
+
+        if(scene.strategySelected){
+            tacticRow = (
+                <div className="TacticRow"
+                                style={
+                                    {
+                                        ...styles.organizationCard,
+                                        backgroundColor: '#DCDCDC',
+                                        height: '60%',
+                                        width: '96%',
+                                        zIndex: '10'
+                                    }
+                        }>
+
+                            {renderTactics()}
+
+
+                </div>
+            )
+        } else {
+            tacticRow = <Fragment/>
+        }
+
+        return tacticRow
+
+    }
 
     const renderTactics = () => {
         var scene = state.workspace.scenes[state.workspace.sceneIndex]
@@ -636,6 +667,61 @@ const Litestrat = () => {
         
     }
 
+    const renderObjectiveRow = () => {
+        
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+        var objectiveRow;
+
+        if(scene.tacticSelected){
+            objectiveRow = (
+                <div className="ObjectiveRow"
+                    style={
+                        {
+                            ...styles.organizationCard,
+                            backgroundColor: '#D0D0D0',
+                            height: '40%',
+                            width: '94%',
+                            zIndex: '15'
+                        }
+                    }
+                >
+
+                    {renderObjectives()}
+
+                    <div 
+                        className="OrganizationInfoContainer"
+                        style={{display: 'flex', position:'relative', height: '200px', width:'300px'}}
+                        
+                    >
+                        <div 
+                            className="OrganizationInfoCard"
+                            style={styles.organizationInfoCard}
+                        >
+                            <div>
+                                <OrganizationIcon />
+                                <div>
+                                    {state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.team.label}
+                                </div>
+
+                            </div>
+                           
+
+                        </div>
+
+                    </div>
+                            
+
+
+                </div>
+            )
+        } else {
+            objectiveRow = <Fragment/>
+        }
+
+        return objectiveRow
+
+    }
+
     const renderObjectives = () => {
         var scene = state.workspace.scenes[state.workspace.sceneIndex]
         var objectives
@@ -643,9 +729,9 @@ const Litestrat = () => {
         if(scene.tacticSelected){
             objectives = (
         
-                <div className="ObjectiveArea" style={{display:'flex',alignItems:'flex-end', width: '85%', height: '100px', marginTop: '1em', marginLeft: '15%'}}>
+                <div className="ObjectiveArea" style={{display:'flex',alignItems:'flex-start', width: '85%', height: '100%', marginTop: '1em', marginLeft: '15%',flexWrap: 'wrap' }}>
 
-                    {scene.strategySelected.tactics.map((objective, index) => {
+                    {scene.tacticSelected.objectives.map((objective, index) => {
                         return (
                             <ObjectiveView id={objective.id} key={objective.id} objective={objective} onClick={() => selectNode(index, objective, 'objective')} />
                         )
@@ -685,6 +771,27 @@ const Litestrat = () => {
 // STYLES
 
 const styles = {
+
+    organizationInfoCard: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: '2em',
+        marginBottom: '1em',
+        position: 'absolute',
+        top: '-210px',
+        left: '-120px',
+        backgroundColor: '#F2F2F3',
+        height: '160px',
+        width: '220px',
+        borderTopRightRadius: '5em',
+        borderBottomRightRadius: '5em',
+        borderTopLeftRadius: '2em',
+        borderBottomLeftRadius: '2em',
+        boxShadow: '-2px 4px 4px #B2B2B2',
+
+    },
+
     organizationCard: {
         
         
