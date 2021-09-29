@@ -1,17 +1,3 @@
-<svg width="880" height="247" viewBox="0 0 880 247" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="InfluencingArrow" filter="url(#filter0_d)">
-<path d="M9.92289 107.793C-2.70716 113.243 88.7935 138.28 88.7935 138.28C376.24 216.32 621.749 216.924 664.924 218.105C768.427 220.938 840.344 165.315 846.503 166.242C852.662 167.168 851.436 171.594 856.782 172.69C862.128 173.786 880.612 129.433 873.784 127.717C866.956 126.001 803.503 129.102 803.027 132.261C802.552 135.421 813.749 137.992 812.503 141.036C811.258 144.079 771.473 156.489 729.984 160.96C494.691 186.319 255.426 134.931 9.92289 107.793Z" fill="#00B289"/>
-</g>
-<defs>
-<filter id="filter0_d" x="0" y="0" width="879.941" height="276.434" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="4"/>
-<feGaussianBlur stdDeviation="2"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-</filter>
-</defs>
+<svg width="98" height="55" viewBox="0 0 98 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="InfluencedArrow" fill-rule="evenodd" clip-rule="evenodd" d="M48.5432 54.2521C52.0194 54.7031 97.1758 29.3413 97.7113 27.5021C98.2468 25.663 51.6191 -0.685119 48.7209 0.316924C47.794 0.637373 47.0863 6.22264 46.666 13.6874C44.095 14.6436 40.9204 15.8678 37.0125 17.4346C20.2118 24.1704 0.61581 26.7437 0.61581 26.7437C-4.15578 27.9602 28.2503 38.478 39.0569 40.3948C41.0078 40.7408 42.7845 41.0887 44.3956 41.4042C45.1177 41.5456 45.8066 41.6805 46.463 41.8058C46.7876 48.9188 47.4599 54.1116 48.5432 54.2521Z" fill="#00B289"/>
 </svg>

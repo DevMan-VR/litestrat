@@ -64,3 +64,11 @@ El paso siguiente es:
 
 
 ***Hay un desorden a la hora de crear asignar un team a una tactica y un rol a un objetivo, todavia está desordenada esa lógica, lo ideal seria mejorarla para que tenga posibilidad de gestionar data via get/post de forma correspondiente.
+
+
+
+****Estoy haciendo una logica para que se puedan editar los formularios... pero creo que tengo que pensarlo mejor para poder integrarlo bien... Y el hecho de que al clickear al elemento se despliegue el formulario también con los datos llenados! OKKK Pude implementarlo para external actor!
+
+
+
+****Ahora que pude implementar la lógica para editar formularios para externalActor, solo hace falta extenderlo para cada tipo, siguiendo la misma lógica reutilizable. 

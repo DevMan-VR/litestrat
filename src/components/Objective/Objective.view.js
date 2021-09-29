@@ -6,6 +6,8 @@ import ElementLSView from '../Base/ElementLS.view.svg.js'
 import { Gray3, Gray0 } from '../../constants/Colors'
 
 const ObjectiveView = ({objective, onClick}) => {
+
+    console.log("OBJECTIVE IN OBJECTIVEVIEW IS: ", objective)
     return(
         <div style={styles.containerStyle}>
             <ElementLSView element={objective} onClick={onClick} SVG={ObjectiveIcon} styling={btnStyles} type="objective"/> 

@@ -27,7 +27,7 @@ const  Datepicker = ({setUntil}) => {
           format="MM/dd/yyyy"
           margin="normal"
           id="date-picker-inline"
-          label="Date picker inline"
+          label="Término de plazo"
           value={selectedDate}
           onChange={handleDateChange}
           KeyboardButtonProps={{

@@ -26,6 +26,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
     const [role, setRole] = useState(null)
     const [team, setTeam] = useState(null)
     const [organization, setOrganization] = useState(null)
+    const [orgname, setOrgname] = useState(null)
 
     //const [isTactic,setIsTactic] = useState(false)
     //const [isObjective, setIsObjective] = useState(false)
@@ -55,6 +56,8 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
     let descriptionLabel = "Descripción"
     let titleLabel = "Título"
 
+    let firstTimeExternalActor;
+
     switch(type){
         case 'externalActor':
             elementTitle = "Nuevo Actor Externo"
@@ -62,6 +65,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
             isExternalActor = true
             descriptionLabel = "¿Como influencia a la organización?"
             titleLabel = "¿Como se llama el Actor Externo?"
+            //firstTimeExternalActor = "Ingresa el nombre de tu organización"
             break;
         case 'goal':
             elementTitle = "Nueva Meta"
@@ -103,6 +107,10 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
 
       const handleChangeUntil = (e) => {
           setUntil(e.target.value)
+      }
+
+      const handleChangeOrgname = (e) => {
+        setOrgname(e.target.value)
       }
 
       const handleSubmitExternalActor = (e) => {
@@ -157,7 +165,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
 
       const renderCreatable = () => {
 
-        if(!isTactic && !isObjective && !isExternalActor) {
+        if(!isTactic && !isObjective) {
           return (<Fragment/>)
         }
 
@@ -170,20 +178,20 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
           options = teams.map((t) => {
             return {
               label: t.title,
-              value: t.id
+              value: t.title
             }
           })
 
           return (<CreatableTactic options={options} setData={setTeam}/>)
 
         } else if (isObjective){
-          console.log(teams) 
+          console.log("FOR OBJECTIVE OPTIONS ARE:: ", options) 
           const {roles} = teams[0] //EQUIPO SELECCIONADO
           console.log("ROLES:  ",roles)
           options = roles.map((r) => {
             return {
               label: r.title,
-              value: r.id
+              value: r.title
             }
           })
 
@@ -191,8 +199,9 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
 
         } else if(isExternalActor){
           //No options at first...
-
-          return (<CreatableExternalActor  setData={setOrganization} />)
+          //FIRST TIME always xd
+          return <Fragment></Fragment>
+          //return (<CreatableExternalActor  setData={setOrganization} />)
 
 
         }
@@ -208,6 +217,25 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
         }
       }
 
+      const renderOrgname = () => {
+        if(isExternalActor){
+          return (
+            <FormControl >
+            <TextField
+              id="orgnameID"
+              label={firstTimeExternalActor}
+              value={orgname}
+              variant="outlined"
+              onChange={handleChangeOrgname}
+            />
+            
+            </FormControl>
+          )
+        } else {
+          return <Fragment></Fragment>
+        }
+      }
+
     return(
 
     <div>
@@ -216,17 +244,17 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
 
 
         <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title"> {elementTitle} </h2>
@@ -235,8 +263,6 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
                     <TextField
                             id="descriptionID"
                             label={titleLabel}
-                            multiline
-                            rows={1}
                             value={title}
                             variant="outlined"
                             onChange={handleChangeTitle}
@@ -266,6 +292,11 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
 
                 {renderCreatable()}
 
+                </div>
+
+
+                <div>
+                  {renderOrgname()}  
                 </div>
 
 

@@ -19,6 +19,8 @@ const AddBtnSVG_1 = ({SVG, title, addElement, type}) => {
                         <AddBtnWrapper addElement={addElement} type={type}>
                             <PlusButtonIcon/>
                         </AddBtnWrapper>
+                            
+                        
                         
                     </div>
                         

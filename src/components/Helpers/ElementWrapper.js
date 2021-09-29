@@ -1,17 +1,23 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import './ButtonWrapper/ButtonWrapper.css'
-
+import AddBtnWrapper from './AddBtn/AddBtnWrapper';
 
 const ElementWrapper = ({onClick, children, style}) => {
 
+    var wrapper = (
+            <div >
+                <button style={style} onClick={onClick}>{children}</button>
+            </div>
+        )
+
+    
+    return wrapper
+    
+
+    
+    
 
 
-    return(
-
-    <div >
-        <button style={style} onClick={onClick}>{children}</button>
-    </div>
-    )
 }
 
 export default ElementWrapper

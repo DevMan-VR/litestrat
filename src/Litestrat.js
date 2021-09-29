@@ -7,6 +7,7 @@ import GoalView from "./components/Goal/Goal.view.js";
 import StrategyView from './components/Strategy/Strategy.view.js';
 import TacticView from './components/Tactic/Tactic.view.js';
 import ObjectiveView from './components/Objective/Objective.view';
+import InfluencingActorView from './components/InfluencingActor/InfluencingActor.view';
 
 import AddBtnSVG_1 from './components/Helpers/AddBtn/AddBtnSVG_1.js'; //For text at bottom
 import AddBtnSVG_2 from './components/Helpers/AddBtn/AddBtnSVG_2.js'; //For text aside
@@ -18,6 +19,7 @@ import Strategy from './components/Strategy/Strategy.model.js';
 import Tactic from './components/Tactic/Tactic.model.js';
 import Objective from './components/Objective/Objective.model.js';
 import ExternalActor from './components/ExternalActor/ExternalActor.model.js';
+import ExternalInfluence from './components/InfluencingActor/InfluencingActor.model';
 
 //SVGs
 import GoalIcon from './assets/icons/GoalIcon.js';
@@ -27,6 +29,9 @@ import ObjectiveIcon from './assets/icons/ObjectiveIcon.js';
 import ExternalActorIcon from './assets/icons/ExternalActorIcon.js';
 import InfluencingArrowIcon from './assets/icons/InfluencingArrowIcon.js';
 import OrganizationIcon from './assets/icons/OrganizationIcon.js';
+import InfluencedArrowIcon from './assets/icons/InfluencedArrowIcon';
+import InfluencedActorIcon from './assets/icons/InfluencedActorIcon';
+import InfluencingArrowIcon2 from './assets/icons/InfluencingArrowIcon2';
 
 //Constants
 import {Gray1, Gray2, Gray3} from './constants/Colors.js'
@@ -46,12 +51,26 @@ const Litestrat = () => {
                 {
                     //Por defecto se inicializará el workspace con una escena (la que se muestra)
                     organization: null, //new Organization()
-                    selectedExternalActor: null,
-                    selectedGoal: null,
-                    selectedStrategy: null,
-                    selectedTactic: null,
-                    selectedObjective: null,
-                    selectedInfluenced: null
+                    externalActorSelected: null,
+                    goalSelected: null,
+                    strategySelected: null,
+                    tacticSelected: null,
+                    objectiveSelected: null,
+                    teamSelected: null,
+                    roleSelected: null,
+                    externalInfluenceSelected: null,
+
+                    allTactics: [],
+                    influencingActors: [
+                    /*{
+                        title: 'External dummy 1',
+                        isInfluencer: true
+                    },
+                    {
+                        title: 'External dummy 2',
+                        isInfluencer: false
+                    }*/
+                ]
                 }
             ],
 
@@ -78,11 +97,13 @@ const Litestrat = () => {
         var updatedScene = {...scene}
     
         switch(type) {
+
             case 'externalActor':
     
                 var index = Math.floor(Math.random()*10)
                 var idExternalActor = "EX_ACT"+index
-                var {label} = data.influencedOrganization
+                //var {label} = data.influencedOrganization
+                var label = data.influencedOrganization
                 var externalActor = new ExternalActor(idExternalActor,null,null,data.title,data.influenceDescription,label)
                 console.log("EL CREADO ES :", externalActor)
 
@@ -107,6 +128,36 @@ const Litestrat = () => {
                     }
                 })
                 break;
+
+                case 'influencingActor':
+    
+                    var index = Math.floor(Math.random()*10)
+                    var idExternalInfluence = "EX_ACT_INF"+index
+                    //var {label} = data.influencedOrganization
+                    var label = data.associatedTactic
+                    var externalInfluence = new ExternalInfluence(idExternalInfluence,null,null,data.title,data.description,label)
+                    console.log("EL INFLUENCER EXTERNO CREADO ES :", externalInfluence)
+    
+                    externalInfluence.isInfluencer = data.isInfluencer
+    
+                    //Adding External Influencer & Organization
+                    updatedScene.influencingActors.push(externalInfluence)
+                    
+                    var scenes = [...state.workspace.scenes]
+                    scenes[state.workspace.sceneIndex] = updatedScene
+    
+    
+                    setState(prevState => {
+                        return{
+                            ...prevState,
+                            workspace: {
+                                ...prevState.workspace,
+                                scenes: [...scenes]
+                            }
+                            
+                        }
+                    })
+                    break;
     
     
             case 'goal':
@@ -162,11 +213,35 @@ const Litestrat = () => {
     
                 var tactic = new Tactic(idTactic,null,null,null,data.title,data.description,data.until,false)
     
-                tactic.team = data.team;
-                //tactic.team = {...teamsDummy[0]} //por mientras es fijo... (pre-creado)
-    
+                //console.log("TEAM VALUE IS:", data.team.value)
+                var teamIndex = state.workspace.teams.findIndex( team => team.title === data.team.value)
                 var newState = {...state}
-                newState.workspace.scenes[state.workspace.sceneIndex].organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.push(tactic)
+                //console.log("TEAM INDEX ISS: ", teamIndex)
+                if(teamIndex === -1){
+                    console.log("Se ha creado un nuevo team")
+                    var team = {
+                        id: data.team.value,
+                        department: 'Por defecto TI',
+                        title: data.team.value,
+                        roles: []
+                    }
+
+                    newState.workspace.teams.push(team)
+                    var newIndex = newState.workspace.teams.length - 1
+                    tactic.teamIndex = newIndex;
+                    tactic.team = newState.workspace.teams[newIndex]
+
+
+
+                } else {
+                    console.log("Se ha encontrado el team que se buscaba")
+                    tactic.teamIndex = teamIndex
+                    tactic.team = newState.workspace.teams[teamIndex]
+                }
+                
+    
+                newState.workspace.scenes[newState.workspace.sceneIndex].allTactics.push(tactic)
+                newState.workspace.scenes[newState.workspace.sceneIndex].organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.push(tactic)
                 
                 console.log("NEW TACTIC")
                 console.log(newState)
@@ -186,6 +261,31 @@ const Litestrat = () => {
     
                 var objective = new Objective(idObjective,null,null,null,data.title,data.description,data.until,false)
     
+                var roleName = data.role.value
+
+                var roleIndex = tacticSelected.team.roles.findIndex(role => role.title === roleName)
+
+                var role
+                if(roleIndex === -1){
+                    //No encontró el rol y por lo tanto se debe crear
+                    console.log("Se crea un nuevo rol")
+                    role = {
+                        id: roleName,
+                        title: roleName,
+                        userId: '529458d0-b784-4c09-9bbb-4462a69ce323', //por defecto
+                        username: 'John Von Neumann' //por defecto
+                    }
+
+                    tacticSelected.team.roles.push(role)
+
+                } else {
+                    //Si encontró el rol por lo tanto lo relaciona
+                    console.log("Se encuentra el rol y se asigna")
+                    role = tacticSelected.team.roles[roleIndex]
+                }
+
+                objective.role = role
+
                 var newState = {...state}
                 newState.workspace.scenes[state.workspace.sceneIndex].organization.goals[goalSelected.index].strategies[strategySelected.index].tactics[tacticSelected.index].objectives.push(objective)
                 console.log("NEW OBJECTIVE")
@@ -199,6 +299,38 @@ const Litestrat = () => {
     }
 
 
+    //Logica: Esta función recibe el elemento actualizado del formulario
+    // Que ha sido previamente seleccionado y actualiza el estado con los nuevos datos
+
+    const editElement = (updatedElement, type) => {
+
+        var sceneIndex = state.workspace.sceneIndex
+        var scene = state.workspace.scenes[sceneIndex]
+        var updatedScene = {...scene}
+        var newState = {...state}
+
+        switch(type){
+            case 'externalActor': updatedScene.externalActor = {...updatedElement}; break;
+            case 'goal': updatedScene.selectedGoal = {...updatedElement}; break;
+            case 'strategy': updatedScene.selectedStrategy = {...updatedElement}; break;
+            case 'tactic': updatedScene.selectedTactic = {...updatedElement}; break;
+            case 'objective': updatedScene.selectedObjective = {...updatedElement}; break;
+            case 'externalInfluence': updatedScene.selectedExternalInfluence = {...updatedElement}; break;
+            case 'team': updatedScene.selectedTeam = {...updatedElement}; break;
+            case 'role': updatedScene.selectedRole = {...updatedElement}; break;
+        }
+
+        console.log("This is the received element: ", updatedElement)
+        console.log("This is the updatedScene after edited element: ", updatedScene)
+
+        newState.workspace.scenes[sceneIndex] = {...updatedScene}
+
+        setState(newState)
+
+
+    }
+
+
     //Select Element FX
     const selectNode = (index, element, type) => {
 
@@ -206,27 +338,40 @@ const Litestrat = () => {
         var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
 
         switch(type) {
+
+            case 'externalActor':
+
+                scene.externalActorSelected = false;
+                var externalActor = element;
+                externalActor.isSelected = !externalActor.isSelected;
+                scene.externalActorSelected = externalActor
+
+                console.log("Selecting external actor: ", element)
+                updatedScenes[state.workspace.sceneIndex] = scene
+
+            break;
+
             case 'goal':
 
             //reset prev goal selected (if there is one)
-            if(state.workspace.scenes[state.workspace.sceneIndex].goalSelected){
-                state.workspace.scenes[state.workspace.sceneIndex].goalSelected.isSelected = false
-                state.workspace.scenes[state.workspace.sceneIndex].goalSelected = null
+            if(scene.goalSelected){
+                scene.goalSelected.isSelected = false
+                scene.goalSelected = null
 
                 //reset prev strategy selected (if there is one)
-                if(state.workspace.scenes[state.workspace.sceneIndex].strategySelected){
-                    state.workspace.scenes[state.workspace.sceneIndex].strategySelected.isSelected = false
-                    state.workspace.scenes[state.workspace.sceneIndex].strategySelected = null
+                if(scene.strategySelected){
+                    scene.strategySelected.isSelected = false
+                    scene.strategySelected = null
 
                     //reset prev tactic selected (if there is one)
-                    if(state.workspace.scenes[state.workspace.sceneIndex].tacticSelected){
-                        state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.isSelected = false
-                        state.workspace.scenes[state.workspace.sceneIndex].tacticSelected = null
+                    if(scene.tacticSelected){
+                        scene.tacticSelected.isSelected = false
+                        scene.tacticSelected = null
 
                         //reset prev objective selected (if there is one)
-                        if(state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected){
-                            state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected.isSelected = false
-                            state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected = null
+                        if(scene.objectiveSelected){
+                            scene.objectiveSelected.isSelected = false
+                            scene.objectiveSelected = null
 
                         }
                     }
@@ -250,19 +395,19 @@ const Litestrat = () => {
             case 'strategy':
 
             //reset prev strategy selected (if there is one)
-            if(state.workspace.scenes[state.workspace.sceneIndex].strategySelected){
-                state.workspace.scenes[state.workspace.sceneIndex].strategySelected.isSelected = false
-                state.workspace.scenes[state.workspace.sceneIndex].strategySelected = null
+            if(scene.strategySelected){
+                scene.strategySelected.isSelected = false
+                scene.strategySelected = null
 
                 //reset prev tactic selected (if there is one)
-                if(state.workspace.scenes[state.workspace.sceneIndex].tacticSelected){
-                    state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.isSelected = false
-                    state.workspace.scenes[state.workspace.sceneIndex].tacticSelected = null
+                if(scene.tacticSelected){
+                    scene.tacticSelected.isSelected = false
+                    scene.tacticSelected = null
 
                     //reset prev objective selected (if there is one)
-                    if(state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected){
-                        state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected.isSelected = false
-                        state.workspace.scenes[state.workspace.sceneIndex].objectiveSelected = null
+                    if(scene.objectiveSelected){
+                        scene.objectiveSelected.isSelected = false
+                        scene.objectiveSelected = null
 
                     }
                 }
@@ -413,13 +558,30 @@ const Litestrat = () => {
                 <div className="ExternalActorRow" style={styles.flex}>
 
                     <div className="ExternalActorContainer" style={styles.influencerContainer}>
-                        <ExternalActorView  externalActor={externalActor} onClick={() => console.log("do nothing... (log)")}/>
+                        <ExternalActorView  externalActor={externalActor} editElement={editElement} selectNode={() => selectNode(null,externalActor,'externalActor')}/>
                         
                     </div>
     
                     {/**INFLUENCING ARROW */}
-                    <div style={{marginLeft: '1.5em', marginTop: '0.2em'}}>
+                    <div style={{marginLeft: '3em', marginTop: '0.2em'}}>
                         <InfluencingArrowIcon />
+                    </div>
+
+                    <div style={{display:'flex', position:'relative'}}>
+                        <div 
+                            style={{
+                                display: 'flex', 
+                                position: 'absolute', 
+                                top: '-35px',
+                                left: '-390px',
+                                height: '30px',
+                                width: '300px',
+                                //backgroundColor: 'papayawhip'
+                            }}>
+
+                            <p style={{fontSize: '0.9em'}}>{externalActor.description}</p>
+
+                        </div>
                     </div>
                 </div>
                 
@@ -428,7 +590,7 @@ const Litestrat = () => {
             extActor = (
                 <div className="InfluencerRow" style={styles.influencerRow}>
                     <div className="InfluencerContainer" style={styles.influencerContainer}>
-                        <AddBtnSVG_1 SVG={ExternalActorIcon} title="External Actor Name" description="Description" addElement={addElement} type="externalActor" />
+                        <AddBtnSVG_1 SVG={ExternalActorIcon} title="Nombre del Actor Externo" description="Description" addElement={addElement} type="externalActor" />
     
                     </div>
                 </div>
@@ -472,6 +634,28 @@ const Litestrat = () => {
                         {renderTacticRow()}
 
                         {renderObjectiveRow()}
+
+                    </div>
+
+
+                    <div style={{position: 'relative'}}>
+                        <div className="ExternalInfluencedActorsContinaer" 
+                            style={{
+                                position: 'absolute',
+                                top: '-600px',
+                                left: '1010px',
+                                width: '300px',
+                                height: '550px',
+                                
+                            }}
+                        >
+
+                            {renderInfluencingActors()}
+
+                            <AddBtnSVG_2 tactics={state.workspace.scenes[state.workspace.sceneIndex].allTactics}  isFirst={scene.influencingActors.length === 0} SVG={ExternalActorIcon} title="Actor Influyente Externo" description="Description" addElement={addElement} type="influencingActor" />
+
+
+                        </div>
 
                     </div>
 
@@ -652,11 +836,11 @@ const Litestrat = () => {
 
                     {scene.strategySelected.tactics.map((tactic, index) => {
                         return (
-                            <TacticView id={tactic.id} key={tactic.id} tactic={tactic} onClick={() => selectNode(index, tactic, 'tactic')} />
+                            <TacticView options={state.workspace.teams} id={tactic.id} key={tactic.id} tactic={tactic} onClick={() => selectNode(index, tactic, 'tactic')} />
                         )
                     })}
                 
-                    <AddBtnSVG_2 isFirst={scene.strategySelected.tactics.length === 0} SVG={TacticIcon} title="Nombre de Táctica" description="Description" addElement={addElement} type="tactic" />
+                    <AddBtnSVG_2 teams={state.workspace.teams} isFirst={scene.strategySelected.tactics.length === 0} SVG={TacticIcon} title="Nombre de Táctica" description="Description" addElement={addElement} type="tactic" />
                 </div>
             )
         } else {
@@ -697,15 +881,16 @@ const Litestrat = () => {
                             className="OrganizationInfoCard"
                             style={styles.organizationInfoCard}
                         >
+
+                            {/** Organization Holder */}
                             <div>
                                 <OrganizationIcon />
                                 <div>
-                                    {state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.team.label}
+                                    {state.workspace.scenes[state.workspace.sceneIndex].tacticSelected.team.title}
                                 </div>
 
                             </div>
                            
-
                         </div>
 
                     </div>
@@ -733,11 +918,11 @@ const Litestrat = () => {
 
                     {scene.tacticSelected.objectives.map((objective, index) => {
                         return (
-                            <ObjectiveView id={objective.id} key={objective.id} objective={objective} onClick={() => selectNode(index, objective, 'objective')} />
+                            <ObjectiveView options={scene.tacticSelected.team.roles} id={objective.id} key={objective.id} objective={objective} onClick={() => selectNode(index, objective, 'objective')} />
                         )
                     })}
                 
-                    <AddBtnSVG_2 isFirst={scene.tacticSelected.objectives.length === 0} SVG={ObjectiveIcon} title="Nombre de Objetivo" description="Description" addElement={addElement} type="objective" />
+                    <AddBtnSVG_2 roles={scene.tacticSelected.team.roles} isFirst={scene.tacticSelected.objectives.length === 0} SVG={ObjectiveIcon} title="Nombre de Objetivo" description="Description" addElement={addElement} type="objective" />
                 </div>
             )
         } else {
@@ -745,6 +930,48 @@ const Litestrat = () => {
         }
 
         return objectives
+        
+    }
+
+
+    const renderInfluencingActors = () => {
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+
+        var iActors =  scene.influencingActors.map((influencingActor) => {
+
+            var icon
+            if(influencingActor.isInfluencer){
+                //Flecha hacia la organización
+                icon = <InfluencingArrowIcon2 />
+
+
+            } else {
+                //Flecha hacia el actor
+                icon = <InfluencedArrowIcon/>
+            }
+
+
+
+
+            return (
+                    <div className="ExternalInflContainerZ" style={{ display: 'flex'}}>
+                        <div style={{display: 'flex', alignItems: 'center'}}>
+                            {/**Arrow ICON */}
+                            {icon}
+                        </div>
+
+                        <div>
+                            {/**Element ICON */}
+                            <InfluencingActorView options={state.workspace.scenes[state.workspace.sceneIndex].allTactics} tactics={state.workspace.scenes[state.workspace.sceneIndex].allTactics} influencingActor={influencingActor} onClick={() => console.log("do nothing... (log)")} />
+                        </div>
+                    </div>
+            )
+                
+        })
+
+        console.log(iActors)
+
+        return iActors
         
     }
 
@@ -771,6 +998,21 @@ const Litestrat = () => {
 // STYLES
 
 const styles = {
+
+    influencedActor: {
+        display: 'flex',
+        position: 'absolute',
+        top: '-30px',
+        left: '1090px',
+    },
+
+    influencedArrowContainer: {
+        display: 'flex',
+        position: 'absolute',
+        top: '-100px',
+        left: '400px'
+
+    },
 
     organizationInfoCard: {
         display: 'flex',
@@ -852,15 +1094,13 @@ const styles = {
     },
 
     influencerContainerTransparent: {
-        width: '72px',
-        height: '72px',
+
         marginLeft: '3em',
         opacity: '0.3'
     },
 
     influencerContainer: {
-        width: '72px',
-        height: '72px',
+
         marginLeft: '3em'
     },
 

@@ -1,18 +1,19 @@
 import React from 'react'
 
 const PlusButtonIcon = () => (
-<svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg onMouseOver={() => console.log("MOUSE ENTERED")} onMouseOut={() => console.log("MOUSE OUT")} width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="PlusButton" filter="url(#filter0_d)">
-<rect id="PlusContainer" x="4" width="50" height="50" rx="25" fill="white"/>
-<g id="Plus">
-<g id="Rectangle 2">
-<rect x="27.2993" y="13.0952" width="4.2517" height="23.8095" fill="#B5B5B5"/>
-<rect x="27.2993" y="13.0952" width="4.2517" height="23.8095" fill="#B5B5B5"/>
-<rect x="27.2993" y="13.0952" width="4.2517" height="23.8095" fill="#B5B5B5"/>
+    <rect id="PlusContainer" x="4" width="50" height="50" rx="25" fill="white"/>
+    <g id="Plus">
+        <g id="Rectangle 2">
+            <rect x="27.2993" y="13.0952" width="4.2517" height="23.8095" fill="#B5B5B5"/>
+            <rect x="27.2993" y="13.0952" width="4.2517" height="23.8095" fill="#B5B5B5"/>
+            <rect x="27.2993" y="13.0952" width="4.2517" height="23.8095" fill="#B5B5B5"/>
+        </g>
+        <rect id="Rectangle 3" x="17.0952" y="22.619" width="23.8095" height="4.2517" fill="#B5B5B5"/>
+    </g>
 </g>
-<rect id="Rectangle 3" x="17.0952" y="22.619" width="23.8095" height="4.2517" fill="#B5B5B5"/>
-</g>
-</g>
+
 <defs>
 <filter id="filter0_d" x="0" y="0" width="58" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>

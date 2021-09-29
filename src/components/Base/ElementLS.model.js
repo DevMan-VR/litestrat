@@ -1,4 +1,3 @@
-import uuid from 'react-uuid'
 
 class ElementLS {
     constructor(id,sceneId=null, userId=null, fatherId=null, title, description, until, isSelected, isVisible=false) {

@@ -1,10 +1,16 @@
 import React, {Fragment} from 'react'
 import ElementWrapper from '../Helpers/ElementWrapper'
 import { Gray0, Gray1, Gray2, Gray3 } from '../../constants/Colors'
+import PencilIcon from '../../assets/icons/PencilIcon'
 
+import EditWrapper from './EditWrapper'
 import RoleIcon from '../../assets/icons/RoleIcon'
 
-const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, type}) => {
+const ElementLSView = ({options=[],editElement, textPosition="right", element, onClick, SVG, styling, type}) => {
+
+
+    const maxLength = 20;
+
     const {isSelected} = element
 
     const isHover = false
@@ -43,7 +49,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
     let divColor;
     switch(type){
-        case 'externalActor':
+        case 'externalActor' || 'influencingActor':
             break;
         case 'goal':
             divColor = Gray1;
@@ -140,8 +146,6 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
     }
     
 
-    console.log("STYLE FINALE IS: ", style)
-
     const renderRole = () => {
         var role;
 
@@ -150,7 +154,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
                 <div style={styles.personIcon}>
 
                     <RoleIcon />
-                    <div> Role 1 </div>
+                    <div> {element.role.title} </div>
 
                 </div>
             )
@@ -158,9 +162,22 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
         return role
     }
+
+
+    const titleFx = () => {
+        if(element.title.length >= maxLength){
+            return `${element.title.substring(0, maxLength)}...`
+        } else {
+            return  element.title
+        }
+        
+    }
+
+
+
     return(
         <div  >
-            <ElementWrapper element={element} isSelected={isSelected} onClick={onClick} style={style}>
+            <ElementWrapper  element={element} onClick={onClick} style={style}>
 
             
                 <div className="elementStyle" style={styles.elementStyle}>
@@ -171,10 +188,28 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
                         </div>
 
                         <div style={styles.content}>
-                            <div>{element.title}</div>
+                            
+                            <div>{titleFx()}</div>
+
                         </div>
 
+                        <div style={{position: 'relative'}}>
+                            <div 
+                                style={{
+                                    position: 'absolute',
+                                    top: '-110px',
+                                    left: '65px',
+                                    display: isSelected ? 'flex' : 'none'
+                                }}
+                            >
+                               <EditWrapper options={options} element={element} editElement={editElement} type={type} >
+                                    <PencilIcon />
+                                </EditWrapper>
+                            
+                            </div> 
 
+                            
+                        </div>
 
                         {renderRole()}
                 </div>

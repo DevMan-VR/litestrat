@@ -1,38 +1,40 @@
-import React, {Fragment} from 'react'
-import ExternalActorIcon from '../../assets/icons/ExternalActorIcon.js'
+import React from 'react'
 
-import ElementLSView from '../Base/ElementLS.view.svg.js'
+import ExternalActorIcon from '../../assets/icons/ExternalActorIcon'
 
-import { Gray0 } from '../../constants/Colors'
+import ElementLSView from '../Base/ElementLS.view.svg'
 
-const ExternalActorView = ({externalActor, onClick}) => {
+import { Gray0, Gray1 } from '../../constants/Colors'
+
+const ExternalActorView = ({externalActor, editElement, selectNode}) => {
+
     return(
-            <Fragment>
-                <ElementLSView textPosition="down" element={externalActor} onClick={onClick} SVG={ExternalActorIcon} styling={btnStyles} type="externalActor"/>
-            </Fragment>
-
-        
+            <ElementLSView editElement={editElement} textPosition={"down"} element={externalActor} onClick={selectNode} SVG={ExternalActorIcon} styling={btnStyles} type="externalActor"/>
+    
     )
 }
 
 const styles = {
     containerStyle: {
         display: 'flex',
-        marginRight: '1em',
-    }
+        flexDirection: 'row',
+        marginRight: '3em'
+        //backgroundColor: '#dcdcdc'
+    },
 }
 
 const btnStyles = {
     isSelectedColor: {
-        backgroundColor: 'none'
+        backgroundColor: Gray1    
     },
     isHoverColor: { 
-        backgroundColor: 'none'
+        backgroundColor: 'rgb(216, 216, 216)'
     },
     normalColor: {
-        backgroundColor: 'unset'
+        backgroundColor: Gray0
     }
 }
+
 
 
 export default ExternalActorView

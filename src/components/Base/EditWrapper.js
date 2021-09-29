@@ -1,54 +1,56 @@
 import React, {useState, useEffect, Fragment} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import Datepicker from '../Datepicker';
-import Checkbox from '@material-ui/core/Checkbox';
+import { FormControlLabel } from '@material-ui/core';
+import { Switch } from '@material-ui/core';
+import Datepicker from '../Helpers/Datepicker';
 
-import { CreatableExternalActor } from '../Creatable/CreatableExternalActor';
-import { CreatableTactic } from '../Creatable/CreatableTactic';
-import { CreatableObjective } from '../Creatable/CreatableObjective';
-import { CreatableExternalInfluence } from '../Creatable/CreatableExternalInfluence';
+import { CreatableObjective } from '../Helpers/Creatable/CreatableObjective';
+import { CreatableTactic } from '../Helpers/Creatable/CreatableTactic';
+import { CreatableExternalInfluence } from '../Helpers/Creatable/CreatableExternalInfluence';
 
-import {teamsDummy} from '../../../data/dummy'
-import { FormControlLabel, FormLabel, Radio, RadioGroup, Switch } from '@material-ui/core';
+import './EditWrapper.css'
 
-const AddBtnWrapper = ({ options=[], addElement, children, type, element}) => {
+const EditWrapper = ({options=[], element,editElement, children, type}) => {
+
+    console.log("En EditWrapper, el "+ type +" es: ", element)
+
+    const initOrg = () => {
+        let value = "some"
+        switch(type){
+            case 'externalActor':
+                if(element && element.influencedOrganization){
+                    value = element.influencedOrganization
+                }
+        }
+
+        return value
+    }
  
 
-    const [isHover, setIsHover] = useState(false)
-    
+    const [isHover, setIsHover] = useState(true)
     const [open, setOpen] = React.useState(false);
+
+    //Base Attr
     const [title, setTitle] = useState(null)
     const [description, setDescription] = useState(null)
     const [until, setUntil] = useState(null)
-    const [role, setRole] = useState(null)
-    const [team, setTeam] = useState(null)
-    const [organization, setOrganization] = useState(null)
 
-    const [assocTactic, setAssocTactic] = useState(null)
+    const [organization, setOrganization] = useState(null) //External Actor & External Influence
+    const [team, setTeam] = useState(null) //Tactics
+    const [role, setRole] = useState(null) //Objectives
+    const [tactic, setTactic] = useState(null) //External Influence
     const [isInfluencer, setIsInfluencer] = useState(false)
 
-    //const [isTactic,setIsTactic] = useState(false)
-    //const [isObjective, setIsObjective] = useState(false)
+
 
     useEffect(() => {
-      if(element){
-        if(element.title){
-          setTitle(element.title)
-        }
-
-        if(element.description){
-          setDescription(element.description)
-        }
-
-        if(element.until){
-          setUntil(element.until)
-        }
-      }
+        setTitle(element.title)
+        setDescription(element.description)
+        setOrganization(element.influencedOrganization)
     }, [])
 
 
@@ -60,37 +62,40 @@ const AddBtnWrapper = ({ options=[], addElement, children, type, element}) => {
     let isExternalInfluence = false
     let descriptionLabel = "Descripción"
     let titleLabel = "Título"
-    let firstTimeExternalActor ="some"
+    let firstTimeExternalActor = "Ingresa el nombre de tu organización"
+
+
 
     switch(type){
         case 'externalActor':
-            elementTitle = "Nuevo Actor Externo"
+            elementTitle = "Editar Actor Externo"
             elementType = "Actor Externo"
             isExternalActor = true
             descriptionLabel = "¿Como influencia a tu organización?"
             titleLabel = "¿Como se llama el Actor Externo?"
             firstTimeExternalActor = "Ingresa el nombre de tu organización"
+
             break;
         case 'goal':
-            elementTitle = "Nueva Meta"
+            elementTitle = "Editar Meta"
             elementType = "Meta"
             break;
         case 'strategy':
-            elementTitle = "Nueva Estrategia"
+            elementTitle = "Editar Estrategia"
             elementType = "Estrategia"
             break;
         case 'tactic':
-            elementTitle = "Nueva Táctica"
+            elementTitle = "Editar Táctica"
             elementType = "Táctica"
             isTactic = true
             break;
         case 'objective':
-            elementTitle = "Nuevo Objetivo"
+            elementTitle = "Editar Objetivo"
             elementType = "Objetivo"
             isObjective = true
             break;
         case 'influencingActor':
-          elementTitle = "Nuevo Actor Influyente Externo",
+          elementTitle = "Editar Actor Influyente Externo",
           elementType = "Actor Influyente Externo",
           isExternalInfluence = true
           titleLabel = "¿Como se llama el Actor Influyente Externo?"
@@ -98,9 +103,12 @@ const AddBtnWrapper = ({ options=[], addElement, children, type, element}) => {
             
     }
 
+    
+
+
     const handleOpen = () => {
         setOpen(true);
-      };
+    };
     
       const handleClose = () => {
         setOpen(false);
@@ -112,11 +120,7 @@ const AddBtnWrapper = ({ options=[], addElement, children, type, element}) => {
       }
 
       const handleChangeDescription = (e) => {
-          setDescription(e.target.value)
-      }
-
-      const handleChangeUntil = (e) => {
-          setUntil(e.target.value)
+        setDescription(e.target.value)
       }
 
       const handleChangeOrgname = (e) => {
@@ -124,67 +128,27 @@ const AddBtnWrapper = ({ options=[], addElement, children, type, element}) => {
         setOrganization(e.target.value)
       }
 
-      const handleChangeIsInfluencer = (e) => {
-        if(e.target.value === 'yes'){
-          setIsInfluencer(true)
-        } else {
-          setIsInfluencer(false)
-        }
-      }
-
-      const handleSubmitExternalActor = (e) => {
-        console.log("CREATING AN EXTERNAL ACTOR!")
-        e.preventDefault()
-
-        //Preparing the object
-        var element = {
-          title: title,
-          influenceDescription: description, //influence description
-          influencedOrganization: organization,
-        }
-
-        console.log("ACTOR IS: ", element)
-
-        addElement(type, element)
-        setOpen(false)
-
-        setTitle('')
-        setDescription('')
-        setOrganization(null)
-      }
-
       const handleSubmit = (e) => {
-        console.log("CREATING AN ELEMENT!")
+        console.log("EDITING AN EXTERNAL ACTOR!")
         e.preventDefault()
 
-        //Preparing the object
-        var element = {
-          title: title,
-          description: description,
-          until: until,
+        //Preparing the object by case
+        var newElement;
+        switch(type){
+            case 'externalActor':
+                newElement = {
+                    ...element,
+                    title: title,
+                    description: description,
+                    influencedOrganization: organization
+
+                }
+                break;
         }
 
-        if(isObjective){
-          element.role = role
-        } else if(isTactic){
-          element.team = team
-        } else if (isExternalInfluence){
-          element.associatedTactic = assocTactic
-          element.isInfluencer = isInfluencer
-        }
-
-        addElement(type, element)
+        editElement(newElement, type)
         setOpen(false)
-
-        setTitle('')
-        setDescription('')
-        setUntil(null)
       }
-
-      let definitiveSubmit
-      if(isExternalActor) definitiveSubmit = handleSubmitExternalActor
-      else definitiveSubmit = handleSubmit
-
 
 
       const renderCreatable = () => {
@@ -245,7 +209,7 @@ const AddBtnWrapper = ({ options=[], addElement, children, type, element}) => {
 
           console.log("Options for External Influence ARE: ", optionsCreatable)
 
-          return (<CreatableExternalInfluence options={optionsCreatable} type={type} setData={setAssocTactic}/>)
+          return (<CreatableExternalInfluence options={optionsCreatable} type={type} setData={setTactic}/>)
 
         }
 
@@ -307,108 +271,112 @@ const AddBtnWrapper = ({ options=[], addElement, children, type, element}) => {
         }
       }
 
+      
+  
+
+
     return(
 
-    <div>
-
-      {/**BUTTON */}
-        <button
-          onClick={handleOpen}
-          onMouseOver={() => setIsHover(true)}
-          onMouseOut={() => setIsHover(false)}
-        >
-          
-          {children}
-          
-        </button>
-
-
-        <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className="modal"
-        style={styles.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div style={styles.paper} className="paper">
-            <h2 id="transition-modal-title"> {elementTitle} </h2>
-            <form className="form" style={styles.form} noValidate autoComplete="off">
-                <FormControl >
-                    <TextField
-                            id="descriptionID"
-                            label={titleLabel}
-                            multiline
-                            rows={1}
-                            value={title}
-                            variant="outlined"
-                            onChange={handleChangeTitle}
-                        />
-                    
-                </FormControl>
-
-                <div>
-                  {renderIsInfluencing()}
-
-                </div>
-
-                <FormControl style={styles.formField} className="FormField">
-                    <TextField
-                        id="descriptionID"
-                        label={descriptionLabel}
-                        multiline
-                        rows={4}
-                        value={description}
-                        variant="outlined"
-                        onChange={handleChangeDescription}
-                    />
-                </FormControl>
-
-                <div>
-                    {renderUntil()}
-                    
-                    
-                </div>
-
-                <div className="Creatable" style={styles.creatable}>
-
-                  {renderCreatable()}
-
-                </div>
-
-
-                
-
-
-                <div>
-                  {renderOrgname()}  
-                </div>
-
-
-                
-
-
-                <div style={{display: 'flex', justifyContent: 'center', marginTop: '3em'}}>
-                  <button style={styles.addButton} className="addButton" type="button" onClick={definitiveSubmit}>
-                    Agregar {elementType}
-                  </button>
-
-                </div>
-                
-
-                
-            </form>
-          </div>
-        </Fade>
-      </Modal>
-    </div>
-    )
+            <div>
+        
+              {/**BUTTON */}
+                <button
+                  onClick={handleOpen}
+                  onMouseOver={() => setIsHover(true)}
+                  onMouseOut={() => setIsHover(false)}
+                >
+                  
+                  {children}
+                  
+                </button>
+        
+        
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className="modal"
+                    style={styles.modal}
+                    open={open}
+                    onClose={handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                    timeout: 500,
+                    }}
+              >
+                <Fade in={open}>
+                  <div style={styles.paper} className="paper">
+                    <h2 id="transition-modal-title"> {elementTitle} </h2>
+                    <form className="form" style={styles.form} noValidate autoComplete="off">
+                        <FormControl >
+                            <TextField
+                                    id="descriptionID"
+                                    label={titleLabel}
+                                    multiline
+                                    rows={1}
+                                    value={title}
+                                    variant="outlined"
+                                    onChange={handleChangeTitle}
+                                />
+                            
+                        </FormControl>
+        
+                        <div>
+                          {renderIsInfluencing()}
+        
+                        </div>
+        
+                        <FormControl style={styles.formField} className="FormField">
+                            <TextField
+                                id="descriptionID"
+                                label={descriptionLabel}
+                                multiline
+                                rows={4}
+                                value={description}
+                                variant="outlined"
+                                onChange={handleChangeDescription}
+                            />
+                        </FormControl>
+        
+                        <div>
+                            {renderUntil()}
+                            
+                            
+                        </div>
+        
+                        <div className="Creatable" style={styles.creatable}>
+        
+                          {renderCreatable()}
+        
+                        </div>
+        
+        
+                        
+        
+        
+                        <div>
+                          {renderOrgname()}  
+                        </div>
+        
+        
+                        
+        
+        
+                        <div style={{display: 'flex', justifyContent: 'center', marginTop: '3em'}}>
+                          <button style={styles.addButton} className="addButton" type="button" onClick={handleSubmit}>
+                            Editar {elementType}
+                          </button>
+        
+                        </div>
+                        
+        
+                        
+                    </form>
+                  </div>
+                </Fade>
+              </Modal>
+            </div>
+            )
 }
 
 
@@ -461,4 +429,4 @@ const styles = {
     
   };
 
-export default AddBtnWrapper
+export default EditWrapper

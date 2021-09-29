@@ -2,9 +2,24 @@ import React from 'react'
 import PlusButtonIcon from '../../../assets/icons/PlusButtonIcon.js'
 import AddBtnWrapper from './AddBtnWrapper.js'
 
-const AddBtnSVG_2 = ({isFirst, SVG, title, addElement, type}) => {
+const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, addElement, type}) => {
 
     var addBtn
+
+    var options
+    if(roles.length > 0){
+        //Quiere decir que viene con roles y se pasa este argumento options
+        options = roles
+    } else if (teams.length > 0){
+        //Quiere decir que viene con teams y se pasa como argumento options
+        options = teams
+    } else if (tactics.length > 0){
+        options = tactics
+    } else {
+        options = []
+    }
+
+
 
     if(isFirst){
        addBtn = ( 
@@ -16,14 +31,14 @@ const AddBtnSVG_2 = ({isFirst, SVG, title, addElement, type}) => {
                     <SVG />
                 </div>
                 <div style={styles.elementStyle}>
-                    <div style={styles.content}>
+                    <div className="content-addd" style={styles.content}>
                         {/** TITLE ELEMENT */}
                         <div>{title}</div>
                         
                     </div>
                     <div style={styles.btnIconStyle}>
                         {/** ICON BTN */}
-                        <AddBtnWrapper addElement={addElement} type={type}>
+                        <AddBtnWrapper options={options} addElement={addElement} type={type}>
                             <PlusButtonIcon/>
                         </AddBtnWrapper>
                         
@@ -38,7 +53,7 @@ const AddBtnSVG_2 = ({isFirst, SVG, title, addElement, type}) => {
         addBtn = (
             <div style={styles.btnIconStyle}>
                 {/** ICON BTN */}
-                <AddBtnWrapper addElement={addElement} type={type}>
+                <AddBtnWrapper  options={options} addElement={addElement} type={type}>
                     <PlusButtonIcon/>
                 </AddBtnWrapper>
                 
