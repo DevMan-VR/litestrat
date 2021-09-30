@@ -14,7 +14,7 @@ import { CreatableExternalInfluence } from '../Helpers/Creatable/CreatableExtern
 
 import './EditWrapper.css'
 
-const EditWrapper = ({options=[], element,editElement, children, type}) => {
+const EditWrapper = ({index=null, options=[], element,editElement, children, type}) => {
 
     console.log("En EditWrapper, el "+ type +" es: ", element)
 
@@ -50,7 +50,14 @@ const EditWrapper = ({options=[], element,editElement, children, type}) => {
     useEffect(() => {
         setTitle(element.title)
         setDescription(element.description)
-        setOrganization(element.influencedOrganization)
+        switch(type){
+          case 'externalActor': setOrganization(element.influencedOrganization); break;
+          case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTactic(element.associatedTactic); break;
+        }
+        
+
+        
+
     }, [])
 
 
@@ -94,7 +101,7 @@ const EditWrapper = ({options=[], element,editElement, children, type}) => {
             elementType = "Objetivo"
             isObjective = true
             break;
-        case 'influencingActor':
+        case 'externalInfluence':
           elementTitle = "Editar Actor Influyente Externo",
           elementType = "Actor Influyente Externo",
           isExternalInfluence = true
@@ -136,17 +143,26 @@ const EditWrapper = ({options=[], element,editElement, children, type}) => {
         var newElement;
         switch(type){
             case 'externalActor':
-                newElement = {
-                    ...element,
-                    title: title,
-                    description: description,
-                    influencedOrganization: organization
+              newElement = {
+                  ...element,
+                  title: title,
+                  description: description,
+                  influencedOrganization: organization
 
-                }
-                break;
+              }
+              break;
+            case 'externalInfluence':
+              newElement = {
+                ...element,
+                title: title,
+                description: description,
+                associatedTactic: tactic,
+                isInfluencer: isInfluencer
+              }
+              break;
         }
 
-        editElement(newElement, type)
+        editElement(index, newElement, type)
         setOpen(false)
       }
 

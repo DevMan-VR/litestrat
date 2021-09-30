@@ -11,6 +11,7 @@ import InfluencingActorView from './components/InfluencingActor/InfluencingActor
 
 import AddBtnSVG_1 from './components/Helpers/AddBtn/AddBtnSVG_1.js'; //For text at bottom
 import AddBtnSVG_2 from './components/Helpers/AddBtn/AddBtnSVG_2.js'; //For text aside
+import EditWrapper from './components/Base/EditWrapper';
 
 //Models
 import Organization from './components/Organization/Organization.model.js'
@@ -32,6 +33,7 @@ import OrganizationIcon from './assets/icons/OrganizationIcon.js';
 import InfluencedArrowIcon from './assets/icons/InfluencedArrowIcon';
 import InfluencedActorIcon from './assets/icons/InfluencedActorIcon';
 import InfluencingArrowIcon2 from './assets/icons/InfluencingArrowIcon2';
+import PencilIcon from './assets/icons/PencilIcon';
 
 //Constants
 import {Gray1, Gray2, Gray3} from './constants/Colors.js'
@@ -61,7 +63,7 @@ const Litestrat = () => {
                     externalInfluenceSelected: null,
 
                     allTactics: [],
-                    influencingActors: [
+                    externalInfluences: [
                     /*{
                         title: 'External dummy 1',
                         isInfluencer: true
@@ -129,7 +131,7 @@ const Litestrat = () => {
                 })
                 break;
 
-                case 'influencingActor':
+                case 'externalInfluence':
     
                     var index = Math.floor(Math.random()*10)
                     var idExternalInfluence = "EX_ACT_INF"+index
@@ -141,7 +143,7 @@ const Litestrat = () => {
                     externalInfluence.isInfluencer = data.isInfluencer
     
                     //Adding External Influencer & Organization
-                    updatedScene.influencingActors.push(externalInfluence)
+                    updatedScene.externalInfluences.push(externalInfluence)
                     
                     var scenes = [...state.workspace.scenes]
                     scenes[state.workspace.sceneIndex] = updatedScene
@@ -302,7 +304,7 @@ const Litestrat = () => {
     //Logica: Esta función recibe el elemento actualizado del formulario
     // Que ha sido previamente seleccionado y actualiza el estado con los nuevos datos
 
-    const editElement = (updatedElement, type) => {
+    const editElement = (index=null, updatedElement, type ) => {
 
         var sceneIndex = state.workspace.sceneIndex
         var scene = state.workspace.scenes[sceneIndex]
@@ -315,7 +317,7 @@ const Litestrat = () => {
             case 'strategy': updatedScene.selectedStrategy = {...updatedElement}; break;
             case 'tactic': updatedScene.selectedTactic = {...updatedElement}; break;
             case 'objective': updatedScene.selectedObjective = {...updatedElement}; break;
-            case 'externalInfluence': updatedScene.selectedExternalInfluence = {...updatedElement}; break;
+            case 'externalInfluence': updatedScene.externalInfluences[index] = {...updatedElement}; break;
             case 'team': updatedScene.selectedTeam = {...updatedElement}; break;
             case 'role': updatedScene.selectedRole = {...updatedElement}; break;
         }
@@ -351,7 +353,26 @@ const Litestrat = () => {
 
             break;
 
+
+            case 'externalInfluence':
+
+
+                
+                
+                var externalInfluence = element;
+                externalInfluence.isSelected = !externalInfluence.isSelected;
+                scene.externalInfluenceSelected = externalInfluence
+                scene.externalInfluences[index] = externalInfluence
+
+                console.log("Selecting external influence: ", element)
+                updatedScenes[state.workspace.sceneIndex] = scene
+
+            break;
+
+
             case 'goal':
+
+            
 
             //reset prev goal selected (if there is one)
             if(scene.goalSelected){
@@ -552,13 +573,17 @@ const Litestrat = () => {
         var externalActor = scene.externalActor
 
         console.log("what is externalActor? ", externalActor)
+       
+
+
         if(externalActor){
+            var isSelected = externalActor.isSelected
     
             extActor = (
                 <div className="ExternalActorRow" style={styles.flex}>
 
                     <div className="ExternalActorContainer" style={styles.influencerContainer}>
-                        <ExternalActorView  externalActor={externalActor} editElement={editElement} selectNode={() => selectNode(null,externalActor,'externalActor')}/>
+                        <ExternalActorView  externalActor={externalActor} selectNode={() => selectNode(null,externalActor,'externalActor')}/>
                         
                     </div>
     
@@ -566,6 +591,8 @@ const Litestrat = () => {
                     <div style={{marginLeft: '3em', marginTop: '0.2em'}}>
                         <InfluencingArrowIcon />
                     </div>
+
+                    
 
                     <div style={{display:'flex', position:'relative'}}>
                         <div 
@@ -583,6 +610,33 @@ const Litestrat = () => {
 
                         </div>
                     </div>
+
+                    <div style={{position: 'relative'}}>
+                            <div 
+                                style={{
+                                    position: 'absolute',
+                                    top: '0px',
+                                    left: '-540px',
+                                    display: 'flex',
+                                    zIndex: 10,
+                                    
+                                    
+                                }}
+                            >
+                                
+                                { isSelected ? 
+                                    (
+                                        <EditWrapper  element={externalActor} editElement={editElement} type={"externalActor"}>
+                                            <PencilIcon />
+                                        </EditWrapper>
+
+                                    ) : <Fragment/>
+                                }
+                            </div> 
+
+                            
+                    </div>
+
                 </div>
                 
             )
@@ -652,7 +706,7 @@ const Litestrat = () => {
 
                             {renderInfluencingActors()}
 
-                            <AddBtnSVG_2 tactics={state.workspace.scenes[state.workspace.sceneIndex].allTactics}  isFirst={scene.influencingActors.length === 0} SVG={ExternalActorIcon} title="Actor Influyente Externo" description="Description" addElement={addElement} type="influencingActor" />
+                            <AddBtnSVG_2 tactics={state.workspace.scenes[state.workspace.sceneIndex].allTactics}  isFirst={scene.externalInfluences.length === 0} SVG={ExternalActorIcon} title="Actor Influyente Externo" description="Description" addElement={addElement} type="externalInfluence" />
 
 
                         </div>
@@ -673,6 +727,79 @@ const Litestrat = () => {
         }
 
         return organization;
+    }
+
+
+    const renderInfluencingActors = () => {
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+        
+        var iActors =  scene.externalInfluences.map((externalInfluence,index) => {
+
+            var icon
+            if(externalInfluence.isInfluencer){
+                //Flecha hacia la organización
+                icon = <InfluencingArrowIcon2 />
+
+
+            } else {
+                //Flecha hacia el actor
+                icon = <InfluencedArrowIcon/>
+            }
+
+            var isSelected = false
+            if(externalInfluence.isSelected){
+                isSelected = true
+            }
+
+
+
+
+            return (
+                    <div className="ExternalInflContainerZ" style={{ display: 'flex'}}>
+                        <div style={{display: 'flex', alignItems: 'center'}}>
+                            {/**Arrow ICON */}
+                            {icon}
+                        </div>
+
+                        <div>
+                            {/**Element ICON */}
+                            <InfluencingActorView options={state.workspace.scenes[state.workspace.sceneIndex].allTactics} tactics={state.workspace.scenes[state.workspace.sceneIndex].allTactics} externalInfluence={externalInfluence} onClick={() => selectNode(index,externalInfluence,'externalInfluence')} />
+                        </div>
+
+                        <div style={{position: 'relative'}}>
+                            <div 
+                                style={{
+                                    position: 'absolute',
+                                    top: '-10px',
+                                    left: '-130px',
+                                    display: 'flex',
+                                    zIndex: 10,
+                                    
+                                    
+                                }}
+                            >
+                                
+                                { isSelected ? 
+                                    (
+                                        <EditWrapper index={index}  element={externalInfluence} editElement={editElement} type={"externalInfluence"}>
+                                            <PencilIcon />
+                                        </EditWrapper>
+
+                                    ) : <Fragment/>
+                                }
+                            </div> 
+
+                            
+                    </div>
+                    </div>
+            )
+                
+        })
+
+        console.log(iActors)
+
+        return iActors
+        
     }
 
     const renderGoalRow = () => {
@@ -934,46 +1061,7 @@ const Litestrat = () => {
     }
 
 
-    const renderInfluencingActors = () => {
-        var scene = state.workspace.scenes[state.workspace.sceneIndex]
-
-        var iActors =  scene.influencingActors.map((influencingActor) => {
-
-            var icon
-            if(influencingActor.isInfluencer){
-                //Flecha hacia la organización
-                icon = <InfluencingArrowIcon2 />
-
-
-            } else {
-                //Flecha hacia el actor
-                icon = <InfluencedArrowIcon/>
-            }
-
-
-
-
-            return (
-                    <div className="ExternalInflContainerZ" style={{ display: 'flex'}}>
-                        <div style={{display: 'flex', alignItems: 'center'}}>
-                            {/**Arrow ICON */}
-                            {icon}
-                        </div>
-
-                        <div>
-                            {/**Element ICON */}
-                            <InfluencingActorView options={state.workspace.scenes[state.workspace.sceneIndex].allTactics} tactics={state.workspace.scenes[state.workspace.sceneIndex].allTactics} influencingActor={influencingActor} onClick={() => console.log("do nothing... (log)")} />
-                        </div>
-                    </div>
-            )
-                
-        })
-
-        console.log(iActors)
-
-        return iActors
-        
-    }
+    
 
     //Todas las vistas están aqui
     return(

@@ -9,7 +9,7 @@ import { Gray0, Gray1 } from '../../constants/Colors'
 const ExternalActorView = ({externalActor, editElement, selectNode}) => {
 
     return(
-            <ElementLSView editElement={editElement} textPosition={"down"} element={externalActor} onClick={selectNode} SVG={ExternalActorIcon} styling={btnStyles} type="externalActor"/>
+            <ElementLSView textPosition={"down"} element={externalActor} onClick={selectNode} SVG={ExternalActorIcon} styling={btnStyles} type="externalActor"/>
     
     )
 }
@@ -25,10 +25,10 @@ const styles = {
 
 const btnStyles = {
     isSelectedColor: {
-        backgroundColor: Gray1    
+        backgroundColor: Gray0    
     },
     isHoverColor: { 
-        backgroundColor: 'rgb(216, 216, 216)'
+        backgroundColor: Gray0
     },
     normalColor: {
         backgroundColor: Gray0

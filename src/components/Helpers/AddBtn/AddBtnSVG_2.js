@@ -27,20 +27,20 @@ const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, addE
             <div style={styles.containerStyle}>
 
                 <div style={styles.icon}>
-                    {/** ICON ELEMENT */}
+               
                     <SVG />
                 </div>
                 <div style={styles.elementStyle}>
                     <div className="content-addd" style={styles.content}>
-                        {/** TITLE ELEMENT */}
+                       
                         <div>{title}</div>
                         
                     </div>
                     <div style={styles.btnIconStyle}>
-                        {/** ICON BTN */}
+                       
                         <AddBtnWrapper options={options} addElement={addElement} type={type}>
                             <PlusButtonIcon/>
-                        </AddBtnWrapper>
+                       </AddBtnWrapper>
                         
                     </div>
                         
@@ -52,10 +52,10 @@ const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, addE
     } else {
         addBtn = (
             <div style={styles.btnIconStyle}>
-                {/** ICON BTN */}
-                <AddBtnWrapper  options={options} addElement={addElement} type={type}>
+
+              <AddBtnWrapper  options={options} addElement={addElement} type={type}>
                     <PlusButtonIcon/>
-                </AddBtnWrapper>
+              </AddBtnWrapper>
                 
             </div>
         )

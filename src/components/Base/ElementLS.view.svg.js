@@ -6,7 +6,7 @@ import PencilIcon from '../../assets/icons/PencilIcon'
 import EditWrapper from './EditWrapper'
 import RoleIcon from '../../assets/icons/RoleIcon'
 
-const ElementLSView = ({options=[],editElement, textPosition="right", element, onClick, SVG, styling, type}) => {
+const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, type}) => {
 
 
     const maxLength = 20;
@@ -193,23 +193,7 @@ const ElementLSView = ({options=[],editElement, textPosition="right", element, o
 
                         </div>
 
-                        <div style={{position: 'relative'}}>
-                            <div 
-                                style={{
-                                    position: 'absolute',
-                                    top: '-110px',
-                                    left: '65px',
-                                    display: isSelected ? 'flex' : 'none'
-                                }}
-                            >
-                               <EditWrapper options={options} element={element} editElement={editElement} type={type} >
-                                    <PencilIcon />
-                                </EditWrapper>
-                            
-                            </div> 
-
-                            
-                        </div>
+                        
 
                         {renderRole()}
                 </div>
@@ -224,6 +208,9 @@ const ElementLSView = ({options=[],editElement, textPosition="right", element, o
                 :
                     <Fragment></Fragment>
             } 
+
+
+                        
         </div>
     )
 }

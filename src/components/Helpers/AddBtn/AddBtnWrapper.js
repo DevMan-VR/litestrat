@@ -89,7 +89,7 @@ const AddBtnWrapper = ({ options=[], addElement, children, type, element}) => {
             elementType = "Objetivo"
             isObjective = true
             break;
-        case 'influencingActor':
+        case 'externalInfluence':
           elementTitle = "Nuevo Actor Influyente Externo",
           elementType = "Actor Influyente Externo",
           isExternalInfluence = true
@@ -314,8 +314,7 @@ const AddBtnWrapper = ({ options=[], addElement, children, type, element}) => {
       {/**BUTTON */}
         <button
           onClick={handleOpen}
-          onMouseOver={() => setIsHover(true)}
-          onMouseOut={() => setIsHover(false)}
+
         >
           
           {children}
