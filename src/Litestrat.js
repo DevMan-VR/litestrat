@@ -195,6 +195,8 @@ const Litestrat = () => {
                 var goalSelected = state.workspace.scenes[state.workspace.sceneIndex].goalSelected
                 var strategy = new Strategy(idStrategy,null,null,null,data.title,data.description,data.until,false)
 
+                strategy.idGoal = idGoal
+
                 var newState = {...state}
                 newState.workspace.scenes[newState.workspace.sceneIndex].organization.goals[goalSelected.index].strategies.push(strategy)
 
@@ -313,10 +315,10 @@ const Litestrat = () => {
 
         switch(type){
             case 'externalActor': updatedScene.externalActor = {...updatedElement}; break;
-            case 'goal': updatedScene.selectedGoal = {...updatedElement}; break;
-            case 'strategy': updatedScene.selectedStrategy = {...updatedElement}; break;
-            case 'tactic': updatedScene.selectedTactic = {...updatedElement}; break;
-            case 'objective': updatedScene.selectedObjective = {...updatedElement}; break;
+            case 'goal': updatedScene.organization.goals[index] = {...updatedElement}; break;
+            case 'strategy': updatedScene.organization.goals[scene.goalSelected.index].strategies[index] = {...updatedElement}; break;
+            case 'tactic': updatedScene.organization.goals[scene.goalSelected.index].strategies[scene.strategySelected.index].tactics[index] = {...updatedElement}; break;
+            case 'objective': updatedScene.organization.goals[scene.goalSelected.index].strategies[scene.strategySelected.index].tactics[scene.tacticSelected.index].objectives[index] = {...updatedElement}; break;
             case 'externalInfluence': updatedScene.externalInfluences[index] = {...updatedElement}; break;
             case 'team': updatedScene.selectedTeam = {...updatedElement}; break;
             case 'role': updatedScene.selectedRole = {...updatedElement}; break;
@@ -407,6 +409,7 @@ const Litestrat = () => {
             goal.isSelected = true
 
             scene.goalSelected = goal
+            scene.organization.goals[index].isSelected = true;
 
             updatedScenes[state.workspace.sceneIndex] = scene
            
@@ -466,6 +469,7 @@ const Litestrat = () => {
             tactic.isSelected = true
 
             scene.tacticSelected = tactic
+            //scene.goals[scene.goalSelected.index].strategies[scene.strategySelected.index].tactics[index].isSelected = true;
 
             updatedScenes[state.workspace.sceneIndex] = scene
 
@@ -766,6 +770,7 @@ const Litestrat = () => {
                             <InfluencingActorView options={state.workspace.scenes[state.workspace.sceneIndex].allTactics} tactics={state.workspace.scenes[state.workspace.sceneIndex].allTactics} externalInfluence={externalInfluence} onClick={() => selectNode(index,externalInfluence,'externalInfluence')} />
                         </div>
 
+                        {/** Edit Icon */}
                         <div style={{position: 'relative'}}>
                             <div 
                                 style={{
@@ -787,7 +792,7 @@ const Litestrat = () => {
 
                                     ) : <Fragment/>
                                 }
-                            </div> 
+                        </div> 
 
                             
                     </div>
@@ -845,9 +850,41 @@ const Litestrat = () => {
             <div className="GoalArea" style={{display:'flex',alignItems:'flex-end', width: '85%', height: '100px', marginTop: '1em', marginLeft: '15%'}}>
                                 
                 {scene.organization.goals.map((goal, index) => {
+
+                        var isSelected= false
+                        if(goal.isSelected){
+                            isSelected = true;
+                        }
             
                         return(
-                            <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => selectNode(index, goal, 'goal')} />
+                            <Fragment>
+                                <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => selectNode(index, goal, 'goal')} />
+
+                               
+                                <div style={{position: 'relative'}}>
+                                    <div 
+                                        style={{
+                                            position: 'absolute',
+                                            top: '-100px',
+                                            left: '-40px',
+                                            display: 'flex',
+                                            zIndex: 50,
+                                            
+                                            
+                                        }}
+                                    >
+                                        
+                                        { isSelected ? 
+                                            (
+                                                <EditWrapper index={index}  element={goal} editElement={editElement} type={"goal"}>
+                                                    <PencilIcon />
+                                                </EditWrapper>
+
+                                            ) : <Fragment/>
+                                        }
+                                    </div>
+                                </div>
+                            </Fragment>
             
                         )
             
@@ -906,8 +943,42 @@ const Litestrat = () => {
                 <div className="StrategyArea" style={{display:'flex',alignItems:'flex-end', width: '85%', height: '100px', marginTop: '1em', marginLeft: '15%'}}>
 
                     {scene.goalSelected.strategies.map((strategy, index) => {
+
+                        var isSelected = false
+                        if(strategy.isSelected){
+                            isSelected = true
+                        }
+
                         return (
-                            <StrategyView id={strategy.id} key={strategy.id} strategy={strategy} onClick={() => selectNode(index, strategy, 'strategy')} />
+                            <Fragment>
+                                    
+                                    
+                                    <StrategyView id={strategy.id} key={strategy.id} strategy={strategy} onClick={() => selectNode(index, strategy, 'strategy')} />
+
+                                <div style={{position: 'relative'}}>
+                                    <div 
+                                        style={{
+                                            position: 'absolute',
+                                            top: '-100px',
+                                            left: '-40px',
+                                            display: 'flex',
+                                            zIndex: 50,
+                                            
+                                            
+                                        }}
+                                    >
+                                        
+                                        { isSelected ? 
+                                            (
+                                                <EditWrapper index={index}  element={strategy} editElement={editElement} type={"strategy"}>
+                                                    <PencilIcon />
+                                                </EditWrapper>
+
+                                            ) : <Fragment/>
+                                        }
+                                    </div>
+                                </div>
+                            </Fragment>
                         )
                     })}
                 
@@ -962,9 +1033,45 @@ const Litestrat = () => {
                 <div className="TacticArea" style={{display:'flex',alignItems:'flex-end', width: '85%', height: '100px', marginTop: '1em', marginLeft: '15%'}}>
 
                     {scene.strategySelected.tactics.map((tactic, index) => {
+
+                        var isSelected = false
+                        if(tactic.isSelected){
+                            isSelected = true
+                        }
+
                         return (
-                            <TacticView options={state.workspace.teams} id={tactic.id} key={tactic.id} tactic={tactic} onClick={() => selectNode(index, tactic, 'tactic')} />
-                        )
+                            <Fragment>
+
+                                <TacticView options={state.workspace.teams} id={tactic.id} key={tactic.id} tactic={tactic} onClick={() => selectNode(index, tactic, 'tactic')} />
+                                
+                                <div style={{position: 'relative'}}>
+                                        <div 
+                                            style={{
+                                                position: 'absolute',
+                                                top: '-100px',
+                                                left: '-40px',
+                                                display: 'flex',
+                                                zIndex: 50,
+                                                
+                                                
+                                            }}
+                                        >
+                                            
+                                            { isSelected ? 
+                                                (
+                                                    <EditWrapper index={index}  element={tactic} editElement={editElement} type={"tactic"}>
+                                                        <PencilIcon />
+                                                    </EditWrapper>
+
+                                                ) : <Fragment/>
+                                            }
+                                        </div>
+                                    </div>
+
+                            </Fragment>
+                            
+                        
+                            )
                     })}
                 
                     <AddBtnSVG_2 teams={state.workspace.teams} isFirst={scene.strategySelected.tactics.length === 0} SVG={TacticIcon} title="Nombre de Táctica" description="Description" addElement={addElement} type="tactic" />
@@ -1044,8 +1151,42 @@ const Litestrat = () => {
                 <div className="ObjectiveArea" style={{display:'flex',alignItems:'flex-start', width: '85%', height: '100%', marginTop: '1em', marginLeft: '15%',flexWrap: 'wrap' }}>
 
                     {scene.tacticSelected.objectives.map((objective, index) => {
+
+                        var isSelected = false;
+                        if(objective.isSelected){
+                            isSelected = true
+                        }
+
                         return (
-                            <ObjectiveView options={scene.tacticSelected.team.roles} id={objective.id} key={objective.id} objective={objective} onClick={() => selectNode(index, objective, 'objective')} />
+                            <Fragment>
+
+                                <ObjectiveView options={scene.tacticSelected.team.roles} id={objective.id} key={objective.id} objective={objective} onClick={() => selectNode(index, objective, 'objective')} />
+
+                                <div style={{position: 'relative'}}>
+                                    <div 
+                                        style={{
+                                            position: 'absolute',
+                                            top: '-20px',
+                                            left: '-50px',
+                                            display: 'flex',
+                                            zIndex: 50,
+                                            
+                                            
+                                        }}
+                                    >
+                                        
+                                        { isSelected ? 
+                                            (
+                                                <EditWrapper index={index}  element={objective} editElement={editElement} type={"objective"}>
+                                                    <PencilIcon />
+                                                </EditWrapper>
+
+                                            ) : <Fragment/>
+                                        }
+                                    </div>
+                                </div>
+
+                            </Fragment>
                         )
                     })}
                 

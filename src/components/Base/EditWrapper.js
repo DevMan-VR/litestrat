@@ -53,6 +53,7 @@ const EditWrapper = ({index=null, options=[], element,editElement, children, typ
         switch(type){
           case 'externalActor': setOrganization(element.influencedOrganization); break;
           case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTactic(element.associatedTactic); break;
+          case 'tactic': setTeam(element.team); break;
         }
         
 
@@ -160,6 +161,46 @@ const EditWrapper = ({index=null, options=[], element,editElement, children, typ
                 isInfluencer: isInfluencer
               }
               break;
+
+            case 'goal': 
+              newElement = {
+                ...element,
+                title: title,
+                description: description,
+                until: until
+              }
+              break;
+            case 'strategy': 
+              newElement = {
+                ...element,
+                title: title,
+                description: description,
+                until: until
+              }
+              break;
+
+            case 'tactic': 
+              newElement = {
+                ...element,
+                title: title,
+                description: description,
+                until: until,
+                team: team,
+
+              }
+              break;
+
+            case 'objective':
+              newElement = {
+                ...element,
+                title: title,
+                description: description,
+                until: until,
+                role: role,
+
+              }
+              break;
+
         }
 
         editElement(index, newElement, type)
