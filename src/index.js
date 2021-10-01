@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Litestrat from './Litestrat';
+import LitestratApp from './components/Litestrat/Litestrat.main.js';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Litestrat />
+    <LitestratApp />
   </React.StrictMode>,
   document.getElementById('root')
 );
