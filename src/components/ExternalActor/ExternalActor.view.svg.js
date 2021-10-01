@@ -6,10 +6,15 @@ import ElementLSView from '../Base/ElementLS.view.svg'
 
 import { Gray0, Gray1 } from '../../constants/Colors'
 
+import { useLitestratCrudContext } from '../Litestrat/LitestratCrudContext'
+
 const ExternalActorView = ({externalActor, editElement, selectNode}) => {
 
+    const {selectElement} = useLitestratCrudContext()
+
+
     return(
-            <ElementLSView textPosition={"down"} element={externalActor} onClick={selectNode} SVG={ExternalActorIcon} styling={btnStyles} type="externalActor"/>
+            <ElementLSView textPosition={"down"} element={externalActor} onClick={() => selectElement(null,externalActor,'externalActor') } SVG={ExternalActorIcon} styling={btnStyles} type="externalActor"/>
     
     )
 }

@@ -14,7 +14,11 @@ import { CreatableExternalInfluence } from '../Helpers/Creatable/CreatableExtern
 
 import './EditWrapper.css'
 
-const EditWrapper = ({index=null, options=[], element,editElement, children, type}) => {
+import { useLitestratCrudContext } from '../Litestrat/LitestratCrudContext';
+
+const EditWrapper = ({index=null, options=[], element, children, type}) => {
+
+  const {editElement} = useLitestratCrudContext()
 
     console.log("En EditWrapper, el "+ type +" es: ", element)
 

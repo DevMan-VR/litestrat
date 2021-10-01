@@ -2,7 +2,7 @@ import React from 'react'
 import PlusButtonIcon from '../../../assets/icons/PlusButtonIcon.js'
 import AddBtnWrapper from './AddBtnWrapper.js'
 
-const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, addElement, type}) => {
+const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, type}) => {
 
     var addBtn
 
@@ -38,7 +38,7 @@ const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, addE
                     </div>
                     <div style={styles.btnIconStyle}>
                        
-                        <AddBtnWrapper options={options} addElement={addElement} type={type}>
+                        <AddBtnWrapper options={options} type={type}>
                             <PlusButtonIcon/>
                        </AddBtnWrapper>
                         
@@ -53,7 +53,7 @@ const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, addE
         addBtn = (
             <div style={styles.btnIconStyle}>
 
-              <AddBtnWrapper  options={options} addElement={addElement} type={type}>
+              <AddBtnWrapper  options={options} type={type}>
                     <PlusButtonIcon/>
               </AddBtnWrapper>
                 

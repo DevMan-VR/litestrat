@@ -16,7 +16,11 @@ import { CreatableExternalInfluence } from '../Creatable/CreatableExternalInflue
 import {teamsDummy} from '../../../data/dummy'
 import { FormControlLabel, FormLabel, Radio, RadioGroup, Switch } from '@material-ui/core';
 
-const AddBtnWrapper = ({ options=[], addElement, children, type, element}) => {
+import {useLitestratCrudContext} from '../../Litestrat/LitestratCrudContext.js'
+
+const AddBtnWrapper = ({ options=[], children, type, element}) => {
+
+  const {addElement} = useLitestratCrudContext()
  
 
     const [isHover, setIsHover] = useState(false)

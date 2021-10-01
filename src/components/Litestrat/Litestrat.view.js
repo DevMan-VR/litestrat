@@ -11,6 +11,7 @@ const LitestratView = () => {
                 <ExternalActor/>
             </div>
 
+                {/*SEGUIR TRABAJANDOLO*/}
                 {/*renderOrganization()*/}
             
 

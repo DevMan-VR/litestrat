@@ -2,7 +2,7 @@ import React from 'react'
 import PlusButtonIcon from '../../../assets/icons/PlusButtonIcon.js'
 import AddBtnWrapper from './AddBtnWrapper.js'
 
-const AddBtnSVG_1 = ({SVG, title, addElement, type}) => {
+const AddBtnSVG_1 = ({SVG, title, type}) => {
 
     return(
             <div style={styles.containerStyle}>
@@ -16,7 +16,7 @@ const AddBtnSVG_1 = ({SVG, title, addElement, type}) => {
                 <div style={styles.elementStyle}>
                     <div style={styles.btnIconStyle}>
                         {/** ICON BTN */}
-                        <AddBtnWrapper addElement={addElement} type={type}>
+                        <AddBtnWrapper type={type}>
                             <PlusButtonIcon/>
                         </AddBtnWrapper>
                             

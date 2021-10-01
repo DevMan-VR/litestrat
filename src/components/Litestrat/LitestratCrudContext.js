@@ -12,6 +12,9 @@ import ExternalInfluence from '../InfluencingActor/InfluencingActor.model.js';
 
 const LitestratCrudContext = React.createContext()
 
+export const useLitestratCrudContext = () => {
+    return useContext(LitestratCrudContext)
+}
 
 const LitestratCrudProvider = ({children}) => {
 
