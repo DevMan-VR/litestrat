@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Litestrat from './Litestrat';
+//import Litestrat from './Litestrat';
 import LitestratApp from './components/Litestrat/Litestrat.main.js';
 import reportWebVitals from './reportWebVitals';
 

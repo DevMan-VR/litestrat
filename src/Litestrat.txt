@@ -30,8 +30,8 @@ import ObjectiveIcon from './assets/icons/ObjectiveIcon.js';
 import ExternalActorIcon from './assets/icons/ExternalActorIcon.js';
 import InfluencingArrowIcon from './assets/icons/InfluencingArrowIcon.js';
 import OrganizationIcon from './assets/icons/OrganizationIcon.js';
-import InfluencedArrowIcon from './assets/icons/InfluencedArrowIcon';
-import InfluencedActorIcon from './assets/icons/InfluencedActorIcon';
+import ReceiveArrowIcon from './assets/icons/ReceiveArrowIcon';
+import SendArrowIcon from './assets/icons/SendArrowIcon';
 import InfluencingArrowIcon2 from './assets/icons/InfluencingArrowIcon2';
 import PencilIcon from './assets/icons/PencilIcon';
 

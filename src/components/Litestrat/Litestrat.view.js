@@ -1,7 +1,31 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import ExternalActor from '../ExternalActor/ExternalActor.js'
+import OrganizationView from '../Organization/Organization.view.js'
+import { useLitestratContext } from './LitestratContext.js'
 
 const LitestratView = () => {
+
+    const {state} = useLitestratContext()
+    var scene = state.workspace.scenes[state.workspace.sceneIndex]
+    var externalActor = scene.externalActor
+
+    const renderOrganizationView = () => {
+        var organization;
+        if(externalActor){
+            organization = (
+                <div className="OrganizationContainer" style={styles.litestratContainer}>
+                    {/*SEGUIR TRABAJANDOLO*/}
+                    <OrganizationView />
+
+                </div>
+            )
+        } else {
+            organization = <Fragment/>
+        }
+
+
+        return organization;
+    }
     
     return(
         
@@ -11,9 +35,9 @@ const LitestratView = () => {
                 <ExternalActor/>
             </div>
 
-                {/*SEGUIR TRABAJANDOLO*/}
-                {/*renderOrganization()*/}
+            {renderOrganizationView()}
             
+
 
         </div>
 
@@ -25,10 +49,23 @@ const styles = {
     litestratBody: {
         display: 'flex',
         flexDirection: 'column',
-        padding: '2em'
+        padding: '2em',
+        height: '100%'
     },
     flex: {
         display: 'flex'
+    },
+    litestratContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        //marginTop: '3em',
+        marginLeft: '15em',
+        backgroundColor: 'whitesmoke',
+        width: '1000px',
+        height: '700px',
+        boxShadow: "-2px 2px 10px #9E9E9E",
+        borderRadius: '4em'
+
     },
 }
 
