@@ -20,17 +20,17 @@ const InfluencingActorComponent = () => {
         var icon
         if(externalInfluence.isInfluencer){
             //Flecha hacia la organización
-            icon = <ReceiveArrowIcon />
+            icon = <SendArrowIcon />
 
 
         } else {
             //Flecha hacia el actor
-            icon = <SendArrowIcon/>
+            icon = <ReceiveArrowIcon/>
         }
 
-        var isSelected = false
-        if(externalInfluence.isSelected){
-            isSelected = true
+        var isCurrentSelected = false
+        if(externalInfluence.currentSelect){
+            isCurrentSelected = true
         }
 
 
@@ -62,7 +62,7 @@ const InfluencingActorComponent = () => {
                             }}
                         >
                             
-                            { isSelected ? 
+                            { isCurrentSelected ? 
                                 (
                                     <EditWrapper index={index}  element={externalInfluence} editElement={editElement} type={"externalInfluence"}>
                                         <PencilIcon />

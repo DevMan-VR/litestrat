@@ -24,9 +24,9 @@ const GoalsComponent = () => {
                                 
                 {scene.organization.goals.map((goal, index) => {
     
-                        var isSelected= false
-                        if(goal.isSelected){
-                            isSelected = true;
+                        var isCurrentSelected = false
+                        if(goal.currentSelect){
+                            isCurrentSelected = true;
                         }
             
                         return(
@@ -38,8 +38,8 @@ const GoalsComponent = () => {
                                     <div 
                                         style={{
                                             position: 'absolute',
-                                            top: '-100px',
-                                            left: '-40px',
+                                            top: '-75px',
+                                            left: '-127px',
                                             display: 'flex',
                                             zIndex: 50,
                                             
@@ -47,7 +47,7 @@ const GoalsComponent = () => {
                                         }}
                                     >
                                         
-                                        { isSelected ? 
+                                        { isCurrentSelected ? 
                                             (
                                                 <EditWrapper index={index}  element={goal} type={"goal"}>
                                                     <PencilIcon />

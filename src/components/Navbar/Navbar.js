@@ -1,8 +1,13 @@
-import React, {Fragment} from 'react'
+import React, {Children, Fragment} from 'react'
+import '../Litestrat/Litestrat.css'
 
-const Navbar = () => {
+const Navbar = (props) => {
     return(
-        <Fragment></Fragment>
+        <div className="NavBarRel" >
+            <div className="NavBarAbsContainer" >
+                {props.children}
+            </div>
+        </div>
     )
 }
 

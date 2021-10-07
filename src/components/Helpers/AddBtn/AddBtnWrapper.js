@@ -33,6 +33,8 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
     const [team, setTeam] = useState(null)
     const [organization, setOrganization] = useState(null)
 
+    const [error, setError] = useState('')
+
     const [assocTactic, setAssocTactic] = useState(null)
     const [isInfluencer, setIsInfluencer] = useState(false)
 
@@ -129,16 +131,77 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
       }
 
       const handleChangeIsInfluencer = (e) => {
-        if(e.target.value === 'yes'){
+        if(e.target.value === true){
           setIsInfluencer(true)
         } else {
           setIsInfluencer(false)
         }
       }
 
+      const checkErrors = (type) => {
+        var hasError
+        switch(type){
+          case 'externalActor': 
+            //Ningun campo puede estar vacio (title, description, organization)
+            if(!title || !description || !organization){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
+            break;
+          case 'goal':
+          case 'strategy':
+            if(!title || !description || !until){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
+            break;
+
+          case 'tactic':
+            if(!title || !description || !until || !team){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
+
+            break;
+
+            case 'objective':
+            if(!title || !description || !until || !role){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
+
+            break;
+
+            case 'externalInfluence':
+            if(!title || !description || isInfluencer === null || !assocTactic ){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
+
+            break;
+        }
+
+        return hasError
+
+      }
+
       const handleSubmitExternalActor = (e) => {
         console.log("CREATING AN EXTERNAL ACTOR!")
         e.preventDefault()
+
+        if(!checkErrors('externalActor')){ //Si el chequeo de errores sale negativo retorna vacio
+          return
+        }
 
         //Preparing the object
         var element = {
@@ -160,6 +223,10 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
       const handleSubmit = (e) => {
         console.log("CREATING AN ELEMENT!")
         e.preventDefault()
+
+        if(!checkErrors(type)){ //Si el chequeo de errores sale negativo retorna vacio (no submit)
+          return
+        }
 
         //Preparing the object
         var element = {
@@ -261,17 +328,35 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
 
         if(isExternalInfluence){
           return(
-           
-            <FormControlLabel
-            control={
-              <Switch
+            <FormControl component="fieldset">
+            <FormLabel component="legend">Tipo de Influencia</FormLabel>
+            <RadioGroup
+              aria-label="gender"
+              name="gender2"
+
+              
+            >
+              <FormControlLabel
+                value={true}
                 checked={isInfluencer}
-                onChange={() => setIsInfluencer(!isInfluencer)}
-                value="Holangas"
+                onChange={() => setIsInfluencer(true)}
+                control={<Radio  color="primary" />}
+                label="Entrega un producto o servicio a la organización"
+                labelPlacement="start"
               />
-            }
-            label={isInfluencer ? "Recibe un producto o servicio" : "Entrega un producto o servicio"}
-          />
+              <FormControlLabel
+                checked={!isInfluencer}
+                value={false}
+                onChange={() => setIsInfluencer(false)}
+                control={<Radio  color="primary" />}
+                label="Recibe un producto o servicio de la organización"
+                labelPlacement="start"
+              />
+
+            </RadioGroup>
+          </FormControl>
+
+          
               
             
             
@@ -284,7 +369,7 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
       }
 
       const renderUntil = () => {
-        if(isExternalActor){
+        if(isExternalActor || isExternalInfluence){
           return <Fragment />
         } else {
           return <Datepicker setUntil={setUntil} />
@@ -394,7 +479,13 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
                 </div>
 
 
-                
+                <div>
+                  <FormControl >
+
+                      {error !== '' ? <div style={{color: 'red'}} id="errorForm" ><p>{error}</p></div> : <Fragment/> }
+                      
+                  </FormControl>
+                </div>
 
 
                 <div style={{display: 'flex', justifyContent: 'center', marginTop: '3em'}}>

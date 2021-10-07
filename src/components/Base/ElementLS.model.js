@@ -11,6 +11,8 @@ class ElementLS {
         this.until = until;
         this.isSelected = isSelected;
         this.isVisible = isVisible;
+
+        this.currentSelect = false
     }
 }
 

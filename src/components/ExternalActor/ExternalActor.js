@@ -18,7 +18,7 @@ const ExternalActor = () => {
     var externalActor = scene.externalActor
 
     if(externalActor){
-        var isSelected = externalActor.isSelected
+        var isCurrentSelected = externalActor.currentSelect
 
         extActor = 
         (
@@ -56,8 +56,8 @@ const ExternalActor = () => {
                         <div 
                             style={{
                                 position: 'absolute',
-                                top: '0px',
-                                left: '-540px',
+                                top: '7px',
+                                left: '-565px',
                                 display: 'flex',
                                 zIndex: 10,
                                 
@@ -65,7 +65,7 @@ const ExternalActor = () => {
                             }}
                         >
                             
-                            { isSelected ? 
+                            { isCurrentSelected ? 
                                 (
                                     <EditWrapper  element={externalActor} type={"externalActor"}>
                                         <PencilIcon />

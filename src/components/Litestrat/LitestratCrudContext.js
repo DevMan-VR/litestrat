@@ -222,9 +222,21 @@ const LitestratCrudProvider = ({children}) => {
         setState(newState)
     }
 
+    const currentSelect = (oldScene, newScene, element) => {
+        if(oldScene.currentSelect){
+            oldScene.currentSelect.currentSelect = false
+        }
+
+        newScene.currentSelect = element;
+        newScene.currentSelect.currentSelect = true
+
+        return newScene
+    }
+
     //Select Element FX
     const selectElement = (index, element, type) => {
 
+        var oldScene = state.workspace.scenes[state.workspace.sceneIndex]
         var updatedScenes = [...state.workspace.scenes]
         var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
 
@@ -236,6 +248,8 @@ const LitestratCrudProvider = ({children}) => {
                 var externalActor = element;
                 externalActor.isSelected = !externalActor.isSelected;
                 scene.externalActorSelected = externalActor
+
+                scene = currentSelect(oldScene, scene, externalActor)
 
                 console.log("Selecting external actor: ", element)
                 updatedScenes[state.workspace.sceneIndex] = scene
@@ -249,6 +263,8 @@ const LitestratCrudProvider = ({children}) => {
                 externalInfluence.isSelected = !externalInfluence.isSelected;
                 scene.externalInfluenceSelected = externalInfluence
                 scene.externalInfluences[index] = externalInfluence
+
+                scene = currentSelect(oldScene, scene, externalInfluence)
 
                 console.log("Selecting external influence: ", element)
                 updatedScenes[state.workspace.sceneIndex] = scene
@@ -290,6 +306,8 @@ const LitestratCrudProvider = ({children}) => {
             scene.goalSelected = goal
             scene.organization.goals[index].isSelected = true;
 
+            scene = currentSelect(oldScene, scene, goal)
+
             updatedScenes[state.workspace.sceneIndex] = scene
            
             break;
@@ -323,6 +341,9 @@ const LitestratCrudProvider = ({children}) => {
 
             scene.strategySelected = strategy
 
+            scene = currentSelect(oldScene, scene, strategy)
+
+
             updatedScenes[state.workspace.sceneIndex] = scene
 
             break;
@@ -349,6 +370,7 @@ const LitestratCrudProvider = ({children}) => {
 
             scene.tacticSelected = tactic
             //scene.goals[scene.goalSelected.index].strategies[scene.strategySelected.index].tactics[index].isSelected = true;
+            scene = currentSelect(oldScene, scene, tactic)
 
             updatedScenes[state.workspace.sceneIndex] = scene
 
@@ -368,6 +390,9 @@ const LitestratCrudProvider = ({children}) => {
             objective.isSelected = true
 
             scene.objectiveSelected = objective
+
+            scene = currentSelect(oldScene, scene, objective)
+
             
             updatedScenes[state.workspace.sceneIndex] = scene
 
@@ -391,8 +416,119 @@ const LitestratCrudProvider = ({children}) => {
     }
 
 
-    const removeElement = () => {
-        console.log("[CRUD CONTEXT] Remove element is not implemented")
+    const removeElement = (type) => {
+        console.log("[CRUD CONTEXT] Remove element is implemented")
+        var sceneIndex = state.workspace.sceneIndex
+        var scene = state.workspace.scenes[sceneIndex]
+        var updatedScene = {...scene}
+        var newState = {...state}
+
+        switch(type){
+            case 'externalActor':
+                updatedScene.externalActor = null
+                updatedScene.externalActorSelected = null
+                break;
+
+            case 'externalInfluence':
+                var externalInfluenceSelected = scene.externalInfluenceSelected
+                updatedScene.externalInfluences.splice(externalInfluenceSelected.index, 1)
+                updatedScene.externalInfluenceSelected = null
+                break;
+
+            case 'goal':
+                var goalSelected = scene.goalSelected
+                updatedScene.organization.goals.splice(goalSelected.index, 1)
+                updatedScene = cleanSelecteds(updatedScene, 'goal')
+                break;
+
+            case 'strategy':
+                var goalSelected = scene.goalSelected;
+                var strategySelected = scene.strategySelected;
+                updatedScene.organization.goals[goalSelected.index].strategies.splice(strategySelected.index, 1)
+                updatedScene = cleanSelecteds(updatedScene, 'strategy')
+                break;
+
+            case 'tactic':
+                var goalSelected = scene.goalSelected;
+                var strategySelected = scene.strategySelected;
+                var tacticSelected = scene.tacticSelected;
+                updatedScene.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.splice(tacticSelected.index, 1)
+                updatedScene = cleanSelecteds(updatedScene, 'tactic')
+                break;
+
+            case 'objective':
+                var goalSelected = scene.goalSelected;
+                var strategySelected = scene.strategySelected;
+                var tacticSelected = scene.tacticSelected;
+                var objectiveSelected = scene.objectiveSelected;
+                updatedScene.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics[tacticSelected.index].objectives.splice(objectiveSelected.index, 1)
+                updatedScene = cleanSelecteds(updatedScene, 'objective')
+                break;
+            
+        }
+
+        newState.workspace.scenes[sceneIndex] = updatedScene
+        setState(newState)
+    }
+
+
+    const cleanSelecteds = (updatedScene, type) => {
+        switch(type){
+            case 'goal':
+                if(updatedScene.goalSelected){
+                    updatedScene.goalSelected = null
+
+                    if(updatedScene.strategySelected){
+                        updatedScene.strategySelected = null
+
+                        if(updatedScene.tacticSelected){
+                            updatedScene.tacticSelected = null
+
+                            if(updatedScene.objectiveSelected){
+                                updatedScene.objectiveSelected = null
+                            }
+                        }
+                    }
+                }
+
+                break;
+            
+            case 'strategy': 
+                if(updatedScene.strategySelected){
+                    updatedScene.strategySelected = null
+
+                    if(updatedScene.tacticSelected){
+                        updatedScene.tacticSelected = null
+
+                        if(updatedScene.objectiveSelected){
+                            updatedScene.objectiveSelected = null
+                        }
+                    }
+                }
+
+                break;
+
+            case 'tactic':
+                if(updatedScene.tacticSelected){
+                    updatedScene.tacticSelected = null
+
+                    if(updatedScene.objectiveSelected){
+                        updatedScene.objectiveSelected = null
+                    }
+                }
+
+                break;
+
+            case 'objective':
+                if(updatedScene.objectiveSelected){
+                    updatedScene.objectiveSelected = null
+                }
+
+                break;
+
+        }
+
+        return updatedScene
     }
 
 

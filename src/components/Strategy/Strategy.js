@@ -28,9 +28,9 @@ const StrategyComponent = () => {
     
                     {scene.goalSelected.strategies.map((strategy, index) => {
     
-                        var isSelected = false
-                        if(strategy.isSelected){
-                            isSelected = true
+                        var isCurrentSelected = false
+                        if(strategy.currentSelect){
+                            isCurrentSelected = true
                         }
     
                         return (
@@ -43,8 +43,8 @@ const StrategyComponent = () => {
                                     <div 
                                         style={{
                                             position: 'absolute',
-                                            top: '-100px',
-                                            left: '-40px',
+                                            top: '-75px',
+                                            left: '-127px',
                                             display: 'flex',
                                             zIndex: 50,
                                             
@@ -52,7 +52,7 @@ const StrategyComponent = () => {
                                         }}
                                     >
                                         
-                                        { isSelected ? 
+                                        { isCurrentSelected ? 
                                             (
                                                 <EditWrapper index={index}  element={strategy} editElement={editElement} type={"strategy"}>
                                                     <PencilIcon />

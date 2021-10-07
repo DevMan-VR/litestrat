@@ -28,9 +28,9 @@ const ObjectiveComponent = () => {
     
                     {scene.tacticSelected.objectives.map((objective, index) => {
     
-                        var isSelected = false;
-                        if(objective.isSelected){
-                            isSelected = true
+                        var isCurrentSelected = false;
+                        if(objective.currentSelect){
+                            isCurrentSelected = true
                         }
     
                         return (
@@ -42,8 +42,8 @@ const ObjectiveComponent = () => {
                                     <div 
                                         style={{
                                             position: 'absolute',
-                                            top: '-20px',
-                                            left: '-50px',
+                                            top: '11px',
+                                            left: '-218px',
                                             display: 'flex',
                                             zIndex: 50,
                                             
@@ -51,7 +51,7 @@ const ObjectiveComponent = () => {
                                         }}
                                     >
                                         
-                                        { isSelected ? 
+                                        { isCurrentSelected ? 
                                             (
                                                 <EditWrapper index={index}  element={objective} editElement={editElement} type={"objective"}>
                                                     <PencilIcon />

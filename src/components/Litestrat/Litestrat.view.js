@@ -50,7 +50,8 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         padding: '2em',
-        height: '100%'
+        height: '100%',
+        marginLeft:'7em'
     },
     flex: {
         display: 'flex'

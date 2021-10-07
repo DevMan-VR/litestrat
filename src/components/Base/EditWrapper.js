@@ -4,7 +4,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import { FormControlLabel } from '@material-ui/core';
+import { FormControlLabel, FormLabel, RadioGroup, Radio } from '@material-ui/core';
 import { Switch } from '@material-ui/core';
 import Datepicker from '../Helpers/Datepicker';
 
@@ -18,7 +18,7 @@ import { useLitestratCrudContext } from '../Litestrat/LitestratCrudContext';
 
 const EditWrapper = ({index=null, options=[], element, children, type}) => {
 
-  const {editElement} = useLitestratCrudContext()
+  const {editElement, removeElement} = useLitestratCrudContext()
 
     console.log("En EditWrapper, el "+ type +" es: ", element)
 
@@ -48,6 +48,8 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
     const [role, setRole] = useState(null) //Objectives
     const [tactic, setTactic] = useState(null) //External Influence
     const [isInfluencer, setIsInfluencer] = useState(false)
+
+    const [error, setError] = useState('')
 
 
 
@@ -143,6 +145,10 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
       const handleSubmit = (e) => {
         console.log("EDITING AN EXTERNAL ACTOR!")
         e.preventDefault()
+
+        if(!checkErrors(type)){ //Si el chequeo de errores sale negativo retorna vacio
+          return
+        }
 
         //Preparing the object by case
         var newElement;
@@ -277,22 +283,97 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
         
       }
 
+      const checkErrors = (type) => {
+        var hasError
+        switch(type){
+          case 'externalActor': 
+            //Ningun campo puede estar vacio (title, description, organization)
+            if(!title || !description || !organization){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
+            break;
+          case 'goal':
+          case 'strategy':
+            if(!title || !description || !until){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
+            break;
+    
+          case 'tactic':
+            if(!title || !description || !until || !team){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
+    
+            break;
+    
+            case 'objective':
+            if(!title || !description || !until || !role){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
+    
+            break;
+    
+            case 'externalInfluence':
+            if(!title || !description ){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
+    
+            break;
+        }
+    
+        return hasError
+    
+      }
+
 
       const renderIsInfluencing = () => {
 
         if(isExternalInfluence){
           return(
-           
-            <FormControlLabel
-            control={
-              <Switch
+            <FormControl component="fieldset">
+            <FormLabel component="legend">Tipo de Influencia</FormLabel>
+            <RadioGroup
+              aria-label="gender"
+              name="gender2"
+
+              
+            >
+              <FormControlLabel
+                value={true}
                 checked={isInfluencer}
-                onChange={() => setIsInfluencer(!isInfluencer)}
-                value="Holangas"
+                onChange={() => setIsInfluencer(true)}
+                control={<Radio  color="primary" />}
+                label="Entrega un producto o servicio a la organización"
+                labelPlacement="start"
               />
-            }
-            label={isInfluencer ? "Recibe un producto o servicio" : "Entrega un producto o servicio"}
-          />
+              <FormControlLabel
+                checked={!isInfluencer}
+                value={false}
+                onChange={() => setIsInfluencer(false)}
+                control={<Radio  color="primary" />}
+                label="Recibe un producto o servicio de la organización"
+                labelPlacement="start"
+              />
+
+            </RadioGroup>
+          </FormControl>
+
+          
               
             
             
@@ -332,6 +413,10 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
         }
       }
 
+
+      const handleRemove = () => {
+        removeElement(type)
+      }
       
   
 
@@ -420,13 +505,28 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
                         </div>
         
         
-                        
+                        <div>
+                          <FormControl >
+
+                              {error !== '' ? <div style={{color: 'red'}} id="errorForm" ><p>{error}</p></div> : <Fragment/> }
+                              
+                          </FormControl>
+                        </div>
         
         
                         <div style={{display: 'flex', justifyContent: 'center', marginTop: '3em'}}>
-                          <button style={styles.addButton} className="addButton" type="button" onClick={handleSubmit}>
-                            Editar {elementType}
-                          </button>
+
+                          <div>
+                            <button style={styles.removeButton} className="removeButton" type="button" onClick={handleRemove}>
+                              Eliminar {elementType}
+                            </button>
+                          </div>
+
+                          <div>
+                            <button style={styles.addButton} className="addButton" type="button" onClick={handleSubmit}>
+                              Editar {elementType}
+                            </button>
+                          </div>
         
                         </div>
                         
@@ -485,6 +585,18 @@ const styles = {
       border: 'none',
       cursor: 'pointer',
       backgroundColor: '#00b289',
+      color:'whitesmoke'
+    },
+
+    removeButton: {
+      width: 300,
+      height: 50,
+      borderRadius: '2em',
+      fontSize: '1.2em',
+      fontWeight: '700',
+      border: 'none',
+      cursor: 'pointer',
+      backgroundColor: '#c70000',
       color:'whitesmoke'
     }
     

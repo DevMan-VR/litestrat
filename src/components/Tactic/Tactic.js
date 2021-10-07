@@ -30,9 +30,9 @@ const TacticComponent = () => {
     
                     {scene.strategySelected.tactics.map((tactic, index) => {
     
-                        var isSelected = false
-                        if(tactic.isSelected){
-                            isSelected = true
+                        var isCurrentSelected = false
+                        if(tactic.currentSelect){
+                            isCurrentSelected = true
                         }
     
                         return (
@@ -44,8 +44,8 @@ const TacticComponent = () => {
                                         <div 
                                             style={{
                                                 position: 'absolute',
-                                                top: '-100px',
-                                                left: '-40px',
+                                                top: '-75px',
+                                                left: '-127px',
                                                 display: 'flex',
                                                 zIndex: 50,
                                                 
@@ -53,7 +53,7 @@ const TacticComponent = () => {
                                             }}
                                         >
                                             
-                                            { isSelected ? 
+                                            { isCurrentSelected ? 
                                                 (
                                                     <EditWrapper index={index}  element={tactic} editElement={editElement} type={"tactic"}>
                                                         <PencilIcon />
