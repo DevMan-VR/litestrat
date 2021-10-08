@@ -8,6 +8,9 @@ import AddItem from './AddItem.js'
 import { useLitestratContext } from '../Litestrat/LitestratContext'
 import { useLitestratCrudContext } from '../Litestrat/LitestratCrudContext.js'
 
+import DbIcon from '../../assets/icons/DbIcon.js'
+import SceneIcon from '../../assets/icons/SceneIcon.js'
+
 const NavbarComponent = () => {
 
     const {state} = useLitestratContext();
@@ -28,11 +31,12 @@ const NavbarComponent = () => {
     return(
         <NavbarContainer> 
             <NavItem title="Litestrat Web"/>
-            <NavItem className="jsonData" title="Datos" isDropdown={true}>
+            <div style={{marginTop: '3em'}}/>
+            <NavItem icon={<DbIcon/>} className="jsonData" title="Datos" isDropdown={true}>
                 <DropdownItemShowJSON />
                 
             </NavItem>
-            <NavItem title="Escenas" isDropdown={true}>
+            <NavItem icon={<SceneIcon/>} title="Escenas" isDropdown={true}>
                 {renderScenes()}
 
                 <AddItem />

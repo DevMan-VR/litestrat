@@ -96,8 +96,8 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
             isObjective = true
             break;
         case 'externalInfluence':
-          elementTitle = "Nuevo Actor Influyente Externo",
-          elementType = "Actor Influyente Externo",
+          elementTitle = "Nuevo Actor Influyente Externo"
+          elementType = "Actor Influyente Externo"
           isExternalInfluence = true
           titleLabel = "¿Como se llama el Actor Influyente Externo?"
           descriptionLabel ="Ingresa el nombre del producto o servicio"

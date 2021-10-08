@@ -109,8 +109,8 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
             isObjective = true
             break;
         case 'externalInfluence':
-          elementTitle = "Editar Actor Influyente Externo",
-          elementType = "Actor Influyente Externo",
+          elementTitle = "Editar Actor Influyente Externo"
+          elementType = "Actor Influyente Externo"
           isExternalInfluence = true
           titleLabel = "¿Como se llama el Actor Influyente Externo?"
           descriptionLabel ="Ingresa el nombre del producto o servicio"

@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useRef} from 'react'
 import { useLitestratContext } from '../Litestrat/LitestratContext';
 
 import OrganizationIcon from '../../assets/icons/OrganizationIcon';
@@ -20,7 +20,6 @@ const OrganizationView = () => {
 
     var scene = state.workspace.scenes[state.workspace.sceneIndex]
     var externalActor = scene.externalActor
-
     
 
     return(
@@ -64,7 +63,7 @@ const OrganizationView = () => {
                     style={{
                         position: 'absolute',
                         top: '-600px',
-                        left: '1010px',
+                        left: '1250px',
                         width: '300px',
                         height: '550px',
                         
@@ -85,6 +84,7 @@ const OrganizationView = () => {
 
 
 const styles = {
+
     organizationCard: {
         position: 'absolute',
         bottom: '0px',
@@ -116,7 +116,9 @@ const styles = {
         backgroundColor: '#FFFFFF',
         height: '100%',
         width: '100%',
-        zIndex: '1'
+        zIndex: '1',
+        overflow: 'auto',
+        whiteSpace: 'nowrap',
 
     },
     strategyRow: {
@@ -124,7 +126,9 @@ const styles = {
         flexDirection: 'row',
         marginLeft: '5em',
         marginTop: '2em',
-        backgroundColor: Gray1
+        backgroundColor: Gray1,
+        overflow: 'auto',
+        whiteSpace: 'nowrap',
     },
 
 }
