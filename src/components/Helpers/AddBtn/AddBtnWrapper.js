@@ -1,31 +1,71 @@
 import React, {useState, useEffect, Fragment} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Datepicker from '../Datepicker';
-import Checkbox from '@material-ui/core/Checkbox';
-
+import PropTypes from 'prop-types';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { FormControl, FormLabel, RadioGroup,FormControlLabel,Radio,TextField } from '@mui/material';
+// web.cjs is required for IE11 support
+import { useSpring, animated } from 'react-spring';
 import { CreatableExternalActor } from '../Creatable/CreatableExternalActor';
 import { CreatableTactic } from '../Creatable/CreatableTactic';
 import { CreatableObjective } from '../Creatable/CreatableObjective';
 import { CreatableExternalInfluence } from '../Creatable/CreatableExternalInfluence';
 
+import Datepicker from '../Datepicker';
 import {teamsDummy} from '../../../data/dummy'
-import { FormControlLabel, FormLabel, Radio, RadioGroup, Switch } from '@material-ui/core';
 
 import {useLitestratCrudContext} from '../../Litestrat/LitestratCrudContext.js'
 
-const AddBtnWrapper = ({ options=[], children, type, element}) => {
+const Fade = React.forwardRef(function Fade(props, ref) {
+  const { in: open, children, onEnter, onExited, ...other } = props;
+  const style = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: open ? 1 : 0 },
+    onStart: () => {
+      if (open && onEnter) {
+        onEnter();
+      }
+    },
+    onRest: () => {
+      if (!open && onExited) {
+        onExited();
+      }
+    },
+  });
 
-  const {addElement} = useLitestratCrudContext()
- 
+  return (
+    <animated.div ref={ref} style={style} {...other}>
+      {children}
+    </animated.div>
+  );
+});
 
-    const [isHover, setIsHover] = useState(false)
-    
-    const [open, setOpen] = React.useState(false);
+Fade.propTypes = {
+  children: PropTypes.element,
+  in: PropTypes.bool.isRequired,
+  onEnter: PropTypes.func,
+  onExited: PropTypes.func,
+};
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+ const AddBtnWrapper = ({ options=[], children, type, element}) => {
+
+
+    const {addElement} = useLitestratCrudContext();
+
     const [title, setTitle] = useState(null)
     const [description, setDescription] = useState(null)
     const [until, setUntil] = useState(null)
@@ -38,27 +78,29 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
     const [assocTactic, setAssocTactic] = useState(null)
     const [isInfluencer, setIsInfluencer] = useState(false)
 
-    //const [isTactic,setIsTactic] = useState(false)
-    //const [isObjective, setIsObjective] = useState(false)
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
-      if(element){
-        if(element.title){
-          setTitle(element.title)
+        if(element){
+          if(element.title){
+            setTitle(element.title)
+          }
+  
+          if(element.description){
+            setDescription(element.description)
+          }
+  
+          if(element.until){
+            setUntil(element.until)
+          }
         }
-
-        if(element.description){
-          setDescription(element.description)
-        }
-
-        if(element.until){
-          setUntil(element.until)
-        }
-      }
-    }, [])
+      }, [])
 
 
-    let elementTitle
+
+      let elementTitle
     let elementType
     let isTactic = false
     let isObjective = false
@@ -104,318 +146,296 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
             
     }
 
-    const handleOpen = () => {
-        setOpen(true);
-      };
-    
-      const handleClose = () => {
-        setOpen(false);
-      };
-    
-    
-      const handleChangeTitle = (e) => {
-          setTitle(e.target.value);
+
+    const handleChangeTitle = (e) => {
+        setTitle(e.target.value);
+    }
+
+    const handleChangeDescription = (e) => {
+        setDescription(e.target.value)
+    }
+
+    const handleChangeUntil = (e) => {
+        setUntil(e.target.value)
+    }
+
+    const handleChangeOrgname = (e) => {
+      console.log("Orgname change is: ", e.target.value)
+      setOrganization(e.target.value)
+    }
+
+    const handleChangeIsInfluencer = (e) => {
+      if(e.target.value === true){
+        setIsInfluencer(true)
+      } else {
+        setIsInfluencer(false)
+      }
+    }
+
+    const checkErrors = (type) => {
+      var hasError
+      switch(type){
+        case 'externalActor': 
+          //Ningun campo puede estar vacio (title, description, organization)
+          if(!title || !description || !organization){
+            setError("Todos los campos deben ser llenados*")
+            hasError = false
+          } else {
+            hasError = true
+          }
+          break;
+        case 'goal':
+        case 'strategy':
+          if(!title || !description || !until){
+            setError("Todos los campos deben ser llenados*")
+            hasError = false
+          } else {
+            hasError = true
+          }
+          break;
+
+        case 'tactic':
+          if(!title || !description || !until || !team){
+            setError("Todos los campos deben ser llenados*")
+            hasError = false
+          } else {
+            hasError = true
+          }
+
+          break;
+
+          case 'objective':
+          if(!title || !description || !until || !role){
+            setError("Todos los campos deben ser llenados*")
+            hasError = false
+          } else {
+            hasError = true
+          }
+
+          break;
+
+          case 'externalInfluence':
+          if(!title || !description || isInfluencer === null || !assocTactic ){
+            setError("Todos los campos deben ser llenados*")
+            hasError = false
+          } else {
+            hasError = true
+          }
+
+          break;
       }
 
-      const handleChangeDescription = (e) => {
-          setDescription(e.target.value)
+      return hasError
+
+    }
+
+    const handleSubmitExternalActor = (e) => {
+      console.log("CREATING AN EXTERNAL ACTOR!")
+      e.preventDefault()
+
+      if(!checkErrors('externalActor')){ //Si el chequeo de errores sale negativo retorna vacio
+        return
       }
 
-      const handleChangeUntil = (e) => {
-          setUntil(e.target.value)
+      //Preparing the object
+      var element = {
+        title: title,
+        influenceDescription: description, //influence description
+        influencedOrganization: organization,
       }
 
-      const handleChangeOrgname = (e) => {
-        console.log("Orgname change is: ", e.target.value)
-        setOrganization(e.target.value)
+      console.log("ACTOR IS: ", element)
+
+      addElement(type, element)
+      setOpen(false)
+
+      setTitle('')
+      setDescription('')
+      setOrganization(null)
+    }
+
+    const handleSubmit = (e) => {
+      console.log("CREATING AN ELEMENT!")
+      e.preventDefault()
+
+      if(!checkErrors(type)){ //Si el chequeo de errores sale negativo retorna vacio (no submit)
+        return
       }
 
-      const handleChangeIsInfluencer = (e) => {
-        if(e.target.value === true){
-          setIsInfluencer(true)
-        } else {
-          setIsInfluencer(false)
-        }
+      //Preparing the object
+      var element = {
+        title: title,
+        description: description,
+        until: until,
       }
 
-      const checkErrors = (type) => {
-        var hasError
-        switch(type){
-          case 'externalActor': 
-            //Ningun campo puede estar vacio (title, description, organization)
-            if(!title || !description || !organization){
-              setError("Todos los campos deben ser llenados*")
-              hasError = false
-            } else {
-              hasError = true
-            }
-            break;
-          case 'goal':
-          case 'strategy':
-            if(!title || !description || !until){
-              setError("Todos los campos deben ser llenados*")
-              hasError = false
-            } else {
-              hasError = true
-            }
-            break;
-
-          case 'tactic':
-            if(!title || !description || !until || !team){
-              setError("Todos los campos deben ser llenados*")
-              hasError = false
-            } else {
-              hasError = true
-            }
-
-            break;
-
-            case 'objective':
-            if(!title || !description || !until || !role){
-              setError("Todos los campos deben ser llenados*")
-              hasError = false
-            } else {
-              hasError = true
-            }
-
-            break;
-
-            case 'externalInfluence':
-            if(!title || !description || isInfluencer === null || !assocTactic ){
-              setError("Todos los campos deben ser llenados*")
-              hasError = false
-            } else {
-              hasError = true
-            }
-
-            break;
-        }
-
-        return hasError
-
+      if(isObjective){
+        element.role = role
+      } else if(isTactic){
+        element.team = team
+      } else if (isExternalInfluence){
+        element.associatedTactic = assocTactic
+        element.isInfluencer = isInfluencer
       }
 
-      const handleSubmitExternalActor = (e) => {
-        console.log("CREATING AN EXTERNAL ACTOR!")
-        e.preventDefault()
+      addElement(type, element)
+      setOpen(false)
 
-        if(!checkErrors('externalActor')){ //Si el chequeo de errores sale negativo retorna vacio
-          return
-        }
+      setTitle('')
+      setDescription('')
+      setUntil(null)
+    }
 
-        //Preparing the object
-        var element = {
-          title: title,
-          influenceDescription: description, //influence description
-          influencedOrganization: organization,
-        }
+    let definitiveSubmit
+    if(isExternalActor) definitiveSubmit = handleSubmitExternalActor
+    else definitiveSubmit = handleSubmit
 
-        console.log("ACTOR IS: ", element)
 
-        addElement(type, element)
-        setOpen(false)
 
-        setTitle('')
-        setDescription('')
-        setOrganization(null)
+    const renderCreatable = () => {
+
+      if(!isTactic && !isObjective && !isExternalActor && !isExternalInfluence) {
+        return (<Fragment/>)
       }
 
-      const handleSubmit = (e) => {
-        console.log("CREATING AN ELEMENT!")
-        e.preventDefault()
+      var optionsCreatable
+      //var teams = [...teamsDummy]
 
-        if(!checkErrors(type)){ //Si el chequeo de errores sale negativo retorna vacio (no submit)
-          return
-        }
+      if(isTactic){
+         //data dummy, aqui se deberia hacer un fetch para obtener la data acerca de los equipos de la organizacion
+        console.log("OPTIONS IN CREATABLE FOR TACTIC ARE: ", options)
+        optionsCreatable = options.map((t) => {
+          return {
+            label: t.title,
+            value: t.id
+          }
+        })
 
-        //Preparing the object
-        var element = {
-          title: title,
-          description: description,
-          until: until,
-        }
+        return (<CreatableTactic options={optionsCreatable} type={type} setData={setTeam}/>)
 
-        if(isObjective){
-          element.role = role
-        } else if(isTactic){
-          element.team = team
-        } else if (isExternalInfluence){
-          element.associatedTactic = assocTactic
-          element.isInfluencer = isInfluencer
-        }
-
-        addElement(type, element)
-        setOpen(false)
-
-        setTitle('')
-        setDescription('')
-        setUntil(null)
-      }
-
-      let definitiveSubmit
-      if(isExternalActor) definitiveSubmit = handleSubmitExternalActor
-      else definitiveSubmit = handleSubmit
-
-
-
-      const renderCreatable = () => {
-
-        if(!isTactic && !isObjective && !isExternalActor && !isExternalInfluence) {
-          return (<Fragment/>)
-        }
-
-        var optionsCreatable
-        //var teams = [...teamsDummy]
-
-        if(isTactic){
-           //data dummy, aqui se deberia hacer un fetch para obtener la data acerca de los equipos de la organizacion
-          console.log("OPTIONS IN CREATABLE FOR TACTIC ARE: ", options)
-          optionsCreatable = options.map((t) => {
-            return {
-              label: t.title,
-              value: t.id
-            }
-          })
-
-          return (<CreatableTactic options={optionsCreatable} type={type} setData={setTeam}/>)
-
-        } else if (isObjective){
-          
-          console.log("OPTIONS FOR OBJECTIVE ARE: ", options)
-          //console.log(teams) 
-          //const {roles} = teams[0] //EQUIPO SELECCIONADO
-          //console.log("ROLES:  ",roles)
-          optionsCreatable = options.map((r) => {
-            return {
-              label: r.title,
-              value: r.title
-            }
-          })
-
-          return (<CreatableObjective options={optionsCreatable} type={type} setData={setRole}/>)
-
-        } else if(isExternalActor){
-          //No options at first...
-          
-          return (<Fragment></Fragment>)
-          
-          //return (<CreatableExternalActor setData={setOrganization} />)
-
-
-        } else if(isExternalInfluence){
-
-          console.log("External Influences ALL Tactics are.. ", options)
-
-          optionsCreatable = options.map((tactic) => {
-            return {
-              label: tactic.title,
-              value: tactic.title,
-              id: tactic.id
-            }
-          })
-
-          console.log("Options for External Influence ARE: ", optionsCreatable)
-
-          return (<CreatableExternalInfluence options={optionsCreatable} type={type} setData={setAssocTactic}/>)
-
-        }
-
+      } else if (isObjective){
         
-      }
+        console.log("OPTIONS FOR OBJECTIVE ARE: ", options)
+        //console.log(teams) 
+        //const {roles} = teams[0] //EQUIPO SELECCIONADO
+        //console.log("ROLES:  ",roles)
+        optionsCreatable = options.map((r) => {
+          return {
+            label: r.title,
+            value: r.title
+          }
+        })
 
+        return (<CreatableObjective options={optionsCreatable} type={type} setData={setRole}/>)
 
-      const renderIsInfluencing = () => {
-
-        if(isExternalInfluence){
-          return(
-            <FormControl component="fieldset">
-            <FormLabel component="legend">Tipo de Influencia</FormLabel>
-            <RadioGroup
-              aria-label="gender"
-              name="gender2"
-
-              
-            >
-              <FormControlLabel
-                value={true}
-                checked={isInfluencer}
-                onChange={() => setIsInfluencer(true)}
-                control={<Radio  color="primary" />}
-                label="Entrega un producto o servicio a la organización"
-                labelPlacement="start"
-              />
-              <FormControlLabel
-                checked={!isInfluencer}
-                value={false}
-                onChange={() => setIsInfluencer(false)}
-                control={<Radio  color="primary" />}
-                label="Recibe un producto o servicio de la organización"
-                labelPlacement="start"
-              />
-
-            </RadioGroup>
-          </FormControl>
-
-          
-              
-            
-            
-          )
-
-        } else {
-          return <Fragment/>
-        }
+      } else if(isExternalActor){
+        //No options at first...
         
+        return (<Fragment></Fragment>)
+        
+        //return (<CreatableExternalActor setData={setOrganization} />)
+
+
+      } else if(isExternalInfluence){
+
+        console.log("External Influences ALL Tactics are.. ", options)
+
+        optionsCreatable = options.map((tactic) => {
+          return {
+            label: tactic.title,
+            value: tactic.title,
+            id: tactic.id
+          }
+        })
+
+        console.log("Options for External Influence ARE: ", optionsCreatable)
+
+        return (<CreatableExternalInfluence options={optionsCreatable} type={type} setData={setAssocTactic}/>)
+
       }
 
-      const renderUntil = () => {
-        if(isExternalActor || isExternalInfluence){
-          return <Fragment />
-        } else {
-          return <Datepicker setUntil={setUntil} />
-        }
-      }
+      
+    }
 
 
-      const renderOrgname = () => {
-        if(isExternalActor){
-          return (
-            <FormControl style={{width: '100%'}} >
-            <TextField
-              id="orgnameID"
-              label={firstTimeExternalActor}
-              value={organization}
-              variant="outlined"
-              onChange={handleChangeOrgname}
+    const renderIsInfluencing = () => {
+
+      if(isExternalInfluence){
+        return(
+          <FormControl component="fieldset">
+          <FormLabel component="legend">Tipo de Influencia</FormLabel>
+          <RadioGroup
+            aria-label="gender"
+            name="gender2"
+
+            
+          >
+            <FormControlLabel
+              value={true}
+              checked={isInfluencer}
+              onChange={() => setIsInfluencer(true)}
+              control={<Radio  color="primary" />}
+              label="Entrega un producto o servicio a la organización"
+              labelPlacement="start"
             />
+            <FormControlLabel
+              checked={!isInfluencer}
+              value={false}
+              onChange={() => setIsInfluencer(false)}
+              control={<Radio  color="primary" />}
+              label="Recibe un producto o servicio de la organización"
+              labelPlacement="start"
+            />
+
+          </RadioGroup>
+        </FormControl>
+
+        
             
-            </FormControl>
-          )
-        } else {
-          return <Fragment></Fragment>
-        }
+          
+          
+        )
+
+      } else {
+        return <Fragment/>
       }
+      
+    }
 
-    return(
+    const renderUntil = () => {
+      if(isExternalActor || isExternalInfluence){
+        return <Fragment />
+      } else {
+        return <Datepicker setUntil={setUntil} />
+      }
+    }
 
+
+    const renderOrgname = () => {
+      if(isExternalActor){
+        return (
+          <FormControl style={{width: '100%'}} >
+          <TextField
+            id="orgnameID"
+            label={firstTimeExternalActor}
+            value={organization}
+            variant="outlined"
+            onChange={handleChangeOrgname}
+          />
+          
+          </FormControl>
+        )
+      } else {
+        return <Fragment></Fragment>
+      }
+    }
+
+  return (
     <div>
-
-      {/**BUTTON */}
-        <button
-          onClick={handleOpen}
-
-        >
-          
-          {children}
-          
-        </button>
-
-
-        <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className="modal"
-        style={styles.modal}
+      <Button onClick={handleOpen}>{children}</Button>
+      <Modal
+        aria-labelledby="spring-modal-title"
+        aria-describedby="spring-modal-description"
         open={open}
         onClose={handleClose}
         closeAfterTransition
@@ -425,9 +445,7 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
         }}
       >
         <Fade in={open}>
-          <div style={styles.paper} className="paper">
-            <h2 id="transition-modal-title"> {elementTitle} </h2>
-            <form className="form" style={styles.form} noValidate autoComplete="off">
+          <Box sx={style}>
                 <FormControl >
                     <TextField
                             id="descriptionID"
@@ -470,10 +488,6 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
 
                 </div>
 
-
-                
-
-
                 <div>
                   {renderOrgname()}  
                 </div>
@@ -494,65 +508,61 @@ const AddBtnWrapper = ({ options=[], children, type, element}) => {
                   </button>
 
                 </div>
-                
 
-                
-            </form>
-          </div>
+          </Box>
         </Fade>
       </Modal>
     </div>
-    )
+  );
 }
-
 
 const styles = {
 
-    creatable: {
+  creatable: {
+    marginTop: '1em'
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: 'whitesmoke',
+    boxShadow: '2px 2px 3px',
+    padding: '3em',
+    width: 500,
+    display: 'flex',
+    flexDirection: 'column',
+    borderRadius: '2em'
+
+  },
+  form : {
+      display: 'flex',
+      flexDirection: 'column'
+  },
+  formControl: {
+      width: 300
+  },
+  formControlTitle: {
+      width: 400
+  },
+
+  formField: {
       marginTop: '1em'
-    },
-    modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    paper: {
-      backgroundColor: 'whitesmoke',
-      boxShadow: '2px 2px 3px',
-      padding: '3em',
-      width: 500,
-      display: 'flex',
-      flexDirection: 'column',
-      borderRadius: '2em'
+  },
 
-    },
-    form : {
-        display: 'flex',
-        flexDirection: 'column'
-    },
-    formControl: {
-        width: 300
-    },
-    formControlTitle: {
-        width: 400
-    },
-
-    formField: {
-        marginTop: '1em'
-    },
+  addButton: {
+    width: 300,
+    height: 50,
+    borderRadius: '2em',
+    fontSize: '1.2em',
+    fontWeight: '700',
+    border: 'none',
+    cursor: 'pointer',
+    backgroundColor: '#00b289',
+    color:'whitesmoke'
+  }
   
-    addButton: {
-      width: 300,
-      height: 50,
-      borderRadius: '2em',
-      fontSize: '1.2em',
-      fontWeight: '700',
-      border: 'none',
-      cursor: 'pointer',
-      backgroundColor: '#00b289',
-      color:'whitesmoke'
-    }
-    
-  };
+};
 
-export default AddBtnWrapper
+export default AddBtnWrapper;

@@ -13,6 +13,7 @@
     "@material-ui/pickers": "^3.3.10",
     "@mui/material": "^5.0.3",
     "@mui/styled-engine-sc": "^5.0.3",
+    "@react-spring/web": "^9.2.6",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -23,6 +24,7 @@
     "react-rainbow-components": "^1.26.0",
     "react-scripts": "^4.0.3",
     "react-select": "^4.3.1",
+    "react-spring": "^9.2.6",
     "styled-components": "^5.3.1",
     "web-vitals": "^1.1.2"
   },
