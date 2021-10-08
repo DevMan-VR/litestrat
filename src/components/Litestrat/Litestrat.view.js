@@ -6,6 +6,14 @@ import { useLitestratContext } from './LitestratContext.js'
 const LitestratView = () => {
 
     const {state} = useLitestratContext()
+
+    //Si no hay escenas no se retorna nada...
+    if(state.workspace.scenes.length === 0){
+        return <Fragment/>
+    }
+
+    
+
     var scene = state.workspace.scenes[state.workspace.sceneIndex]
     var externalActor = scene.externalActor
 

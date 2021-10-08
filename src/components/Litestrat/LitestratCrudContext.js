@@ -30,6 +30,13 @@ const LitestratCrudProvider = ({children}) => {
     
         switch(type) {
 
+
+            case 'scene':
+                var newState = {...state}
+                newState.workspace.scenes.push(data);
+                setState(newState)
+
+                break;
             case 'externalActor':
     
                 var index = Math.floor(Math.random()*10)
@@ -204,6 +211,7 @@ const LitestratCrudProvider = ({children}) => {
         var newState = {...state}
 
         switch(type){
+            case 'scene': updatedScene.title = updatedElement; break;
             case 'externalActor': updatedScene.externalActor = {...updatedElement}; break;
             case 'goal': updatedScene.organization.goals[index] = {...updatedElement}; break;
             case 'strategy': updatedScene.organization.goals[scene.goalSelected.index].strategies[index] = {...updatedElement}; break;
@@ -241,6 +249,13 @@ const LitestratCrudProvider = ({children}) => {
         var scene = {...state.workspace.scenes[state.workspace.sceneIndex]}
 
         switch(type) {
+
+            case 'scene':
+                var newState = {...state}
+                newState.workspace.sceneIndex = index;
+                setState(newState)
+                return
+                
 
             case 'externalActor':
 
@@ -416,7 +431,7 @@ const LitestratCrudProvider = ({children}) => {
     }
 
 
-    const removeElement = (type) => {
+    const removeElement = (type, index=null) => {
         console.log("[CRUD CONTEXT] Remove element is implemented")
         var sceneIndex = state.workspace.sceneIndex
         var scene = state.workspace.scenes[sceneIndex]
@@ -424,6 +439,10 @@ const LitestratCrudProvider = ({children}) => {
         var newState = {...state}
 
         switch(type){
+            case 'scene':
+                newState.workspace.scenes.splice(index, 1);
+                setState(newState)
+                return;
             case 'externalActor':
                 updatedScene.externalActor = null
                 updatedScene.externalActorSelected = null

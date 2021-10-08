@@ -1,8 +1,6 @@
 import React from 'react'
 import LitestratView from './Litestrat.view'
-import Navbar from '../Navbar/Navbar'
-import NavItem from '../Navbar/NavItem'
-import DropdownItem from '../Navbar/DropdownItem'
+import NavbarComponent from '../Navbar/NavbarComponent'
 import LitestratProvider from './LitestratContext'
 import LitestratCrudProvider from './LitestratCrudContext'
 
@@ -14,23 +12,8 @@ const LitestratApp = () => {
         <LitestratProvider>
             <LitestratCrudProvider>
                 <div className="rootBody">
-
-
-                <Navbar> 
-                    <NavItem title="Litestrat Web"/>
-                    <NavItem title="Escenas" isDropdown={true}>
-                        <DropdownItem />
-                        
-                    </NavItem>
-                </Navbar>
-
-
-
-                <LitestratView />
-                
-                        
-            
-                        
+                    <NavbarComponent/>
+                    <LitestratView />   
                 </div>
             </LitestratCrudProvider>
         </LitestratProvider>

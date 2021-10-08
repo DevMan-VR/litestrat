@@ -2,7 +2,7 @@ import React from 'react'
 import IsDropdown from './IsDropdown'
 import '../Litestrat/Litestrat.css'
 import Dropdown from './Dropdown'
-const NavItem = ({title, isDropdown, children}) => {
+const NavItem = ({className, title, isDropdown, children}) => {
 
 
     if(isDropdown){

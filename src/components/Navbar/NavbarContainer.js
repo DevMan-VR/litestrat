@@ -1,7 +1,7 @@
 import React, {Children, Fragment} from 'react'
 import '../Litestrat/Litestrat.css'
 
-const Navbar = (props) => {
+const NavbarContainer = (props) => {
     return(
         <div className="NavBarRel" >
             <div className="NavBarAbsContainer" >
@@ -11,4 +11,4 @@ const Navbar = (props) => {
     )
 }
 
-export default Navbar
+export default NavbarContainer
