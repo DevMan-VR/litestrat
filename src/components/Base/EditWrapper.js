@@ -1,11 +1,7 @@
 import React, {useState, useEffect, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { Fade, FormControl, FormLabel, RadioGroup,FormControlLabel,Radio,TextField } from '@mui/material';
+
+import {Backdrop,Box,Modal,Button,Typography, FormControl, FormLabel, RadioGroup,FormControlLabel,Radio,TextField } from '@mui/material';
 // web.cjs is required for IE11 support
 import { useSpring, animated } from 'react-spring';
 import { CreatableExternalActor } from '../Helpers/Creatable/CreatableExternalActor';
@@ -21,58 +17,111 @@ import './EditWrapper.css'
 
 import { useLitestratCrudContext } from '../Litestrat/LitestratCrudContext';
 
-const EditWrapper = ({index=null, options=[], element, children, type}) => {
 
-  const Fade = React.forwardRef(function Fade(props, ref) {
-    const { in: open, children, onEnter, onExited, ...other } = props;
-    const style = useSpring({
-      from: { opacity: 0 },
-      to: { opacity: open ? 1 : 0 },
-      onStart: () => {
-        if (open && onEnter) {
-          onEnter();
-        }
-      },
-      onRest: () => {
-        if (!open && onExited) {
-          onExited();
-        }
-      },
-    });
-  
-    return (
-      <animated.div ref={ref} style={style} {...other}>
-        {children}
-      </animated.div>
-    );
+
+
+
+const Fade = React.forwardRef(function Fade(props, ref) {
+  const { in: open, children, onEnter, onExited, ...other } = props;
+  const style = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: open ? 1 : 0 },
+    onStart: () => {
+      if (open && onEnter) {
+        onEnter();
+      }
+    },
+    onRest: () => {
+      if (!open && onExited) {
+        onExited();
+      }
+    },
   });
-  
-  Fade.propTypes = {
-    children: PropTypes.element,
-    in: PropTypes.bool.isRequired,
-    onEnter: PropTypes.func,
-    onExited: PropTypes.func,
-  };
-  
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '500px',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    borderRadius: '0.7em',
-    boxShadow: 24,
-    p: 4,
-  };
 
-  
+  return (
+    <animated.div ref={ref} style={style} {...other}>
+      {children}
+    </animated.div>
+  );
+});
+
+
+Fade.propTypes = {
+  children: PropTypes.element,
+  in: PropTypes.bool.isRequired,
+  onEnter: PropTypes.func,
+  onExited: PropTypes.func,
+};
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '500px',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  borderRadius: '0.7em',
+  boxShadow: 24,
+  p: 4,
+};
+
+
+
+
+
+
+
+const EditWrapper = ({index=null, options=[], element, children, type}) => {
 
   const {editElement, removeElement} = useLitestratCrudContext()
 
-    console.log("En EditWrapper, el "+ type +" es: ", element)
 
+
+  const [isHover, setIsHover] = useState(true)
+  const [open, setOpen] = React.useState(false);
+
+  //Base Attr
+  const [title, setTitle] = useState(null)
+  const [description, setDescription] = useState(null)
+  const [until, setUntil] = useState(null)
+
+  const [organization, setOrganization] = useState(null) //External Actor & External Influence
+  const [team, setTeam] = useState(null) //Tactics
+  const [role, setRole] = useState(null) //Objectives
+  const [tactic, setTactic] = useState(null) //External Influence
+  const [isInfluencer, setIsInfluencer] = useState(false)
+
+  const [error, setError] = useState('')
+
+  console.log("En EditWrapper, el "+ type +" es: ", element)
+
+
+
+
+
+  useEffect(() => {
+    setTitle(element.title)
+    setDescription(element.description)
+    switch(type){
+      case 'externalActor': setOrganization(element.influencedOrganization); break;
+      case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTactic(element.associatedTactic); break;
+      case 'tactic': setTeam(element.team); break;
+    }
+    
+
+    
+
+}, [])
+
+
+
+  
+
+  
+
+
+/*
     const initOrg = () => {
         let value = "some"
         switch(type){
@@ -84,39 +133,11 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
 
         return value
     }
- 
-
-    const [isHover, setIsHover] = useState(true)
-    const [open, setOpen] = React.useState(false);
-
-    //Base Attr
-    const [title, setTitle] = useState(null)
-    const [description, setDescription] = useState(null)
-    const [until, setUntil] = useState(null)
-
-    const [organization, setOrganization] = useState(null) //External Actor & External Influence
-    const [team, setTeam] = useState(null) //Tactics
-    const [role, setRole] = useState(null) //Objectives
-    const [tactic, setTactic] = useState(null) //External Influence
-    const [isInfluencer, setIsInfluencer] = useState(false)
-
-    const [error, setError] = useState('')
+ */
 
 
 
-    useEffect(() => {
-        setTitle(element.title)
-        setDescription(element.description)
-        switch(type){
-          case 'externalActor': setOrganization(element.influencedOrganization); break;
-          case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTactic(element.associatedTactic); break;
-          case 'tactic': setTeam(element.team); break;
-        }
-        
 
-        
-
-    }, [])
 
 
     let elementTitle
@@ -497,7 +518,7 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
                     className="modal"
                     style={styles.modal}
                     open={open}
-                    onClose={handleClose}
+                    onClose={() => handleClose()}
                     closeAfterTransition
                     BackdropComponent={Backdrop}
                     BackdropProps={{
@@ -519,7 +540,7 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
                                 value={title}
                                 required
                                 id="outlined-required"
-                                onChange={handleChangeTitle}
+                                onChange={(e) => handleChangeTitle(e)}
                             
                             />
                         

@@ -103,7 +103,7 @@ const style = {
 
 
 
-      let elementTitle
+    let elementTitle
     let elementType
     let isTactic = false
     let isObjective = false
@@ -454,11 +454,11 @@ const style = {
 
                 
 
-                <FormControl>
-                  <Typography style={{fontSize: '1.5em', marginBottom: '0.2em', fontWeight: '500'}}>
-                  {elementTitle}
-                  </Typography>
-                </FormControl>
+            <FormControl>
+              <Typography style={{fontSize: '1.5em', marginBottom: '0.2em', fontWeight: '500'}}>
+                      {elementTitle}
+              </Typography>
+            </FormControl>
 
                 
                 <FormControl style={{padding: 0, marginTop: '1em', width: '100%'}}>

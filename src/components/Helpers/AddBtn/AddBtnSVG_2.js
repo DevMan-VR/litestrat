@@ -1,5 +1,5 @@
 import React from 'react'
-import PlusButtonIcon from '../../../assets/icons/PlusButtonIcon.js'
+import btnAdd from '../../../assets/png/btnAdd.png'
 import AddBtnWrapper from './AddBtnWrapper.js'
 
 const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, type}) => {
@@ -39,8 +39,8 @@ const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, type
                     <div style={styles.btnIconStyle}>
                        
                         <AddBtnWrapper options={options} type={type}>
-                            <PlusButtonIcon/>
-                       </AddBtnWrapper>
+                            <img src={btnAdd} alt="ADD" />
+                        </AddBtnWrapper>
                         
                     </div>
                         
@@ -54,7 +54,7 @@ const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, type
             <div style={styles.btnIconStyle}>
 
               <AddBtnWrapper  options={options} type={type}>
-                    <PlusButtonIcon/>
+                <img style={{marginTop: '2em'}} src={btnAdd} alt="ADD" />
               </AddBtnWrapper>
                 
             </div>
@@ -68,7 +68,7 @@ const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, type
 const styles = {
     containerStyle: {
         display: 'flex',
-        opacity: 0.4,
+        opacity: 0.5,
         //backgroundColor: '#dcdcdc'
     },
     icon: {
@@ -90,8 +90,10 @@ const styles = {
     },
     btnIconStyle: {
         display: 'flex',
-        marginLeft: '0.5em',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        
         
     }
 }
