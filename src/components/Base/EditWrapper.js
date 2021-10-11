@@ -1,22 +1,73 @@
 import React, {useState, useEffect, Fragment} from 'react';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import { FormControlLabel, FormLabel, RadioGroup, Radio } from '@material-ui/core';
-import { Switch } from '@material-ui/core';
-import Datepicker from '../Helpers/Datepicker';
-
-import { CreatableObjective } from '../Helpers/Creatable/CreatableObjective';
+import PropTypes from 'prop-types';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Fade, FormControl, FormLabel, RadioGroup,FormControlLabel,Radio,TextField } from '@mui/material';
+// web.cjs is required for IE11 support
+import { useSpring, animated } from 'react-spring';
+import { CreatableExternalActor } from '../Helpers/Creatable/CreatableExternalActor';
 import { CreatableTactic } from '../Helpers/Creatable/CreatableTactic';
+import { CreatableObjective } from '../Helpers/Creatable/CreatableObjective';
+
 import { CreatableExternalInfluence } from '../Helpers/Creatable/CreatableExternalInfluence';
+
+import Datepicker from '../Helpers/Datepicker';
+import { teamsDummy } from '../../data/dummy';
 
 import './EditWrapper.css'
 
 import { useLitestratCrudContext } from '../Litestrat/LitestratCrudContext';
 
 const EditWrapper = ({index=null, options=[], element, children, type}) => {
+
+  const Fade = React.forwardRef(function Fade(props, ref) {
+    const { in: open, children, onEnter, onExited, ...other } = props;
+    const style = useSpring({
+      from: { opacity: 0 },
+      to: { opacity: open ? 1 : 0 },
+      onStart: () => {
+        if (open && onEnter) {
+          onEnter();
+        }
+      },
+      onRest: () => {
+        if (!open && onExited) {
+          onExited();
+        }
+      },
+    });
+  
+    return (
+      <animated.div ref={ref} style={style} {...other}>
+        {children}
+      </animated.div>
+    );
+  });
+  
+  Fade.propTypes = {
+    children: PropTypes.element,
+    in: PropTypes.bool.isRequired,
+    onEnter: PropTypes.func,
+    onExited: PropTypes.func,
+  };
+  
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '500px',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    borderRadius: '0.7em',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  
 
   const {editElement, removeElement} = useLitestratCrudContext()
 
@@ -218,6 +269,8 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
       }
 
 
+
+
       const renderCreatable = () => {
 
         if(!isTactic && !isObjective && !isExternalActor && !isExternalInfluence) {
@@ -346,39 +399,40 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
         if(isExternalInfluence){
           return(
             <FormControl component="fieldset">
-            <FormLabel component="legend">Tipo de Influencia</FormLabel>
+            <FormLabel component="legend" style={{marginBottom: '0.7em'}}>Tipo de Influencia</FormLabel>
             <RadioGroup
               aria-label="gender"
               name="gender2"
-
+  
               
             >
               <FormControlLabel
                 value={true}
                 checked={isInfluencer}
                 onChange={() => setIsInfluencer(true)}
-                control={<Radio  color="primary" />}
+                control={<Radio style={{marginLeft: '0.5em'}}  color="primary" />}
                 label="Entrega un producto o servicio a la organización"
                 labelPlacement="start"
+                style={{marginBottom: '0.7em'}}
               />
               <FormControlLabel
                 checked={!isInfluencer}
                 value={false}
                 onChange={() => setIsInfluencer(false)}
-                control={<Radio  color="primary" />}
+                control={<Radio style={{marginLeft: '0.5em'}}  color="primary" />}
                 label="Recibe un producto o servicio de la organización"
                 labelPlacement="start"
               />
-
+  
             </RadioGroup>
           </FormControl>
-
+  
           
               
             
             
           )
-
+  
         } else {
           return <Fragment/>
         }
@@ -451,21 +505,25 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
                     }}
               >
                 <Fade in={open}>
-                  <div style={styles.paper} className="paper">
-                    <h2 id="transition-modal-title"> {elementTitle} </h2>
-                    <form className="form" style={styles.form} noValidate autoComplete="off">
-                        <FormControl >
-                            <TextField
-                                    id="descriptionID"
-                                    label={titleLabel}
-                                    multiline
-                                    rows={1}
-                                    value={title}
-                                    variant="outlined"
-                                    onChange={handleChangeTitle}
-                                />
+                  <Box sx={style}>
+                    <FormControl>
+                      <Typography style={{fontSize: '1.5em', marginBottom: '0.2em', fontWeight: '500'}}>
+                      {elementTitle}
+                      </Typography>
+                    </FormControl>
+
+                    <FormControl style={{padding: 0, marginTop: '1em', width: '100%'}}>
+                        <TextField
                             
-                        </FormControl>
+                                label={titleLabel}
+                                value={title}
+                                required
+                                id="outlined-required"
+                                onChange={handleChangeTitle}
+                            
+                            />
+                        
+                    </FormControl>
         
                         <div>
                           {renderIsInfluencing()}
@@ -477,7 +535,7 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
                                 id="descriptionID"
                                 label={descriptionLabel}
                                 multiline
-                                rows={4}
+                                rows={3}
                                 value={description}
                                 variant="outlined"
                                 onChange={handleChangeDescription}
@@ -506,34 +564,40 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
         
         
                         <div>
-                          <FormControl >
+                  <FormControl >
 
-                              {error !== '' ? <div style={{color: 'red'}} id="errorForm" ><p>{error}</p></div> : <Fragment/> }
-                              
-                          </FormControl>
-                        </div>
-        
-        
-                        <div style={{display: 'flex', justifyContent: 'center', marginTop: '3em'}}>
+                      {error !== '' ? <div style={{color: 'red'}} id="errorForm" ><p>{error}</p></div> : <Fragment/> }
+                      
+                  </FormControl>
+                </div>
 
-                          <div>
-                            <button style={styles.removeButton} className="removeButton" type="button" onClick={handleRemove}>
-                              Eliminar {elementType}
-                            </button>
-                          </div>
 
-                          <div>
-                            <button style={styles.addButton} className="addButton" type="button" onClick={handleSubmit}>
-                              Editar {elementType}
-                            </button>
-                          </div>
-        
-                        </div>
-                        
-        
-                        
-                    </form>
+                  <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '3em'}}>
+                    <button style={styles.addButton} className="addButton" type="button" onClick={handleSubmit}>
+                      Guardar
+                    </button>
+
+                    
+
+
                   </div>
+
+                  <div style={{width:'100%', display: 'flex', marginTop: '2em'}}>
+
+                  <div style={{display: 'flex', width:'100%', justifyContent: 'flex-start'}}>
+                      <a style={{color: '#ff4b4b', fontWeight: 700}} href="#" onClick={() => handleRemove()} >Eliminar </a>
+                    </div>
+
+                    <div style={{display: 'flex', width:'100%', justifyContent: 'flex-end'}}>
+                      <a style={{color: '#9c9c9c', fontWeight: 500}} href="#" onClick={() => handleClose()} >Cerrar </a>
+                    </div>
+
+                    
+                  </div>
+                        
+        
+                        
+                  </Box>
                 </Fade>
               </Modal>
             </div>
@@ -573,30 +637,33 @@ const styles = {
     },
 
     formField: {
-        marginTop: '1em'
+        marginTop: '1em',
+        width: '100%',
+        padding: '0',
     },
   
     addButton: {
-      width: 300,
+      width: '100%',
       height: 50,
-      borderRadius: '2em',
-      fontSize: '1.2em',
+      borderRadius: '0.2em',
+      fontSize: '1em',
       fontWeight: '700',
       border: 'none',
       cursor: 'pointer',
-      backgroundColor: '#00b289',
-      color:'whitesmoke'
+      backgroundColor: 'rgb(86,100,139)',
+      color:'whitesmoke',
+      marginBottom: '0.5em'
     },
 
     removeButton: {
-      width: 300,
+      width: '100%',
       height: 50,
-      borderRadius: '2em',
-      fontSize: '1.2em',
+      borderRadius: '0.2em',
+      fontSize: '1em',
       fontWeight: '700',
       border: 'none',
       cursor: 'pointer',
-      backgroundColor: '#c70000',
+      backgroundColor: 'rgb(86,100,139)',
       color:'whitesmoke'
     }
     

@@ -18,6 +18,8 @@ import {teamsDummy} from '../../../data/dummy'
 
 import {useLitestratCrudContext} from '../../Litestrat/LitestratCrudContext.js'
 
+import './AddBtnWrapper.css'
+
 const Fade = React.forwardRef(function Fade(props, ref) {
   const { in: open, children, onEnter, onExited, ...other } = props;
   const style = useSpring({
@@ -54,9 +56,10 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: '500px',
   bgcolor: 'background.paper',
   border: '2px solid #000',
+  borderRadius: '0.7em',
   boxShadow: 24,
   p: 4,
 };
@@ -363,7 +366,7 @@ const style = {
       if(isExternalInfluence){
         return(
           <FormControl component="fieldset">
-          <FormLabel component="legend">Tipo de Influencia</FormLabel>
+          <FormLabel component="legend" style={{marginBottom: '0.7em'}}>Tipo de Influencia</FormLabel>
           <RadioGroup
             aria-label="gender"
             name="gender2"
@@ -374,15 +377,16 @@ const style = {
               value={true}
               checked={isInfluencer}
               onChange={() => setIsInfluencer(true)}
-              control={<Radio  color="primary" />}
+              control={<Radio style={{marginLeft: '0.5em'}}  color="primary" />}
               label="Entrega un producto o servicio a la organización"
               labelPlacement="start"
+              style={{marginBottom: '0.7em'}}
             />
             <FormControlLabel
               checked={!isInfluencer}
               value={false}
               onChange={() => setIsInfluencer(false)}
-              control={<Radio  color="primary" />}
+              control={<Radio style={{marginLeft: '0.5em'}}  color="primary" />}
               label="Recibe un producto o servicio de la organización"
               labelPlacement="start"
             />
@@ -421,6 +425,7 @@ const style = {
             value={organization}
             variant="outlined"
             onChange={handleChangeOrgname}
+            required
           />
           
           </FormControl>
@@ -446,20 +451,30 @@ const style = {
       >
         <Fade in={open}>
           <Box sx={style}>
-                <FormControl >
+
+                
+
+                <FormControl>
+                  <Typography style={{fontSize: '1.5em', marginBottom: '0.2em', fontWeight: '500'}}>
+                  {elementTitle}
+                  </Typography>
+                </FormControl>
+
+                
+                <FormControl style={{padding: 0, marginTop: '1em', width: '100%'}}>
                     <TextField
-                            id="descriptionID"
+                        
                             label={titleLabel}
-                            multiline
-                            rows={1}
                             value={title}
-                            variant="outlined"
+                            required
+                            id="outlined-required"
                             onChange={handleChangeTitle}
+                         
                         />
                     
                 </FormControl>
 
-                <div>
+                <div style={{marginTop: '1em'}}>
                   {renderIsInfluencing()}
 
                 </div>
@@ -469,10 +484,11 @@ const style = {
                         id="descriptionID"
                         label={descriptionLabel}
                         multiline
-                        rows={4}
+                        rows={3}
                         value={description}
                         variant="outlined"
                         onChange={handleChangeDescription}
+                        required
                     />
                 </FormControl>
 
@@ -492,6 +508,8 @@ const style = {
                   {renderOrgname()}  
                 </div>
 
+                
+
 
                 <div>
                   <FormControl >
@@ -507,6 +525,12 @@ const style = {
                     Agregar {elementType}
                   </button>
 
+                </div>
+
+                <div style={{width:'100%', display: 'flex', justifyContent: 'flex-end', marginTop: '2em'}}>
+                  <div>
+                    <a style={{color: '#9c9c9c', fontWeight: 500}} href="#" onClick={() => handleClose()} >Cerrar </a>
+                  </div>
                 </div>
 
           </Box>
@@ -548,18 +572,20 @@ const styles = {
   },
 
   formField: {
-      marginTop: '1em'
+      marginTop: '1em',
+      width: '100%',
+      padding: '0',
   },
 
   addButton: {
-    width: 300,
+    width: '100%',
     height: 50,
-    borderRadius: '2em',
-    fontSize: '1.2em',
+    borderRadius: '0.2em',
+    fontSize: '1em',
     fontWeight: '700',
     border: 'none',
     cursor: 'pointer',
-    backgroundColor: '#00b289',
+    backgroundColor: 'rgb(86,100,139)',
     color:'whitesmoke'
   }
   

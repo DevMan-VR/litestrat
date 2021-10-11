@@ -3,3 +3,28 @@ button {
     background:none;
     border:none;
 }
+
+/*
+.addButton {
+    background-color: gainsboro; 
+    color: rgb(51, 51, 51);
+    transition: all 1s ease-in;
+
+}
+*/
+button:hover {
+    background-color:'#00b289' ;
+    color: 'whitesmoke';
+}
+
+.MuiInputBase-input {
+    padding:  1em !important;
+    
+}
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+    width: 100%;
+}
+
+#descriptionID {
+    height: inherit;
+}

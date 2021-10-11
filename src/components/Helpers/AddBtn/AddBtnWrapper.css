@@ -10,3 +10,11 @@ button:hover {
     background-color:'#00b289' ;
     color: 'whitesmoke';
 }
+
+.MuiInputBase-input {
+    padding:  1em !important;
+}
+
+#descriptionID {
+    height: inherit;
+}

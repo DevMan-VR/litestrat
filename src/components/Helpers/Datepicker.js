@@ -9,7 +9,7 @@ import {
 
 const  Datepicker = ({setUntil}) => {
   // The first commit of Material-UI
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -30,6 +30,7 @@ const  Datepicker = ({setUntil}) => {
           label="Término de plazo"
           value={selectedDate}
           onChange={handleDateChange}
+          required
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
