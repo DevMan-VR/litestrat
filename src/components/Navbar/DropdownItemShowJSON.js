@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 
 import { useLitestratContext } from '../Litestrat/LitestratContext';
 
-const DropdownItemShowJSON = () => {
+const DropdownItemShowJSON = ({type}) => {
 
     const {state} = useLitestratContext()
 
@@ -19,11 +19,29 @@ const DropdownItemShowJSON = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    let titleBtn;
+    let descrBtn;
+    let content;
+
+    if(type === 'current'){
+        titleBtn = "Mostrar datos de escena actual en JSON "
+        descrBtn = "Visualiza los datos almacenados por el modelo en el escenario actual y si quieres guardalo en tu portapapeles!"
+        var scene = state.workspace.scenes[state.workspace.sceneIndex]
+        content = JSON.stringify(scene, null, 2)
+
+    } else if (type === 'all') {
+        titleBtn = "Mostrar todos los datos en JSON"
+        descrBtn = "Visualiza todos los datos almacenados por el modelo y sus distintos escenarios, si quieres guardalo en tu portapapeles!"
+        content = JSON.stringify(state, null, 2)
+    }
+
+
+
     return (
         <Fragment>
             <div className="subItem"> 
                 <a href="#" onClick={() => handleOpen()}> 
-                    <span className="sceneName">  Mostrar Datos en JSON </span>
+                    <span className="sceneName"> {titleBtn}   </span>
                 </a>
             </div>
 
@@ -42,14 +60,14 @@ const DropdownItemShowJSON = () => {
                 <Fade in={open}>
                     <Box sx={styles.container}>
                         <Typography id="transition-modal-title" variant="h6" component="h2">
-                        Mostrar Datos en JSON
+                        {titleBtn}
                         </Typography>
                         <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                        Visualiza todos los datos almacenados por el modelo y sus distintos escenarios, si quieres guardalo en tu portapapeles!
+                            {descrBtn}
                         </Typography>
                         <Box sx={styles.jsonContainer}> 
                             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                                <p>{JSON.stringify(state, null, 2)} </p>
+                                <p>{content} </p>
                             </Typography>
 
                             
@@ -58,7 +76,7 @@ const DropdownItemShowJSON = () => {
                         </Box>
 
                         <Stack direction="row" spacing={2}>
-                                <Button variant="outlined" onClick={() => navigator.clipboard.writeText(JSON.stringify(state, null, 2))}>Copiar en portapeles</Button>
+                                <Button variant="outlined" onClick={() => navigator.clipboard.writeText(content)}>Copiar en portapeles</Button>
                                 <Button variant="outlined" href="#outlined-buttons" onClick={handleClose}>Cerrar</Button>
                         </Stack>
                     </Box>

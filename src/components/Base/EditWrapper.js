@@ -107,6 +107,7 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
       case 'externalActor': setOrganization(element.influencedOrganization); break;
       case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTactic(element.associatedTactic); break;
       case 'tactic': setTeam(element.team); break;
+      case 'objective': setRole(element.role); break;
     }
     
 
@@ -303,30 +304,53 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
 
         if(isTactic){
            //data dummy, aqui se deberia hacer un fetch para obtener la data acerca de los equipos de la organizacion
-          console.log("OPTIONS IN CREATABLE FOR TACTIC ARE: ", options)
-          optionsCreatable = options.map((t) => {
-            return {
-              label: t.title,
-              value: t.id
+          console.log("OPTIONS IN CREATABLE FOR TACTIC ARE: ", team)
+          var value
+          if(team){
+            value =  {
+              label: team.title,
+              value: team.id
             }
-          })
+          } else {
+            optionsCreatable = options.map((r) => {
+              return {
+                label: r.title,
+                value: r.title
+              }
+            })
+          }
+          
 
-          return (<CreatableTactic options={optionsCreatable} type={type} setData={setTeam}/>)
+
+          return (<CreatableTactic value={value} options={optionsCreatable} type={type} setData={setTeam}/>)
 
         } else if (isObjective){
           
-          console.log("OPTIONS FOR OBJECTIVE ARE: ", options)
+          console.log("OPTIONS FOR OBJECTIVE ARE: ", role)
           //console.log(teams) 
           //const {roles} = teams[0] //EQUIPO SELECCIONADO
-          //console.log("ROLES:  ",roles)
-          optionsCreatable = options.map((r) => {
-            return {
-              label: r.title,
-              value: r.title
-            }
-          })
+          //console.log("ROLES:  ",roles
 
-          return (<CreatableObjective options={optionsCreatable} type={type} setData={setRole}/>)
+          var value;
+          if(role){
+            value = {
+              label: role.title,
+              value: role.title
+            }
+          } else {
+
+            optionsCreatable = options.map((r) => {
+              return {
+                label: r.title,
+                value: r.title
+              }
+            })
+
+          }
+
+          
+
+          return (<CreatableObjective value={value} options={optionsCreatable} type={type} setData={setRole}/>)
 
         } else if(isExternalActor){
           //No options at first...
@@ -338,19 +362,32 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
 
         } else if(isExternalInfluence){
 
-          console.log("External Influences ALL Tactics are.. ", options)
+          console.log("External Influences Tactics are.. ", tactic)
 
-          optionsCreatable = options.map((tactic) => {
-            return {
-              label: tactic.title,
-              value: tactic.title,
+          var value;
+          if(tactic){
+            value = {
+              label: tactic.label,
+              value: tactic.value,
               id: tactic.id
             }
-          })
+
+            console.log("VALUE IS: ", value)
+          } else {
+            optionsCreatable = options.map((tact) => {
+              return {
+                label: tact.title,
+                value: tact.title,
+                id: tact.id
+              }
+            })
+          }
+
+          
 
           console.log("Options for External Influence ARE: ", optionsCreatable)
 
-          return (<CreatableExternalInfluence options={optionsCreatable} type={type} setData={setTactic}/>)
+          return (<CreatableExternalInfluence value={value} options={optionsCreatable} type={type} setData={setTactic}/>)
 
         }
 

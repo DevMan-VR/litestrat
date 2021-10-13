@@ -33,7 +33,9 @@ const NavbarComponent = () => {
             <NavItem title="Litestrat Web"/>
             <div style={{marginTop: '3em'}}/>
             <NavItem icon={<DbIcon/>} className="jsonData" title="Datos" isDropdown={true}>
-                <DropdownItemShowJSON />
+                <DropdownItemShowJSON type={"current"} />
+                <DropdownItemShowJSON type={"all"}/>
+
                 
             </NavItem>
             <NavItem icon={<SceneIcon/>} title="Escenas" isDropdown={true}>

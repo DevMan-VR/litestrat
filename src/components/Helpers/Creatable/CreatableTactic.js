@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import CreatableSelect from 'react-select/creatable';
 
-export const CreatableTactic = ({options=null,placeholder, setData}) => {
+export const CreatableTactic = ({value,options=null,placeholder, setData}) => {
 
   const handleChange = (newValue, actionMeta) => {
     console.group('Value Changed');
@@ -25,6 +25,7 @@ export const CreatableTactic = ({options=null,placeholder, setData}) => {
         onChange={handleChange}
         onInputChange={handleInputChange}
         options={options}
+        defaultValue={value}
         placeholder="Asigne una Unidad Organizacional"
       />
     );

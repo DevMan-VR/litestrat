@@ -50,8 +50,17 @@ const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, type
        )
 
     } else {
+        var height;
+        if(type === 'objective'){
+            height = 'initial';
+        } else {
+            height = styles.btnIconStyle.height;
+        }
         addBtn = (
-            <div style={styles.btnIconStyle}>
+            <div style={{
+                    ...styles.btnIconStyle,
+                    height: height
+                }}>
 
               <AddBtnWrapper  options={options} type={type}>
                 <img style={{marginTop: '2em'}} src={btnAdd} alt="ADD" />
