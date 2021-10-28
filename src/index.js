@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import Litestrat from './Litestrat';
-import LitestratApp from './components/Litestrat/Litestrat.main.js';
 import reportWebVitals from './reportWebVitals';
-import Landing from './components/LandingPage/Landing.js'
+import App from './App.js'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Landing/>
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );
