@@ -37,7 +37,7 @@ main {
 
 .navbar {
     width: 5rem;
-    height: 100vh;
+    height: 1100px;
     position:fixed;
     background-color: var(--bg-primary);
     transition: width var(--transition-speed) ease;

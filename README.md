@@ -72,3 +72,6 @@ El paso siguiente es:
 
 
 ****Ahora que pude implementar la lógica para editar formularios para externalActor, solo hace falta extenderlo para cada tipo, siguiendo la misma lógica reutilizable. 
+
+
+Tengo que rehacer la lógica de filtros para Influencias Externas y Unidades Relacionadas, de manera que se ingrese automatico el team en ellas y se filtren segun tacticSelected / team OKKK esta hecho, ahora las tacticas tienen influencias externas y unidades relacionadas, estos se filtran segun la tacticSelected de forma automatica:D

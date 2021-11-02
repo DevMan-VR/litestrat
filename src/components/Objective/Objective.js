@@ -8,6 +8,12 @@ import AddBtnSVG_2 from '../Helpers/AddBtn/AddBtnSVG_2';
 import ObjectiveIcon from '../../assets/icons/ObjectiveIcon';
 import OrganizationIcon from '../../assets/icons/OrganizationIcon';
 
+import InfluencingActorComponent from '../InfluencingActor/InfluencingActor';
+import ExternalActorIcon from '../../assets/icons/ExternalActorIcon';
+
+import RelatedUnitComponent from '../RelatedUnit/RelatedUnit';
+//Related Unit Component utiliza el organization icon
+
 const ObjectiveComponent = () => {
 
     const {state} = useLitestratContext()
@@ -15,6 +21,8 @@ const ObjectiveComponent = () => {
 
     var scene = state.workspace.scenes[state.workspace.sceneIndex]
     var objectiveRow;
+
+
 
 
     const renderObjectives = () => {
@@ -67,6 +75,50 @@ const ObjectiveComponent = () => {
                     })}
                 
                     <AddBtnSVG_2 roles={scene.tacticSelected.team.roles} isFirst={scene.tacticSelected.objectives.length === 0} SVG={ObjectiveIcon} title="Nombre de Objetivo" description="Description" addElement={addElement} type="objective" />
+                
+                    <div style={{position: 'relative'}}>
+                            <div className="ExternalInfluencedActorsContinaer" 
+                                style={{
+                                    position: 'absolute',
+                                    top: '-350px',
+                                    left: '740px',
+                                    width: '300px'
+                                    
+                                }}
+                            >
+
+                                <InfluencingActorComponent externalInfluences={scene.tacticSelected.externalInfluences} team={scene.tacticSelected.team} />
+
+                                <AddBtnSVG_2 teams={state.workspace.teams}  isFirst={scene.tacticSelected.externalInfluences.length === 0} SVG={ExternalActorIcon} title="Actor Influyente Externo" description="Description" addElement={addElement} type="externalInfluence" />
+                            
+
+                            </div>
+
+                    </div>
+
+                    <div style={{position: 'relative'}}>
+                            <div className="RelatedUnitsContainer" 
+                                style={{
+                                    position: 'absolute',
+                                    top: '250px',
+                                    left: '-400px',
+                                    width: '300px',
+                                    display:'flex',
+                                    flexDirection:'row',
+                                    zIndex: '100'
+                                    
+                                }}
+                            >
+
+                                <RelatedUnitComponent relatedUnits={scene.tacticSelected.relatedUnits} team={scene.tacticSelected.team} />
+
+                                <AddBtnSVG_2  isFirst={scene.tacticSelected.relatedUnits.length === 0} SVG={OrganizationIcon} title="Unidad Organizacional Relacionada" description="Description" addElement={addElement} type="relatedUnit" customStyle={{display:'flex', alignItems:'flex-start'}} />
+                            
+
+                            </div>
+
+                    </div>
+                
                 </div>
             )
         } else {

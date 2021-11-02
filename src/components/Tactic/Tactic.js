@@ -9,6 +9,8 @@ import PencilIcon from '../../assets/icons/PencilIcon';
 import AddBtnSVG_2 from '../Helpers/AddBtn/AddBtnSVG_2';
 import TacticIcon from '../../assets/icons/TacticIcon';
 
+
+
 const TacticComponent = () => {
 
 
@@ -71,6 +73,9 @@ const TacticComponent = () => {
                     })}
                 
                     <AddBtnSVG_2 teams={state.workspace.teams} isFirst={scene.strategySelected.tactics.length === 0} SVG={TacticIcon} title="Nombre de Táctica" description="Description" addElement={addElement} type="tactic" />
+                
+                    
+                
                 </div>
             )
         } else {
@@ -97,6 +102,8 @@ const TacticComponent = () => {
                     }>
 
                         {renderTactics()}
+
+                        
 
 
             </div>

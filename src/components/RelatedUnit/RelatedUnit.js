@@ -2,34 +2,46 @@ import React, {Fragment} from 'react'
 import { useLitestratContext } from '../Litestrat/LitestratContext'
 import { useLitestratCrudContext } from '../Litestrat/LitestratCrudContext'
 
-import InfluencingActorView from './InfluencingActor.view'
+import RelatedUnitView from './RelatedUnit.view.js'
 import EditWrapper from '../Base/EditWrapper'
 import PencilIcon from '../../assets/icons/PencilIcon'
 
 import ReceiveArrowIcon from '../../assets/icons/ReceiveArrowIcon'
 import SendArrowIcon from '../../assets/icons/SendArrowIcon'
 
-const InfluencingActorComponent = ({externalInfluences}) => {
+import InfluencingOrgIcon from '../../assets/png/InfluencingOrgIcon.png'
+import InfluencingByOrgIcon from '../../assets/png/InfluencingByOrgIcon.png'
+
+const RelatedUnitComponent = ({team, relatedUnits}) => {
 
     const {state} = useLitestratContext()
     const {addElement, editElement, selectElement} = useLitestratCrudContext()
+ 
+    console.log("Entering into RelatedUnitComponent, Team Props inside is: ",team)
 
     var scene = state.workspace.scenes[state.workspace.sceneIndex]
-    var iActors =  externalInfluences.map((externalInfluence,index) => {
+    var iRelUnits =  relatedUnits.map((relatedUnit,index) => {
+
+        console.log("Present Related Unit inside Map: ",relatedUnit)
+
+
+
+        
+    
 
         var icon
-        if(externalInfluence.isInfluencer){
+        if(relatedUnit.isInfluencer){
             //Flecha hacia la organización
-            icon = <SendArrowIcon />
+            icon = InfluencingOrgIcon
 
 
         } else {
-            //Flecha hacia el actor
-            icon = <ReceiveArrowIcon/>
+            //Flecha hacia la unidad organizacional relacionada
+            icon = InfluencingByOrgIcon
         }
 
         var isCurrentSelected = false
-        if(externalInfluence.currentSelect){
+        if(relatedUnit.currentSelect){
             isCurrentSelected = true
         }
 
@@ -37,24 +49,28 @@ const InfluencingActorComponent = ({externalInfluences}) => {
 
 
         return (
-                <div className="ExternalInflContainerZ" style={{ display: 'flex'}}>
-                    <div style={{display: 'flex', alignItems: 'center'}}>
-                        {/**Arrow ICON */}
-                        {icon}
+                <div className="RelatedUnitContainerZ" style={{ display: 'flex', flexDirection:'column'}}>
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
+                        <div >
+                            {/**Arrow ICON */}
+                            <img src={icon} />
+
+                        </div>
+                        
                     </div>
 
                     <div>
                         {/**Element ICON */}
-                        <InfluencingActorView externalInfluence={externalInfluence} onClick={() => selectElement(index,externalInfluence,'externalInfluence')} />
+                        <RelatedUnitView options={state.workspace.teams} teams={state.workspace.teams} relatedUnit={relatedUnit} onClick={() => selectElement(index,relatedUnit,'relatedUnit')} />
                     </div>
 
-                    {/** Edit Icon */}
+                    {/* Edit Icon */}
                     <div style={{position: 'relative'}}>
                         <div 
                             style={{
                                 position: 'absolute',
-                                top: '-10px',
-                                left: '-130px',
+                                top: '-75px',
+                                left: '60px',
                                 display: 'flex',
                                 zIndex: 10,
                                 
@@ -64,7 +80,7 @@ const InfluencingActorComponent = ({externalInfluences}) => {
                             
                             { isCurrentSelected ? 
                                 (
-                                    <EditWrapper options={state.workspace.teams} index={index}  element={externalInfluence} editElement={editElement} type={"externalInfluence"}>
+                                    <EditWrapper team={team} index={index}  element={relatedUnit} editElement={editElement} type={"relatedUnit"}>
                                         <PencilIcon />
                                     </EditWrapper>
 
@@ -79,11 +95,11 @@ const InfluencingActorComponent = ({externalInfluences}) => {
             
     })
 
-    console.log(iActors)
+    console.log(iRelUnits)
 
-    return iActors
+    return iRelUnits
 
 
 }
 
-export default InfluencingActorComponent;
+export default RelatedUnitComponent;

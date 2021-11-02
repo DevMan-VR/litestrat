@@ -2,10 +2,10 @@ import React from 'react'
 import btnAdd from '../../../assets/png/btnAdd.png'
 import AddBtnWrapper from './AddBtnWrapper.js'
 
-const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, type}) => {
+const AddBtnSVG_2 = ({ roles=[], teams=[], isFirst, SVG, title, type, customStyle}) => {
 
     var addBtn
-
+    let marginTop = "2em"
     var options
     if(roles.length > 0){
         //Quiere decir que viene con roles y se pasa este argumento options
@@ -13,18 +13,20 @@ const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, type
     } else if (teams.length > 0){
         //Quiere decir que viene con teams y se pasa como argumento options
         options = teams
-    } else if (tactics.length > 0){
-        options = tactics
     } else {
         options = []
     }
 
 
+    if(type==="relatedUnit"){
+        marginTop = "6em"
+    }
+
 
     if(isFirst){
        addBtn = ( 
            
-            <div style={styles.containerStyle}>
+            <div style={{...styles.containerStyle, ...customStyle}}>
 
                 <div style={styles.icon}>
                
@@ -63,7 +65,7 @@ const AddBtnSVG_2 = ({ tactics=[], roles=[], teams=[], isFirst, SVG, title, type
                 }}>
 
               <AddBtnWrapper  options={options} type={type}>
-                <img style={{marginTop: '2em'}} src={btnAdd} alt="ADD" />
+                <img style={{marginTop: marginTop}} src={btnAdd} alt="ADD" />
               </AddBtnWrapper>
                 
             </div>

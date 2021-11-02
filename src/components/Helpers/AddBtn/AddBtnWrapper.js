@@ -12,6 +12,7 @@ import { CreatableExternalActor } from '../Creatable/CreatableExternalActor';
 import { CreatableTactic } from '../Creatable/CreatableTactic';
 import { CreatableObjective } from '../Creatable/CreatableObjective';
 import { CreatableExternalInfluence } from '../Creatable/CreatableExternalInfluence';
+import { CreatableRelatedUnit } from '../Creatable/CreatableRelatedUnit';
 
 import Datepicker from '../Datepicker';
 import {teamsDummy} from '../../../data/dummy'
@@ -78,7 +79,7 @@ const style = {
 
     const [error, setError] = useState('')
 
-    const [assocTactic, setAssocTactic] = useState(null)
+    const [assocTeam, setAssocTeam] = useState(null)
     const [isInfluencer, setIsInfluencer] = useState(false)
 
     const [open, setOpen] = React.useState(false);
@@ -109,6 +110,8 @@ const style = {
     let isObjective = false
     let isExternalActor = false
     let isExternalInfluence = false
+    let isRelatedUnit = false
+
     let descriptionLabel = "Descripción"
     let titleLabel = "Título"
     let firstTimeExternalActor ="some"
@@ -145,6 +148,13 @@ const style = {
           elementType = "Actor Influyente Externo"
           isExternalInfluence = true
           titleLabel = "¿Como se llama el Actor Influyente Externo?"
+          descriptionLabel ="Ingresa el nombre del producto o servicio"
+
+        case 'relatedUnit':
+          elementTitle = "Nueva Unidad Organizacional Relacionada"
+          elementType = "Unidad Organizacional Relacionada"
+          isRelatedUnit = true
+          titleLabel = "¿Como se llama la Unidad Organizacional Relacionada?"
           descriptionLabel ="Ingresa el nombre del producto o servicio"
             
     }
@@ -218,7 +228,15 @@ const style = {
           break;
 
           case 'externalInfluence':
-          if(!title || !description || isInfluencer === null || !assocTactic ){
+          if(!title || !description || isInfluencer === null || !assocTeam ){
+            setError("Todos los campos deben ser llenados*")
+            hasError = false
+          } else {
+            hasError = true
+          }
+
+          case 'relatedUnit':
+          if(!title || !description || isInfluencer === null ){
             setError("Todos los campos deben ser llenados*")
             hasError = false
           } else {
@@ -276,8 +294,8 @@ const style = {
         element.role = role
       } else if(isTactic){
         element.team = team
-      } else if (isExternalInfluence){
-        element.associatedTactic = assocTactic
+      } else if (isExternalInfluence || isRelatedUnit){
+        element.associatedTeam = assocTeam
         element.isInfluencer = isInfluencer
       }
 
@@ -297,7 +315,7 @@ const style = {
 
     const renderCreatable = () => {
 
-      if(!isTactic && !isObjective && !isExternalActor && !isExternalInfluence) {
+      if(!isTactic && !isObjective && !isExternalActor && !isExternalInfluence && !isRelatedUnit) {
         return (<Fragment/>)
       }
 
@@ -330,30 +348,6 @@ const style = {
         })
 
         return (<CreatableObjective options={optionsCreatable} type={type} setData={setRole}/>)
-
-      } else if(isExternalActor){
-        //No options at first...
-        
-        return (<Fragment></Fragment>)
-        
-        //return (<CreatableExternalActor setData={setOrganization} />)
-
-
-      } else if(isExternalInfluence){
-
-        console.log("External Influences ALL Tactics are.. ", options)
-
-        optionsCreatable = options.map((tactic) => {
-          return {
-            label: tactic.title,
-            value: tactic.title,
-            id: tactic.id
-          }
-        })
-
-        console.log("Options for External Influence ARE: ", optionsCreatable)
-
-        return (<CreatableExternalInfluence options={optionsCreatable} type={type} setData={setAssocTactic}/>)
 
       }
 
@@ -388,6 +382,44 @@ const style = {
               onChange={() => setIsInfluencer(false)}
               control={<Radio style={{marginLeft: '0.5em'}}  color="primary" />}
               label="Recibe un producto o servicio de la organización"
+              labelPlacement="start"
+            />
+
+          </RadioGroup>
+        </FormControl>
+
+        
+            
+          
+          
+        )
+
+      }  else if (isRelatedUnit) {
+
+        return(
+          <FormControl component="fieldset">
+          <FormLabel component="legend" style={{marginBottom: '0.7em'}}>Tipo de Influencia</FormLabel>
+          <RadioGroup
+            aria-label="gender"
+            name="gender2"
+
+            
+          >
+            <FormControlLabel
+              value={true}
+              checked={isInfluencer}
+              onChange={() => setIsInfluencer(true)}
+              control={<Radio style={{marginLeft: '0.5em'}}  color="primary" />}
+              label="Influencia a la unidad organizacional"
+              labelPlacement="start"
+              style={{marginBottom: '0.7em'}}
+            />
+            <FormControlLabel
+              checked={!isInfluencer}
+              value={false}
+              onChange={() => setIsInfluencer(false)}
+              control={<Radio style={{marginLeft: '0.5em'}}  color="primary" />}
+              label="Es influenciado por la unidad organizacional"
               labelPlacement="start"
             />
 

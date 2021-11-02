@@ -18,6 +18,7 @@ class Scene {
         this.externalInfluenceSelected = null
         this.allTactics = []
         this.externalInfluences = []
+        this.relatedUnits = []
         this.currentSelected = null
         
     }

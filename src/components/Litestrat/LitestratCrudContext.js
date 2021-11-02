@@ -9,6 +9,7 @@ import Tactic from '../Tactic/Tactic.model.js';
 import Objective from '../Objective/Objective.model.js';
 import ExternalActor from '../ExternalActor/ExternalActor.model.js';
 import ExternalInfluence from '../InfluencingActor/InfluencingActor.model.js';
+import RelatedUnit from '../RelatedUnit/RelatedUnit.model';
 
 const LitestratCrudContext = React.createContext()
 
@@ -61,11 +62,33 @@ const LitestratCrudProvider = ({children}) => {
                 var index = Math.floor(Math.random()*10)
                 var idExternalInfluence = "EX_ACT_INF"+index
 
-                var externalInfluence = new ExternalInfluence(idExternalInfluence,null,null,data.title,data.description,data.associatedTactic)
+                var externalInfluence = new ExternalInfluence(idExternalInfluence,null,null,data.title,data.description,data.associatedTeam)
                 externalInfluence.isInfluencer = data.isInfluencer
 
+                externalInfluence.team = updatedScene.tacticSelected.team
                 //Adding External Influencer & Organization
-                updatedScene.externalInfluences.push(externalInfluence)
+                updatedScene.tacticSelected.externalInfluences.push(externalInfluence)
+                var scenes = [...state.workspace.scenes]
+                scenes[state.workspace.sceneIndex] = updatedScene
+                var newState = {...state}
+                newState.workspace.scenes = scenes
+
+                setState(newState)
+                break;
+
+
+            case 'relatedUnit':
+    
+                var index = Math.floor(Math.random()*10)
+                var idRelatedUnit = "RELATED_UNIT_"+index
+
+                var relatedUnit = new RelatedUnit(idRelatedUnit,null,null,data.title,data.description)
+                relatedUnit.associatedTeam = updatedScene.tacticSelected.team.id
+                relatedUnit.isInfluencer = data.isInfluencer
+
+                //Adding External Influencer & Organization
+                updatedScene.tacticSelected.relatedUnits.push(relatedUnit)
+
                 var scenes = [...state.workspace.scenes]
                 scenes[state.workspace.sceneIndex] = updatedScene
                 var newState = {...state}
@@ -210,14 +233,18 @@ const LitestratCrudProvider = ({children}) => {
         var updatedScene = {...scene}
         var newState = {...state}
 
+        console.log("This is the type of editing element === ", type)
+        console.log("This is the index received: ", index)
+
         switch(type){
             case 'scene': updatedScene.title = updatedElement; break;
             case 'externalActor': updatedScene.externalActor = {...updatedElement}; break;
+            case 'relatedUnit': updatedScene.tacticSelected.relatedUnits[index] = {...updatedElement}; break;
             case 'goal': updatedScene.organization.goals[index] = {...updatedElement}; break;
             case 'strategy': updatedScene.organization.goals[scene.goalSelected.index].strategies[index] = {...updatedElement}; break;
             case 'tactic': updatedScene.organization.goals[scene.goalSelected.index].strategies[scene.strategySelected.index].tactics[index] = {...updatedElement}; break;
             case 'objective': updatedScene.organization.goals[scene.goalSelected.index].strategies[scene.strategySelected.index].tactics[scene.tacticSelected.index].objectives[index] = {...updatedElement}; break;
-            case 'externalInfluence': updatedScene.externalInfluences[index] = {...updatedElement}; break;
+            case 'externalInfluence': updatedScene.tacticSelected.externalInfluences[index] = {...updatedElement}; break;
             case 'team': updatedScene.selectedTeam = {...updatedElement}; break;
             case 'role': updatedScene.selectedRole = {...updatedElement}; break;
         }
@@ -267,6 +294,20 @@ const LitestratCrudProvider = ({children}) => {
                 scene = currentSelect(oldScene, scene, externalActor)
 
                 console.log("Selecting external actor: ", element)
+                updatedScenes[state.workspace.sceneIndex] = scene
+
+            break;
+
+            case 'relatedUnit':
+
+                scene.relatedUnitSelected = false;
+                var relatedUnit = element;
+                relatedUnit.isSelected = !relatedUnit.isSelected;
+                scene.relatedUnitSelected = relatedUnit
+
+                scene = currentSelect(oldScene, scene, relatedUnit)
+
+                console.log("Selecting related unit: ", element)
                 updatedScenes[state.workspace.sceneIndex] = scene
 
             break;
@@ -383,7 +424,10 @@ const LitestratCrudProvider = ({children}) => {
             tactic.index = index
             tactic.isSelected = true
 
+            let relatedUnits = scene.relatedUnits.filter((rUnit) => rUnit.associatedTeam && (rUnit.associatedTeam.id === tactic.team.id))
+
             scene.tacticSelected = tactic
+
             //scene.goals[scene.goalSelected.index].strategies[scene.strategySelected.index].tactics[index].isSelected = true;
             scene = currentSelect(oldScene, scene, tactic)
 
@@ -450,8 +494,14 @@ const LitestratCrudProvider = ({children}) => {
 
             case 'externalInfluence':
                 var externalInfluenceSelected = scene.externalInfluenceSelected
-                updatedScene.externalInfluences.splice(externalInfluenceSelected.index, 1)
+                updatedScene.tacticSelected.externalInfluences.splice(externalInfluenceSelected.index, 1)
                 updatedScene.externalInfluenceSelected = null
+                break;
+
+            case 'relatedUnit':
+                var relatedUnitSelected = scene.relatedUnitSelected
+                updatedScene.tacticSelected.relatedUnits.splice(relatedUnitSelected.index, 1)
+                updatedScene.relatedUnitSelected = null
                 break;
 
             case 'goal':

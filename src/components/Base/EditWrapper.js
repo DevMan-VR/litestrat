@@ -9,6 +9,7 @@ import { CreatableTactic } from '../Helpers/Creatable/CreatableTactic';
 import { CreatableObjective } from '../Helpers/Creatable/CreatableObjective';
 
 import { CreatableExternalInfluence } from '../Helpers/Creatable/CreatableExternalInfluence';
+import { CreatableRelatedUnit } from '../Helpers/Creatable/CreatableRelatedUnit';
 
 import Datepicker from '../Helpers/Datepicker';
 import { teamsDummy } from '../../data/dummy';
@@ -72,7 +73,7 @@ const style = {
 
 
 
-const EditWrapper = ({index=null, options=[], element, children, type}) => {
+const EditWrapper = ({index=null, options=[], element, children, type, teamProp}) => {
 
   const {editElement, removeElement} = useLitestratCrudContext()
 
@@ -89,7 +90,6 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
   const [organization, setOrganization] = useState(null) //External Actor & External Influence
   const [team, setTeam] = useState(null) //Tactics
   const [role, setRole] = useState(null) //Objectives
-  const [tactic, setTactic] = useState(null) //External Influence
   const [isInfluencer, setIsInfluencer] = useState(false)
 
   const [error, setError] = useState('')
@@ -105,36 +105,16 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
     setDescription(element.description)
     switch(type){
       case 'externalActor': setOrganization(element.influencedOrganization); break;
-      case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTactic(element.associatedTactic); break;
+      case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTeam(teamProp); break;
       case 'tactic': setTeam(element.team); break;
       case 'objective': setRole(element.role); break;
+      case 'relatedUnit': setIsInfluencer(element.isInfluencer); setTeam(teamProp); break;
     }
     
 
     
 
 }, [])
-
-
-
-  
-
-  
-
-
-/*
-    const initOrg = () => {
-        let value = "some"
-        switch(type){
-            case 'externalActor':
-                if(element && element.influencedOrganization){
-                    value = element.influencedOrganization
-                }
-        }
-
-        return value
-    }
- */
 
 
 
@@ -147,6 +127,7 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
     let isObjective = false
     let isExternalActor = false
     let isExternalInfluence = false
+    let isRelatedUnit = false
     let descriptionLabel = "Descripción"
     let titleLabel = "Título"
     let firstTimeExternalActor = "Ingresa el nombre de tu organización"
@@ -187,6 +168,13 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
           isExternalInfluence = true
           titleLabel = "¿Como se llama el Actor Influyente Externo?"
           descriptionLabel ="Ingresa el nombre del producto o servicio"
+
+        case 'relatedUnit':
+          elementTitle = "Nueva Unidad Organizacional Relacionada"
+          elementType = "Unidad Organizacional Relacionada"
+          isRelatedUnit = true
+          titleLabel = "¿Como se llama la Unidad Organizacional Relacionada?"
+          descriptionLabel ="Ingresa el nombre del producto o servicio"
             
     }
 
@@ -216,8 +204,9 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
       }
 
       const handleSubmit = (e) => {
-        console.log("EDITING AN EXTERNAL ACTOR!")
         e.preventDefault()
+
+        console.log("NOW TYPE IS ::: ", type)
 
         if(!checkErrors(type)){ //Si el chequeo de errores sale negativo retorna vacio
           return
@@ -240,7 +229,17 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
                 ...element,
                 title: title,
                 description: description,
-                associatedTactic: tactic,
+                associatedTeam: team,
+                isInfluencer: isInfluencer
+              }
+              break;
+
+            case 'relatedUnit':
+              newElement = {
+                ...element,
+                title: title,
+                description: description,
+                associatedTeam: team,
                 isInfluencer: isInfluencer
               }
               break;
@@ -285,9 +284,9 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
               break;
 
         }
-
-        editElement(index, newElement, type)
         setOpen(false)
+        editElement(index, newElement, type)
+        
       }
 
 
@@ -295,7 +294,7 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
 
       const renderCreatable = () => {
 
-        if(!isTactic && !isObjective && !isExternalActor && !isExternalInfluence) {
+        if(!isTactic && !isObjective && !isExternalActor && !isExternalInfluence && !isRelatedUnit) {
           return (<Fragment/>)
         }
 
@@ -352,44 +351,9 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
 
           return (<CreatableObjective value={value} options={optionsCreatable} type={type} setData={setRole}/>)
 
-        } else if(isExternalActor){
-          //No options at first...
-          
-          return (<Fragment></Fragment>)
-          
-          //return (<CreatableExternalActor setData={setOrganization} />)
-
-
-        } else if(isExternalInfluence){
-
-          console.log("External Influences Tactics are.. ", tactic)
-
-          var value;
-          if(tactic){
-            value = {
-              label: tactic.label,
-              value: tactic.value,
-              id: tactic.id
-            }
-
-            console.log("VALUE IS: ", value)
-          } else {
-            optionsCreatable = options.map((tact) => {
-              return {
-                label: tact.title,
-                value: tact.title,
-                id: tact.id
-              }
-            })
-          }
-
-          
-
-          console.log("Options for External Influence ARE: ", optionsCreatable)
-
-          return (<CreatableExternalInfluence value={value} options={optionsCreatable} type={type} setData={setTactic}/>)
-
         }
+
+        
 
         
       }
@@ -443,6 +407,15 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
             } else {
               hasError = true
             }
+
+
+            case 'relatedUnit':
+            if(!title || !description ){
+              setError("Todos los campos deben ser llenados*")
+              hasError = false
+            } else {
+              hasError = true
+            }
     
             break;
         }
@@ -479,6 +452,44 @@ const EditWrapper = ({index=null, options=[], element, children, type}) => {
                 onChange={() => setIsInfluencer(false)}
                 control={<Radio style={{marginLeft: '0.5em'}}  color="primary" />}
                 label="Recibe un producto o servicio de la organización"
+                labelPlacement="start"
+              />
+  
+            </RadioGroup>
+          </FormControl>
+  
+          
+              
+            
+            
+          )
+  
+        } else if (isRelatedUnit) {
+
+          return(
+            <FormControl component="fieldset">
+            <FormLabel component="legend" style={{marginBottom: '0.7em'}}>Tipo de Influencia</FormLabel>
+            <RadioGroup
+              aria-label="gender"
+              name="gender2"
+  
+              
+            >
+              <FormControlLabel
+                value={true}
+                checked={isInfluencer}
+                onChange={() => setIsInfluencer(true)}
+                control={<Radio style={{marginLeft: '0.5em'}}  color="primary" />}
+                label="Influencia a la unidad organizacional"
+                labelPlacement="start"
+                style={{marginBottom: '0.7em'}}
+              />
+              <FormControlLabel
+                checked={!isInfluencer}
+                value={false}
+                onChange={() => setIsInfluencer(false)}
+                control={<Radio style={{marginLeft: '0.5em'}}  color="primary" />}
+                label="Es influenciado por la unidad organizacional"
                 labelPlacement="start"
               />
   

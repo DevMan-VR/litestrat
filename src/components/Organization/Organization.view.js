@@ -6,8 +6,7 @@ import GoalsComponent from '../Goal/GoalsComponent';
 import StrategyComponent from '../Strategy/Strategy';
 import TacticComponent from '../Tactic/Tactic';
 import ObjectiveComponent from '../Objective/Objective';
-import InfluencingActorComponent from '../InfluencingActor/InfluencingActor';
-import ExternalActorIcon from '../../assets/icons/ExternalActorIcon';
+
 
 import { Gray1 } from '../../constants/Colors';
 import AddBtnSVG_2 from '../Helpers/AddBtn/AddBtnSVG_2';
@@ -58,26 +57,7 @@ const OrganizationView = () => {
             </div>
 
 
-            <div style={{position: 'relative'}}>
-                <div className="ExternalInfluencedActorsContinaer" 
-                    style={{
-                        position: 'absolute',
-                        top: '-600px',
-                        left: '1250px',
-                        width: '300px',
-                        height: '550px',
-                        
-                    }}
-                >
-
-                    <InfluencingActorComponent />
-
-                    <AddBtnSVG_2 tactics={state.workspace.scenes[state.workspace.sceneIndex].allTactics}  isFirst={scene.externalInfluences.length === 0} SVG={ExternalActorIcon} title="Actor Influyente Externo" description="Description" addElement={addElement} type="externalInfluence" />
-                
-
-                </div>
-
-            </div>
+           
         </Fragment>
     )
 }
