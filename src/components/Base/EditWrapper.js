@@ -111,7 +111,13 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
       case 'relatedUnit': setIsInfluencer(element.isInfluencer); setTeam(teamProp); break;
     }
     
-
+    switch(type){
+      case 'goal': setUntil(element.until); break;
+      case 'strategy': setUntil(element.until); break;
+      case 'tactic': setUntil(element.until); break;
+      case 'objective': setUntil(element.until); break;
+    }
+    
     
 
 }, [])
@@ -512,7 +518,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
         if(isExternalActor){
           return <Fragment />
         } else {
-          return <Datepicker setUntil={setUntil} />
+          return <Datepicker setUntil={setUntil} until={until} />
         }
       }
 

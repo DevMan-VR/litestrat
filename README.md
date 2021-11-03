@@ -75,3 +75,10 @@ El paso siguiente es:
 
 
 Tengo que rehacer la lógica de filtros para Influencias Externas y Unidades Relacionadas, de manera que se ingrese automatico el team en ellas y se filtren segun tacticSelected / team OKKK esta hecho, ahora las tacticas tienen influencias externas y unidades relacionadas, estos se filtran segun la tacticSelected de forma automatica:D
+
+
+*** Agregar un apartado de configuraciones, en estas se pueden ingresar parametros asociados a los plazos:
+- Se puede activar o desactivar el mostrar el estado de los elementos debido a su fecha. (por default activado solo para los elementos que están seleccionados...)
+- Se define cuantos dias significan atraso, precaucion y verde (por default V>=7, A>=3 y A<7, R<3)
+- Se puede activar o desactivar la presencia de influencias externas (por default activado)
+- Se puede activar o desactivar la presencia de unidades relacionadas (por default activado)

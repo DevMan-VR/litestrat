@@ -7,9 +7,9 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const  Datepicker = ({setUntil}) => {
+const  Datepicker = ({setUntil, until}) => {
   // The first commit of Material-UI
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedDate, setSelectedDate] = React.useState(until);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);

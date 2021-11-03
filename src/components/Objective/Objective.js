@@ -51,7 +51,7 @@ const ObjectiveComponent = () => {
                                         style={{
                                             position: 'absolute',
                                             top: '11px',
-                                            left: '-218px',
+                                            left: '-232px',
                                             display: 'flex',
                                             zIndex: 50,
                                             

@@ -6,10 +6,18 @@ import PencilIcon from '../../assets/icons/PencilIcon'
 import EditWrapper from './EditWrapper'
 import RoleIcon from '../../assets/icons/RoleIcon'
 
+import goodTime from '../../assets/png/goodTime.png'
+import warningTime from '../../assets/png/warningTime.png'
+import badTime from '../../assets/png/badTime.png'
+import { addSeconds } from 'date-fns'
+
 const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, type}) => {
 
 
     const maxLength = 20;
+
+    const goodRange = 7; //days
+    const warningRange = 3; //days
 
     const {isSelected} = element
 
@@ -174,6 +182,47 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
     }
 
 
+    const hasTimeDuration = () => {
+        let hasDuration = false;
+        switch(type){
+            case 'goal': hasDuration = true; break;
+            case 'strategy': hasDuration = true; break;
+            case 'tactic' : hasDuration = true; break;
+            case 'objective': hasDuration = true; break;
+        }
+
+        return hasDuration
+    }
+
+    const addDays = (date, days) => {
+        var result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+      }
+
+
+    let imgTimeIcon
+    if(hasTimeDuration()){
+        let today = new Date()
+        if(element.until >= addDays(today,goodRange)){
+            imgTimeIcon = goodTime
+
+        } else if (element.until < addDays(today,goodRange) && element.until >= addDays(today,warningRange)){
+            //WARNING TIME RANGE
+            imgTimeIcon = warningTime
+            
+
+        } else if(element.until < addDays(today,warningRange)){
+            //BAD TIME RANGE
+            imgTimeIcon = badTime
+        }
+
+    }
+            
+    
+
+
+    
 
     return(
         <div  >
@@ -209,7 +258,21 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
                     <Fragment></Fragment>
             } 
 
-
+            {
+                hasTimeDuration() ?
+                (
+                    <div className="ElementRelContainerTime" style={{display:'flex', position:'relative'}}>
+                        <div className="ElementAbsContainerTime"style={{display:'flex', position: 'absolute', left: type === 'objective' ? '255px': '164px', top:'-82px'}}>
+                            <img src={imgTimeIcon} />
+                        </div>
+                    </div>
+                ) 
+                :
+                (
+                    <Fragment/>
+                )
+            }
+            
                         
         </div>
     )
