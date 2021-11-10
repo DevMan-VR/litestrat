@@ -143,12 +143,15 @@ const style = {
             elementType = "Objetivo"
             isObjective = true
             break;
+            
         case 'externalInfluence':
           elementTitle = "Nuevo Actor Influyente Externo"
           elementType = "Actor Influyente Externo"
           isExternalInfluence = true
           titleLabel = "¿Como se llama el Actor Influyente Externo?"
           descriptionLabel ="Ingresa el nombre del producto o servicio"
+          break;
+          
 
         case 'relatedUnit':
           elementTitle = "Nueva Unidad Organizacional Relacionada"
@@ -156,6 +159,7 @@ const style = {
           isRelatedUnit = true
           titleLabel = "¿Como se llama la Unidad Organizacional Relacionada?"
           descriptionLabel ="Ingresa el nombre del producto o servicio"
+          break;
             
     }
 
@@ -199,7 +203,7 @@ const style = {
           break;
         case 'goal':
         case 'strategy':
-          if(!title || !description || !until){
+          if(!title || !description ){
             setError("Todos los campos deben ser llenados*")
             hasError = false
           } else {
@@ -208,7 +212,7 @@ const style = {
           break;
 
         case 'tactic':
-          if(!title || !description || !until || !team){
+          if(!title || !description || !team){
             setError("Todos los campos deben ser llenados*")
             hasError = false
           } else {
@@ -218,7 +222,7 @@ const style = {
           break;
 
           case 'objective':
-          if(!title || !description || !until || !role){
+          if(!title || !description || !role){
             setError("Todos los campos deben ser llenados*")
             hasError = false
           } else {

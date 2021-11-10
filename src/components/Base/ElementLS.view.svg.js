@@ -183,6 +183,10 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
 
     const hasTimeDuration = () => {
+        if(element.until === null){
+            return false;
+        }
+
         let hasDuration = false;
         switch(type){
             case 'goal': hasDuration = true; break;
@@ -203,6 +207,8 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
     let imgTimeIcon
     if(hasTimeDuration()){
+
+
         let today = new Date()
         if(element.until >= addDays(today,goodRange)){
             imgTimeIcon = goodTime

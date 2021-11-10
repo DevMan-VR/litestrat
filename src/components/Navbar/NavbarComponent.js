@@ -1,8 +1,13 @@
 import React, {Fragment} from 'react'
 import NavbarContainer from './NavbarContainer.js'
 import NavItem from './NavItem'
+
+
 import DropdownItemScene from './DropdownItemScene.js'
 import DropdownItemShowJSON from './DropdownItemShowJSON.js'
+import DropdownItemLoadJSON from './DropdownItemLoadJSON.js'
+
+
 import AddItem from './AddItem.js'
 
 import { useLitestratContext } from '../Litestrat/LitestratContext'
@@ -35,6 +40,7 @@ const NavbarComponent = () => {
             <NavItem icon={<DbIcon/>} className="jsonData" title="Datos" isDropdown={true}>
                 <DropdownItemShowJSON type={"current"} />
                 <DropdownItemShowJSON type={"all"}/>
+                <DropdownItemLoadJSON />
 
                 
             </NavItem>
