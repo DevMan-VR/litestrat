@@ -193,6 +193,12 @@ const LitestratCrudProvider = ({children}) => {
                 }
 
                 //Adding a new Tactic
+                if(updatedScene.allTactics){
+                    updatedScene.allTactics.push(tactic)
+                } else {
+                    updatedScene.allTactics = []
+                    updatedScene.allTactics.push(tactic)
+                }
                 updatedScene.allTactics.push(tactic)
                 updatedScene.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.push(tactic)
                 tactic.index = updatedScene.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.length-1
