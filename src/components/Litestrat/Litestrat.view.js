@@ -69,10 +69,10 @@ const styles = {
         flexDirection: 'column',
         //marginTop: '3em',
         marginLeft: '15em',
-        backgroundColor: 'whitesmoke',
+        backgroundColor: 'white',
         minWidth: '1000px',
         width: '100%',
-        height: '700px',
+        height: '970px',
         boxShadow: "-2px 2px 10px #9E9E9E",
         borderRadius: '4em'
 

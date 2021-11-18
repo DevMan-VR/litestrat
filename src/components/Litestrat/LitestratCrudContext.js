@@ -57,11 +57,17 @@ const LitestratCrudProvider = ({children}) => {
                 var externalActor = new ExternalActor(idExternalActor,null,null,data.title,data.influenceDescription,data.influencedOrganization)
                 
                 //Adding External Actor & Organization
+                externalActor.externalActor = data.externalActor
+
+
                 updatedScene.externalActor = externalActor
                 updatedScene.organization = new Organization()
                 var scenes = [...state.workspace.scenes]
                 scenes[state.workspace.sceneIndex] = updatedScene
                 var newState = {...state}
+
+                newState.workspace.externalActors.push(externalActor.externalActor)
+
                 newState.workspace.scenes = scenes
 
                 setState(newState)
@@ -79,10 +85,12 @@ const LitestratCrudProvider = ({children}) => {
                 externalInfluence.team = updatedScene.tacticSelected.team
                 //Adding External Influencer & Organization
                 updatedScene.tacticSelected.externalInfluences.push(externalInfluence)
+                updatedScene.externalInfluences.push(externalInfluence)
                 var scenes = [...state.workspace.scenes]
                 scenes[state.workspace.sceneIndex] = updatedScene
                 var newState = {...state}
                 newState.workspace.scenes = scenes
+                newState.workspace.externalInfluences.push(externalInfluence)
 
                 setState(newState)
                 break;
@@ -94,7 +102,8 @@ const LitestratCrudProvider = ({children}) => {
                 var idRelatedUnit = "RELATED_UNIT_"+index
 
                 var relatedUnit = new RelatedUnit(idRelatedUnit,null,null,data.title,data.description)
-                relatedUnit.associatedTeam = updatedScene.tacticSelected.team.id
+                relatedUnit.associatedTeamId = updatedScene.tacticSelected.team.id
+                relatedUnit.associatedTeam = updatedScene.tacticSelected.team
                 relatedUnit.isInfluencer = data.isInfluencer
 
                 //Adding External Influencer & Organization
@@ -199,7 +208,6 @@ const LitestratCrudProvider = ({children}) => {
                     updatedScene.allTactics = []
                     updatedScene.allTactics.push(tactic)
                 }
-                updatedScene.allTactics.push(tactic)
                 updatedScene.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.push(tactic)
                 tactic.index = updatedScene.organization.goals[goalSelected.index].strategies[strategySelected.index].tactics.length-1
 
@@ -243,18 +251,20 @@ const LitestratCrudProvider = ({children}) => {
                         username: 'John Von Neumann' //por defecto
                     }
 
-                    tacticSelected.team.roles.push(role)
+                    updatedScene.tacticSelected.team.roles.push(role)
 
                 } else {
                     //Si encontró el rol por lo tanto lo relaciona
                     console.log("Se encuentra el rol y se asigna")
-                    role = tacticSelected.team.roles[roleIndex]
+                    role = updatedScene.tacticSelected.team.roles[roleIndex]
                 }
 
                 objective.role = role
 
+                updatedScene.tacticSelected.objectives.push(objective)
                 var newState = {...state}
-                newState.workspace.scenes[state.workspace.sceneIndex].organization.goals[goalSelected.index].strategies[strategySelected.index].tactics[tacticSelected.index].objectives.push(objective)
+                newState.workspace.scenes[newState.workspace.sceneIndex] = updatedScene
+                //newState.workspace.scenes[state.workspace.sceneIndex].organization.goals[goalSelected.index].strategies[strategySelected.index].tactics[tacticSelected.index].objectives.push(objective)
                 console.log("NEW OBJECTIVE")
                 console.log(newState)
                 setState(newState)

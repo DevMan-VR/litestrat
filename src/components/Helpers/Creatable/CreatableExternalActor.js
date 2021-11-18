@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 
 import CreatableSelect from 'react-select/creatable';
 
-export const CreatableExternalActor = ({options=null,placeholder, setData}) => {
+export const CreatableExternalActor = ({options=null,placeholder, setTitle, setExternalActor, value}) => {
 
   const handleChange = (newValue, actionMeta) => {
     console.group('Value Changed');
-    console.log(newValue);
-    setData(newValue)
+    console.log(newValue.value);
+    setTitle(newValue.value)
+    setExternalActor(newValue)
     console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
   };
@@ -25,7 +26,8 @@ export const CreatableExternalActor = ({options=null,placeholder, setData}) => {
         onChange={handleChange}
         onInputChange={handleInputChange}
         options={options}
-        placeholder={"¿A que organización influencia?"}
+        defaultValue={value}
+        placeholder={"¿Quien es el Actor Externo?"}
       />
     );
   

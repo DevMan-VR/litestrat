@@ -16,6 +16,7 @@ const ExternalActor = () => {
     var extActor;
     var scene = state.workspace.scenes[state.workspace.sceneIndex]
     var externalActor = scene.externalActor
+    var externalActors = state.workspace.externalActors
 
     if(externalActor){
         var isCurrentSelected = externalActor.currentSelect
@@ -67,7 +68,7 @@ const ExternalActor = () => {
                             
                             { isCurrentSelected ? 
                                 (
-                                    <EditWrapper  element={externalActor} type={"externalActor"}>
+                                    <EditWrapper externalActors={externalActors}  element={externalActor} type={"externalActor"}>
                                         <PencilIcon />
                                     </EditWrapper>
 
@@ -85,7 +86,7 @@ const ExternalActor = () => {
         extActor = (
 
             <div className="InfluencerContainer" style={styles.influencerContainer}>
-                <AddBtnSVG_1 SVG={ExternalActorIcon} title="Nombre del Actor Externo" description="Description" type="externalActor" />
+                <AddBtnSVG_1 externalActors={externalActors} SVG={ExternalActorIcon} title="Nombre del Actor Externo" description="Description" type="externalActor" />
 
             </div>
 

@@ -83,6 +83,11 @@ const style = {
     const [isInfluencer, setIsInfluencer] = useState(false)
 
     const [open, setOpen] = React.useState(false);
+
+    const [externalActor, setExternalActor] = useState(null)
+    const [externalInfluence, setExternalInfluence] = useState(null)
+    const [relatedUnit, setRelatedUnit] = useState(null)
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -194,7 +199,7 @@ const style = {
       switch(type){
         case 'externalActor': 
           //Ningun campo puede estar vacio (title, description, organization)
-          if(!title || !description || !organization){
+          if(!title || !organization){
             setError("Todos los campos deben ser llenados*")
             hasError = false
           } else {
@@ -203,8 +208,8 @@ const style = {
           break;
         case 'goal':
         case 'strategy':
-          if(!title || !description ){
-            setError("Todos los campos deben ser llenados*")
+          if(!title ){
+            setError("Debe llenar el campo de titulo*")
             hasError = false
           } else {
             hasError = true
@@ -212,7 +217,7 @@ const style = {
           break;
 
         case 'tactic':
-          if(!title || !description || !team){
+          if(!title || !team){
             setError("Todos los campos deben ser llenados*")
             hasError = false
           } else {
@@ -222,7 +227,7 @@ const style = {
           break;
 
           case 'objective':
-          if(!title || !description || !role){
+          if(!title || !role){
             setError("Todos los campos deben ser llenados*")
             hasError = false
           } else {
@@ -232,7 +237,7 @@ const style = {
           break;
 
           case 'externalInfluence':
-          if(!title || !description || isInfluencer === null || !assocTeam ){
+          if(!title || isInfluencer === null || !assocTeam ){
             setError("Todos los campos deben ser llenados*")
             hasError = false
           } else {
@@ -240,7 +245,7 @@ const style = {
           }
 
           case 'relatedUnit':
-          if(!title || !description || isInfluencer === null ){
+          if(!title || isInfluencer === null ){
             setError("Todos los campos deben ser llenados*")
             hasError = false
           } else {
@@ -267,6 +272,9 @@ const style = {
         title: title,
         influenceDescription: description, //influence description
         influencedOrganization: organization,
+        externalActor: {
+          title: externalActor.value
+        }
       }
 
       console.log("ACTOR IS: ", element)
@@ -295,12 +303,21 @@ const style = {
       }
 
       if(isObjective){
+
         element.role = role
       } else if(isTactic){
+
         element.team = team
-      } else if (isExternalInfluence || isRelatedUnit){
+      } else if (isExternalInfluence){
+
         element.associatedTeam = assocTeam
         element.isInfluencer = isInfluencer
+        
+      } else if (isRelatedUnit){
+
+        element.associatedTeam = assocTeam
+        element.isInfluencer = isInfluencer
+        element.relatedUnit = relatedUnit
       }
 
       addElement(type, element)
@@ -323,7 +340,7 @@ const style = {
         return (<Fragment/>)
       }
 
-      var optionsCreatable
+      let optionsCreatable
       //var teams = [...teamsDummy]
 
       if(isTactic){
@@ -354,10 +371,49 @@ const style = {
         return (<CreatableObjective options={optionsCreatable} type={type} setData={setRole}/>)
 
       }
-
-      
     }
 
+
+    const renderCreatableExternalActor = () => {
+      let optionsCreatable
+      if (isExternalActor){
+        
+        console.log("OPTIONS FOR External Actor ARE: ", options)
+        //console.log(teams) 
+        //const {roles} = teams[0] //EQUIPO SELECCIONADO
+        //console.log("ROLES:  ",roles)
+        optionsCreatable = options.map((r) => {
+          return {
+            label: r.title,
+            value: r.title
+          }
+        })
+
+        return (<CreatableExternalActor options={optionsCreatable} type={type} setTitle={setTitle} setExternalActor={setExternalActor}/>)
+
+      }
+    }
+
+
+    const renderCreatableRelatedUnit = () => {
+      let optionsCreatable
+      if (isRelatedUnit){
+        
+        console.log("OPTIONS FOR Related Unit ARE: ", options)
+        //console.log(teams) 
+        //const {roles} = teams[0] //EQUIPO SELECCIONADO
+        //console.log("ROLES:  ",roles)
+        optionsCreatable = options.map((r) => {
+          return {
+            label: r.title,
+            value: r.title
+          }
+        })
+
+        return (<CreatableRelatedUnit options={optionsCreatable} type={type} setTitle={setTitle} setRelatedUnit={setRelatedUnit}/>)
+
+      }
+    }
 
     const renderIsInfluencing = () => {
 
@@ -471,6 +527,48 @@ const style = {
       }
     }
 
+
+    const renderTitle = () => {
+
+      let title;
+      if(type==='externalActor'){
+        title = (
+          <div className="Creatable" style={styles.creatable}>
+
+            {renderCreatableExternalActor()}
+
+          </div>
+        )
+      } else if(type==='relatedUnit'){
+        title = (
+          <div className="Creatable" style={styles.creatable}>
+
+            {renderCreatableRelatedUnit()}
+
+          </div>
+        )
+      } else {
+        title = (
+          <FormControl style={{padding: 0, marginTop: '1em', width: '100%'}}>
+            <TextField
+                        
+              label={titleLabel}
+              value={title}
+              required
+              id="outlined-required"
+              onChange={handleChangeTitle}
+                         
+            />
+                    
+          </FormControl>
+        )
+      }
+
+      return title
+        
+      
+    }
+
   return (
     <div>
       <Button onClick={handleOpen}>{children}</Button>
@@ -496,19 +594,10 @@ const style = {
               </Typography>
             </FormControl>
 
+                {/** Rendering Title or Creatable */}
+                {renderTitle()}
                 
-                <FormControl style={{padding: 0, marginTop: '1em', width: '100%'}}>
-                    <TextField
-                        
-                            label={titleLabel}
-                            value={title}
-                            required
-                            id="outlined-required"
-                            onChange={handleChangeTitle}
-                         
-                        />
-                    
-                </FormControl>
+                
 
                 <div style={{marginTop: '1em'}}>
                   {renderIsInfluencing()}

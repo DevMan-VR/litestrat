@@ -36,7 +36,7 @@ const OrganizationView = () => {
                 
             </div>
 
-            <div className="OrganizationBody" style={{position: 'relative', display: 'flex', alignItems: 'baseline', height: '100%', width: '100%'}}>
+            <div className="OrganizationBody" style={{position: 'relative', display: 'flex', alignItems: 'baseline', height: '700px', width: '100%'}}>
             
                 <div className="GoalRow" style={styles.goalRow}>
                     <GoalsComponent/>

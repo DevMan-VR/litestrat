@@ -5,6 +5,8 @@ export const initialState = {
     workspace: {
         teams: teamsDummy,
         sceneIndex: 0,
-        scenes: [new Scene(1,1,"Escenario 1")], 
+        scenes: [new Scene(1,1,"Escenario 1")],
+        externalInfluences: [],
+        externalActors: []
     }
 }

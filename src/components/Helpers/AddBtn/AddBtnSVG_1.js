@@ -2,7 +2,15 @@ import React from 'react'
 import AddBtnWrapper from './AddBtnWrapper.js'
 import btnAdd from '../../../assets/png/btnAdd.png'
 
-const AddBtnSVG_1 = ({SVG, title, type}) => {
+const AddBtnSVG_1 = ({externalActors=[],SVG, title, type}) => {
+
+    let options;
+
+    switch(type){
+        case 'externalActor':
+            options=externalActors
+            break;
+    }
 
     return(
             <div style={styles.containerStyle}>
@@ -16,7 +24,7 @@ const AddBtnSVG_1 = ({SVG, title, type}) => {
                 <div style={styles.elementStyle}>
                     <div style={styles.btnIconStyle}>
                         {/** ICON BTN */}
-                        <AddBtnWrapper type={type}>
+                        <AddBtnWrapper options={options} type={type}>
                             <img src={btnAdd} alt="ADD" />
                         </AddBtnWrapper>
                             

@@ -81,7 +81,7 @@ const ObjectiveComponent = () => {
                                 style={{
                                     position: 'absolute',
                                     top: '-350px',
-                                    left: '740px',
+                                    left: '650px',
                                     width: '300px'
                                     
                                 }}
@@ -100,7 +100,7 @@ const ObjectiveComponent = () => {
                             <div className="RelatedUnitsContainer" 
                                 style={{
                                     position: 'absolute',
-                                    top: '250px',
+                                    top: '270px',
                                     left: '-400px',
                                     width: '300px',
                                     display:'flex',
@@ -110,9 +110,9 @@ const ObjectiveComponent = () => {
                                 }}
                             >
 
-                                <RelatedUnitComponent relatedUnits={scene.tacticSelected.relatedUnits} team={scene.tacticSelected.team} />
+                                <RelatedUnitComponent relatedUnits={scene.tacticSelected.relatedUnits} team={scene.tacticSelected.team}  />
 
-                                <AddBtnSVG_2  isFirst={scene.tacticSelected.relatedUnits.length === 0} SVG={OrganizationIcon} title="Unidad Organizacional Relacionada" description="Description" addElement={addElement} type="relatedUnit" customStyle={{display:'flex', alignItems:'flex-start'}} />
+                                <AddBtnSVG_2 teams={state.workspace.teams} isFirst={scene.tacticSelected.relatedUnits.length === 0} SVG={OrganizationIcon} title="Unidad Organizacional Relacionada" description="Description" addElement={addElement} type="relatedUnit" customStyle={{display:'flex', alignItems:'flex-start'}} />
                             
 
                             </div>

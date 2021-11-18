@@ -1,0 +1,781 @@
+{
+    "id": 1,
+    "sceneId": 1,
+    "title": "Escenario 1",
+    "description": null,
+    "organization": {
+      "id": 1,
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "isVisible": false,
+      "currentSelect": false,
+      "name": "dummy",
+      "goals": [
+        {
+          "id": "g8",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": null,
+          "title": "fqfq",
+          "description": null,
+          "until": null,
+          "isSelected": true,
+          "isVisible": false,
+          "currentSelect": false,
+          "strategies": [
+            {
+              "id": "g8s5",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": "g8",
+              "title": "fafa",
+              "description": null,
+              "until": null,
+              "isSelected": true,
+              "isVisible": false,
+              "currentSelect": false,
+              "tactics": [
+                {
+                  "id": "g8s5t8",
+                  "sceneId": null,
+                  "userId": null,
+                  "fatherId": "g8s5",
+                  "title": "fwfw",
+                  "description": null,
+                  "until": null,
+                  "isSelected": true,
+                  "isVisible": false,
+                  "currentSelect": false,
+                  "objectives": [
+                    {
+                      "id": "g8s5t8g0",
+                      "sceneId": null,
+                      "userId": null,
+                      "fatherId": null,
+                      "title": "fafs",
+                      "description": "fqfq",
+                      "until": null,
+                      "isSelected": true,
+                      "isVisible": false,
+                      "currentSelect": true,
+                      "role": {
+                        "id": "fwfw",
+                        "title": "fwfw",
+                        "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                        "username": "John Von Neumann"
+                      },
+                      "index": 0
+                    }
+                  ],
+                  "team": {
+                    "id": "T1",
+                    "department": "Por defecto TI",
+                    "title": "T1",
+                    "roles": [
+                      {
+                        "id": "fwfw",
+                        "title": "fwfw",
+                        "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                        "username": "John Von Neumann"
+                      }
+                    ]
+                  },
+                  "externalInfluences": [
+                    {
+                      "id": "EX_ACT_INF9",
+                      "sceneId": null,
+                      "userId": null,
+                      "fatherId": null,
+                      "title": "asdasd",
+                      "description": "asd",
+                      "until": null,
+                      "isSelected": true,
+                      "isVisible": false,
+                      "currentSelect": false,
+                      "associatedTeam": null,
+                      "isInfluencer": false,
+                      "team": {
+                        "id": "T1",
+                        "department": "Por defecto TI",
+                        "title": "T1",
+                        "roles": [
+                          {
+                            "id": "fwfw",
+                            "title": "fwfw",
+                            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                            "username": "John Von Neumann"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "relatedUnits": [
+                    {
+                      "id": "RELATED_UNIT_3",
+                      "sceneId": null,
+                      "userId": null,
+                      "fatherId": null,
+                      "title": "Team 1",
+                      "description": "asfasf",
+                      "until": null,
+                      "isSelected": true,
+                      "isVisible": false,
+                      "currentSelect": false,
+                      "associatedTeam": {
+                        "id": "T1",
+                        "department": "Por defecto TI",
+                        "title": "T1",
+                        "roles": [
+                          {
+                            "id": "fwfw",
+                            "title": "fwfw",
+                            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                            "username": "John Von Neumann"
+                          }
+                        ]
+                      },
+                      "associatedTeamId": "T1",
+                      "isInfluencer": false
+                    }
+                  ],
+                  "teamIndex": 1,
+                  "index": 0
+                }
+              ],
+              "index": 0
+            }
+          ],
+          "index": 0
+        }
+      ]
+    },
+    "externalActorSelected": {
+      "id": "EX_ACT7",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "title": "asdasd",
+      "description": null,
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": false,
+      "influencedOrganization": "asdasd",
+      "externalActor": {
+        "title": "asdasd"
+      }
+    },
+    "goalSelected": {
+      "id": "g8",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "title": "fqfq",
+      "description": null,
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": false,
+      "strategies": [
+        {
+          "id": "g8s5",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": "g8",
+          "title": "fafa",
+          "description": null,
+          "until": null,
+          "isSelected": true,
+          "isVisible": false,
+          "currentSelect": false,
+          "tactics": [
+            {
+              "id": "g8s5t8",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": "g8s5",
+              "title": "fwfw",
+              "description": null,
+              "until": null,
+              "isSelected": true,
+              "isVisible": false,
+              "currentSelect": false,
+              "objectives": [
+                {
+                  "id": "g8s5t8g0",
+                  "sceneId": null,
+                  "userId": null,
+                  "fatherId": null,
+                  "title": "fafs",
+                  "description": "fqfq",
+                  "until": null,
+                  "isSelected": true,
+                  "isVisible": false,
+                  "currentSelect": true,
+                  "role": {
+                    "id": "fwfw",
+                    "title": "fwfw",
+                    "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                    "username": "John Von Neumann"
+                  },
+                  "index": 0
+                }
+              ],
+              "team": {
+                "id": "T1",
+                "department": "Por defecto TI",
+                "title": "T1",
+                "roles": [
+                  {
+                    "id": "fwfw",
+                    "title": "fwfw",
+                    "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                    "username": "John Von Neumann"
+                  }
+                ]
+              },
+              "externalInfluences": [
+                {
+                  "id": "EX_ACT_INF9",
+                  "sceneId": null,
+                  "userId": null,
+                  "fatherId": null,
+                  "title": "asdasd",
+                  "description": "asd",
+                  "until": null,
+                  "isSelected": true,
+                  "isVisible": false,
+                  "currentSelect": false,
+                  "associatedTeam": null,
+                  "isInfluencer": false,
+                  "team": {
+                    "id": "T1",
+                    "department": "Por defecto TI",
+                    "title": "T1",
+                    "roles": [
+                      {
+                        "id": "fwfw",
+                        "title": "fwfw",
+                        "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                        "username": "John Von Neumann"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "relatedUnits": [
+                {
+                  "id": "RELATED_UNIT_3",
+                  "sceneId": null,
+                  "userId": null,
+                  "fatherId": null,
+                  "title": "Team 1",
+                  "description": "asfasf",
+                  "until": null,
+                  "isSelected": true,
+                  "isVisible": false,
+                  "currentSelect": false,
+                  "associatedTeam": {
+                    "id": "T1",
+                    "department": "Por defecto TI",
+                    "title": "T1",
+                    "roles": [
+                      {
+                        "id": "fwfw",
+                        "title": "fwfw",
+                        "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                        "username": "John Von Neumann"
+                      }
+                    ]
+                  },
+                  "associatedTeamId": "T1",
+                  "isInfluencer": false
+                }
+              ],
+              "teamIndex": 1,
+              "index": 0
+            }
+          ],
+          "index": 0
+        }
+      ],
+      "index": 0
+    },
+    "strategySelected": {
+      "id": "g8s5",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": "g8",
+      "title": "fafa",
+      "description": null,
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": false,
+      "tactics": [
+        {
+          "id": "g8s5t8",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": "g8s5",
+          "title": "fwfw",
+          "description": null,
+          "until": null,
+          "isSelected": true,
+          "isVisible": false,
+          "currentSelect": false,
+          "objectives": [
+            {
+              "id": "g8s5t8g0",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "fafs",
+              "description": "fqfq",
+              "until": null,
+              "isSelected": true,
+              "isVisible": false,
+              "currentSelect": true,
+              "role": {
+                "id": "fwfw",
+                "title": "fwfw",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              },
+              "index": 0
+            }
+          ],
+          "team": {
+            "id": "T1",
+            "department": "Por defecto TI",
+            "title": "T1",
+            "roles": [
+              {
+                "id": "fwfw",
+                "title": "fwfw",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            ]
+          },
+          "externalInfluences": [
+            {
+              "id": "EX_ACT_INF9",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "asdasd",
+              "description": "asd",
+              "until": null,
+              "isSelected": true,
+              "isVisible": false,
+              "currentSelect": false,
+              "associatedTeam": null,
+              "isInfluencer": false,
+              "team": {
+                "id": "T1",
+                "department": "Por defecto TI",
+                "title": "T1",
+                "roles": [
+                  {
+                    "id": "fwfw",
+                    "title": "fwfw",
+                    "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                    "username": "John Von Neumann"
+                  }
+                ]
+              }
+            }
+          ],
+          "relatedUnits": [
+            {
+              "id": "RELATED_UNIT_3",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "Team 1",
+              "description": "asfasf",
+              "until": null,
+              "isSelected": true,
+              "isVisible": false,
+              "currentSelect": false,
+              "associatedTeam": {
+                "id": "T1",
+                "department": "Por defecto TI",
+                "title": "T1",
+                "roles": [
+                  {
+                    "id": "fwfw",
+                    "title": "fwfw",
+                    "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                    "username": "John Von Neumann"
+                  }
+                ]
+              },
+              "associatedTeamId": "T1",
+              "isInfluencer": false
+            }
+          ],
+          "teamIndex": 1,
+          "index": 0
+        }
+      ],
+      "index": 0
+    },
+    "tacticSelected": {
+      "id": "g8s5t8",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": "g8s5",
+      "title": "fwfw",
+      "description": null,
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": false,
+      "objectives": [
+        {
+          "id": "g8s5t8g0",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": null,
+          "title": "fafs",
+          "description": "fqfq",
+          "until": null,
+          "isSelected": true,
+          "isVisible": false,
+          "currentSelect": true,
+          "role": {
+            "id": "fwfw",
+            "title": "fwfw",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          },
+          "index": 0
+        }
+      ],
+      "team": {
+        "id": "T1",
+        "department": "Por defecto TI",
+        "title": "T1",
+        "roles": [
+          {
+            "id": "fwfw",
+            "title": "fwfw",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          }
+        ]
+      },
+      "externalInfluences": [
+        {
+          "id": "EX_ACT_INF9",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": null,
+          "title": "asdasd",
+          "description": "asd",
+          "until": null,
+          "isSelected": true,
+          "isVisible": false,
+          "currentSelect": false,
+          "associatedTeam": null,
+          "isInfluencer": false,
+          "team": {
+            "id": "T1",
+            "department": "Por defecto TI",
+            "title": "T1",
+            "roles": [
+              {
+                "id": "fwfw",
+                "title": "fwfw",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            ]
+          }
+        }
+      ],
+      "relatedUnits": [
+        {
+          "id": "RELATED_UNIT_3",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": null,
+          "title": "Team 1",
+          "description": "asfasf",
+          "until": null,
+          "isSelected": true,
+          "isVisible": false,
+          "currentSelect": false,
+          "associatedTeam": {
+            "id": "T1",
+            "department": "Por defecto TI",
+            "title": "T1",
+            "roles": [
+              {
+                "id": "fwfw",
+                "title": "fwfw",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            ]
+          },
+          "associatedTeamId": "T1",
+          "isInfluencer": false
+        }
+      ],
+      "teamIndex": 1,
+      "index": 0
+    },
+    "objectiveSelected": {
+      "id": "g8s5t8g0",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "title": "fafs",
+      "description": "fqfq",
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": true,
+      "role": {
+        "id": "fwfw",
+        "title": "fwfw",
+        "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+        "username": "John Von Neumann"
+      },
+      "index": 0
+    },
+    "teamSelected": null,
+    "roleSelected": null,
+    "externalInfluenceSelected": {
+      "id": "EX_ACT_INF9",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "title": "asdasd",
+      "description": "asd",
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": false,
+      "associatedTeam": null,
+      "isInfluencer": false,
+      "team": {
+        "id": "T1",
+        "department": "Por defecto TI",
+        "title": "T1",
+        "roles": [
+          {
+            "id": "fwfw",
+            "title": "fwfw",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          }
+        ]
+      }
+    },
+    "currentSelected": null,
+    "allTactics": [
+      {
+        "id": "g8s5t8",
+        "sceneId": null,
+        "userId": null,
+        "fatherId": "g8s5",
+        "title": "fwfw",
+        "description": null,
+        "until": null,
+        "isSelected": true,
+        "isVisible": false,
+        "currentSelect": false,
+        "objectives": [
+          {
+            "id": "g8s5t8g0",
+            "sceneId": null,
+            "userId": null,
+            "fatherId": null,
+            "title": "fafs",
+            "description": "fqfq",
+            "until": null,
+            "isSelected": true,
+            "isVisible": false,
+            "currentSelect": true,
+            "role": {
+              "id": "fwfw",
+              "title": "fwfw",
+              "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+              "username": "John Von Neumann"
+            },
+            "index": 0
+          }
+        ],
+        "team": {
+          "id": "T1",
+          "department": "Por defecto TI",
+          "title": "T1",
+          "roles": [
+            {
+              "id": "fwfw",
+              "title": "fwfw",
+              "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+              "username": "John Von Neumann"
+            }
+          ]
+        },
+        "externalInfluences": [
+          {
+            "id": "EX_ACT_INF9",
+            "sceneId": null,
+            "userId": null,
+            "fatherId": null,
+            "title": "asdasd",
+            "description": "asd",
+            "until": null,
+            "isSelected": true,
+            "isVisible": false,
+            "currentSelect": false,
+            "associatedTeam": null,
+            "isInfluencer": false,
+            "team": {
+              "id": "T1",
+              "department": "Por defecto TI",
+              "title": "T1",
+              "roles": [
+                {
+                  "id": "fwfw",
+                  "title": "fwfw",
+                  "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                  "username": "John Von Neumann"
+                }
+              ]
+            }
+          }
+        ],
+        "relatedUnits": [
+          {
+            "id": "RELATED_UNIT_3",
+            "sceneId": null,
+            "userId": null,
+            "fatherId": null,
+            "title": "Team 1",
+            "description": "asfasf",
+            "until": null,
+            "isSelected": true,
+            "isVisible": false,
+            "currentSelect": false,
+            "associatedTeam": {
+              "id": "T1",
+              "department": "Por defecto TI",
+              "title": "T1",
+              "roles": [
+                {
+                  "id": "fwfw",
+                  "title": "fwfw",
+                  "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                  "username": "John Von Neumann"
+                }
+              ]
+            },
+            "associatedTeamId": "T1",
+            "isInfluencer": false
+          }
+        ],
+        "teamIndex": 1,
+        "index": 0
+      }
+    ],
+    "relatedUnits": [],
+    "externalInfluences": [
+      {
+        "id": "EX_ACT_INF9",
+        "sceneId": null,
+        "userId": null,
+        "fatherId": null,
+        "title": "asdasd",
+        "description": "asd",
+        "until": null,
+        "isSelected": true,
+        "isVisible": false,
+        "currentSelect": false,
+        "associatedTeam": null,
+        "isInfluencer": false,
+        "team": {
+          "id": "T1",
+          "department": "Por defecto TI",
+          "title": "T1",
+          "roles": [
+            {
+              "id": "fwfw",
+              "title": "fwfw",
+              "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+              "username": "John Von Neumann"
+            }
+          ]
+        }
+      }
+    ],
+    "externalActor": {
+      "id": "EX_ACT7",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "title": "asdasd",
+      "description": null,
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": false,
+      "influencedOrganization": "asdasd",
+      "externalActor": {
+        "title": "asdasd"
+      }
+    },
+    "currentSelect": {
+      "id": "g8s5t8g0",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "title": "fafs",
+      "description": "fqfq",
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": true,
+      "role": {
+        "id": "fwfw",
+        "title": "fwfw",
+        "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+        "username": "John Von Neumann"
+      },
+      "index": 0
+    },
+    "relatedUnitSelected": {
+      "id": "RELATED_UNIT_3",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "title": "Team 1",
+      "description": "asfasf",
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": false,
+      "associatedTeam": {
+        "id": "T1",
+        "department": "Por defecto TI",
+        "title": "T1",
+        "roles": [
+          {
+            "id": "fwfw",
+            "title": "fwfw",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          }
+        ]
+      },
+      "associatedTeamId": "T1",
+      "isInfluencer": false
+    }
+  }

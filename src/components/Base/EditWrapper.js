@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import {Backdrop,Box,Modal,Button,Typography, FormControl, FormLabel, RadioGroup,FormControlLabel,Radio,TextField } from '@mui/material';
 // web.cjs is required for IE11 support
 import { useSpring, animated } from 'react-spring';
-import { CreatableExternalActor } from '../Helpers/Creatable/CreatableExternalActor';
 import { CreatableTactic } from '../Helpers/Creatable/CreatableTactic';
 import { CreatableObjective } from '../Helpers/Creatable/CreatableObjective';
 
 import { CreatableExternalInfluence } from '../Helpers/Creatable/CreatableExternalInfluence';
 import { CreatableRelatedUnit } from '../Helpers/Creatable/CreatableRelatedUnit';
+import { CreatableExternalActor } from '../Helpers/Creatable/CreatableExternalActor';
 
 import Datepicker from '../Helpers/Datepicker';
 import { teamsDummy } from '../../data/dummy';
@@ -92,9 +92,12 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
   const [role, setRole] = useState(null) //Objectives
   const [isInfluencer, setIsInfluencer] = useState(false)
 
+  const [externalActor, setExternalActor] = useState(null)
+  const [relatedUnit, setRelatedUnit] = useState(null)
+
   const [error, setError] = useState('')
 
-  console.log("En EditWrapper, el "+ type +" es: ", element)
+  //console.log("En EditWrapper, el "+ type +" es: ", element)
 
 
 
@@ -104,11 +107,11 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
     setTitle(element.title)
     setDescription(element.description)
     switch(type){
-      case 'externalActor': setOrganization(element.influencedOrganization); break;
-      case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTeam(teamProp); break;
+      case 'externalActor': setExternalActor(element.externalActor); setOrganization(element.influencedOrganization); break;
+      case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTeam(teamProp);  break;
       case 'tactic': setTeam(element.team); break;
       case 'objective': setRole(element.role); break;
-      case 'relatedUnit': setIsInfluencer(element.isInfluencer); setTeam(teamProp); break;
+      case 'relatedUnit': setIsInfluencer(element.isInfluencer); setRelatedUnit(element.associatedTeam); setTeam(teamProp); break;
     }
     
     switch(type){
@@ -369,7 +372,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
         switch(type){
           case 'externalActor': 
             //Ningun campo puede estar vacio (title, description, organization)
-            if(!title || !description || !organization){
+            if(!title || !organization){
               setError("Todos los campos deben ser llenados*")
               hasError = false
             } else {
@@ -378,7 +381,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
             break;
           case 'goal':
           case 'strategy':
-            if(!title || !description || !until){
+            if(!title  || !until){
               setError("Todos los campos deben ser llenados*")
               hasError = false
             } else {
@@ -387,7 +390,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
             break;
     
           case 'tactic':
-            if(!title || !description || !until || !team){
+            if(!title || !team){
               setError("Todos los campos deben ser llenados*")
               hasError = false
             } else {
@@ -397,7 +400,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
             break;
     
             case 'objective':
-            if(!title || !description || !until || !role){
+            if(!title || !role){
               setError("Todos los campos deben ser llenados*")
               hasError = false
             } else {
@@ -407,7 +410,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
             break;
     
             case 'externalInfluence':
-            if(!title || !description ){
+            if(!title ){
               setError("Todos los campos deben ser llenados*")
               hasError = false
             } else {
@@ -416,7 +419,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
 
             case 'relatedUnit':
-            if(!title || !description ){
+            if(!title ){
               setError("Todos los campos deben ser llenados*")
               hasError = false
             } else {
@@ -546,8 +549,102 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
       const handleRemove = () => {
         removeElement(type)
       }
+
+      const renderCreatableExternalActor = () => {
+        let optionsCreatable
+        let value
+        if (isExternalActor){
+          
+          console.log("OPTIONS FOR OBJECTIVE ARE: ", options)
+          //console.log(teams) 
+          //const {roles} = teams[0] //EQUIPO SELECCIONADO
+          //console.log("ROLES:  ",roles)
+          optionsCreatable = options.map((r) => {
+            return {
+              label: r.title,
+              value: r.title
+            }
+          })
+
+          value = {
+            label: element.title,
+            value: element.title
+          }
+
+
+  
+          return (<CreatableExternalActor value={value} options={optionsCreatable} defaultValue={externalActor} type={type} setTitle={setTitle} setExternalActor={setExternalActor}/>)
+  
+        }
+      }
       
   
+    const renderTitle = () => {
+
+      let title;
+      if(type==='externalActor'){
+        title = (
+          <div className="Creatable" style={styles.creatable}>
+
+            {renderCreatableExternalActor()}
+
+          </div>
+        )
+      } else if(type==='relatedUnit'){
+        title = (
+          <div className="Creatable" style={styles.creatable}>
+
+            {renderCreatableRelatedUnit()}
+
+          </div>
+        )
+      } else {
+        title = (
+          <FormControl style={{padding: 0, marginTop: '1em', width: '100%'}}>
+            <TextField
+                        
+              label={titleLabel}
+              value={title}
+              required
+              id="outlined-required"
+              onChange={handleChangeTitle}
+                         
+            />
+                    
+          </FormControl>
+        )
+      }
+
+      return title
+        
+      
+    }
+
+
+    const renderCreatableRelatedUnit = () => {
+      let optionsCreatable
+      if (isRelatedUnit){
+        
+        console.log("OPTIONS FOR Related Unit ARE: ", options)
+        //console.log(teams) 
+        //const {roles} = teams[0] //EQUIPO SELECCIONADO
+        //console.log("ROLES:  ",roles)
+        optionsCreatable = options.map((r) => {
+          return {
+            label: r.title,
+            value: r.title
+          }
+        })
+        let value = null
+        console.log("ELEMENT ISSSSSSSS ZDASDA SD  ", element)
+        if(element.associatedTeam) {
+          value = element.associatedTeam.title
+        }
+
+        return (<CreatableRelatedUnit value={value} options={optionsCreatable} type={type} setTitle={setTitle} setRelatedUnit={setRelatedUnit}/>)
+
+      }
+    }
 
 
     return(
@@ -587,18 +684,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
                       </Typography>
                     </FormControl>
 
-                    <FormControl style={{padding: 0, marginTop: '1em', width: '100%'}}>
-                        <TextField
-                            
-                                label={titleLabel}
-                                value={title}
-                                required
-                                id="outlined-required"
-                                onChange={(e) => handleChangeTitle(e)}
-                            
-                            />
-                        
-                    </FormControl>
+                        {renderTitle()}
         
                         <div>
                           {renderIsInfluencing()}

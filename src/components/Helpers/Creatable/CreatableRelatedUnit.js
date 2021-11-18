@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 
 import CreatableSelect from 'react-select/creatable';
 
-export const CreatableRelatedUnit = ({value,options=null,placeholder, setData}) => {
+export const CreatableRelatedUnit = ({value,options=null,placeholder, setTitle, setRelatedUnit}) => {
 
   const handleChange = (newValue, actionMeta) => {
     console.group('Value Changed');
     console.log(newValue);
-    setData(newValue)
+    setRelatedUnit(newValue)
+    setTitle(newValue.value)
     console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
   };

@@ -16,11 +16,10 @@ class Scene {
         this.teamSelected = null
         this.roleSelected = null
         this.externalInfluenceSelected = null
-        this.allTactics = []
-        this.externalInfluences = []
-        this.relatedUnits = []
         this.currentSelected = null
-        
+        this.allTactics = []
+        this.relatedUnits = []
+        this.externalInfluences = []
     }
 
 }

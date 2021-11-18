@@ -51,7 +51,7 @@ const RelatedUnitComponent = ({team, relatedUnits}) => {
         return (
                 <div className="RelatedUnitContainerZ" style={{ display: 'flex', flexDirection:'column'}}>
                     <div style={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
-                        <div >
+                        <div style={{height:'60px'}} >
                             {/**Arrow ICON */}
                             <img src={icon} />
 
@@ -80,7 +80,7 @@ const RelatedUnitComponent = ({team, relatedUnits}) => {
                             
                             { isCurrentSelected ? 
                                 (
-                                    <EditWrapper team={team} index={index}  element={relatedUnit} editElement={editElement} type={"relatedUnit"}>
+                                    <EditWrapper options={state.workspace.teams} team={team} index={index}  element={relatedUnit} editElement={editElement} type={"relatedUnit"}>
                                         <PencilIcon />
                                     </EditWrapper>
 

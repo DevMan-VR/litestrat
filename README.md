@@ -82,3 +82,16 @@ Tengo que rehacer la lógica de filtros para Influencias Externas y Unidades Rel
 - Se define cuantos dias significan atraso, precaucion y verde (por default V>=7, A>=3 y A<7, R<3)
 - Se puede activar o desactivar la presencia de influencias externas (por default activado)
 - Se puede activar o desactivar la presencia de unidades relacionadas (por default activado)
+
+
+
+[OK] *** Que solo el titulo sea obligatorio para: meta, estrategia
+[OK] *** Que titulo y equipo sea obligatorio para tactica
+[OK] *** Que titulo y rol sea obligatorio para objetivo
+[OK] *** Que los Actore Externos sean creatable (titulo) y que se guarden en el workspace como array ## Que todo esto también funcione y se aplique en el editWrapper
+*** Que las unidades relacionadas sean creatable (equipo?) ### Que todo esto también funcione en el edit wrapper
+*** Que las influencias externas sean creatable ### Que todo esto también funcione en el edit wrapper
+*** Que el tamaño de la organización se agrande para contener a las unidades relacionadas.
+*** Arreglar bugs de edición, cuando se crea una tactica y se abre automaticamente asegurarse de que tambien queda seleccionada de modo que los nuevos itemes que se crean quedan asociados correctamente a las tácticas.
+
+***Terminar de resolver bug en relatedUnit EditWrapper para cargar la unidad relacionada actual xd
