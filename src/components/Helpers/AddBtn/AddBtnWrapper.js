@@ -237,7 +237,7 @@ const style = {
           break;
 
           case 'externalInfluence':
-          if(!title || isInfluencer === null || !assocTeam ){
+          if(!title || !assocTeam ){
             setError("Todos los campos deben ser llenados*")
             hasError = false
           } else {
@@ -415,6 +415,26 @@ const style = {
       }
     }
 
+    const renderCreatableExternalInfluence = () => {
+      let optionsCreatable
+      if (isExternalInfluence){
+        
+        console.log("OPTIONS FOR External Influence Unit ARE: ", options)
+        //console.log(teams) 
+        //const {roles} = teams[0] //EQUIPO SELECCIONADO
+        //console.log("ROLES:  ",roles)
+        optionsCreatable = options.map((r) => {
+          return {
+            label: r.title,
+            value: r.title
+          }
+        })
+
+        return (<CreatableExternalInfluence options={optionsCreatable} type={type} setTitle={setTitle} setExternalInfluence={setExternalInfluence}/>)
+
+      }
+    }
+
     const renderIsInfluencing = () => {
 
       if(isExternalInfluence){
@@ -529,10 +549,10 @@ const style = {
 
 
     const renderTitle = () => {
-
-      let title;
+      console.log("RENDER TITLE OPTION IS = ", type)
+      let renderTitle;
       if(type==='externalActor'){
-        title = (
+        renderTitle = (
           <div className="Creatable" style={styles.creatable}>
 
             {renderCreatableExternalActor()}
@@ -540,15 +560,23 @@ const style = {
           </div>
         )
       } else if(type==='relatedUnit'){
-        title = (
+        renderTitle = (
           <div className="Creatable" style={styles.creatable}>
 
             {renderCreatableRelatedUnit()}
 
           </div>
         )
+      } else if(type==='externalInfluence'){
+        renderTitle = (
+          <div className="Creatable" style={styles.creatable}>
+
+            {renderCreatableExternalInfluence()}
+
+          </div>
+        )
       } else {
-        title = (
+        renderTitle = (
           <FormControl style={{padding: 0, marginTop: '1em', width: '100%'}}>
             <TextField
                         
@@ -564,7 +592,7 @@ const style = {
         )
       }
 
-      return title
+      return renderTitle
         
       
     }

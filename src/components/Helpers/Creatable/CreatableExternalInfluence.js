@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 
 import CreatableSelect from 'react-select/creatable';
 
-export const CreatableExternalInfluence = ({value,options=null,placeholder, setData}) => {
+export const CreatableExternalInfluence = ({value,options=null,placeholder, setTitle, setExternalInfluence}) => {
 
   const handleChange = (newValue, actionMeta) => {
     console.group('Value Changed');
     console.log(newValue);
-    setData(newValue)
+    setTitle(newValue.value)
+    setExternalInfluence(newValue)
     console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
   };
@@ -26,7 +27,7 @@ export const CreatableExternalInfluence = ({value,options=null,placeholder, setD
         onInputChange={handleInputChange}
         options={options}
         defaultValue={value}
-        placeholder={"¿Cual es su unidad organizacional relacionada?"}
+        placeholder={"¿Cual es  el actor externo influyente o influenciado?"}
       />
     );
   

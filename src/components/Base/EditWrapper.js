@@ -94,28 +94,25 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
   const [externalActor, setExternalActor] = useState(null)
   const [relatedUnit, setRelatedUnit] = useState(null)
+  const [externalInfluence, setExternalInfluence] = useState(null)
 
   const [error, setError] = useState('')
 
-  //console.log("En EditWrapper, el "+ type +" es: ", element)
-
-
-
-
+  console.log("En EditWrapper, el "+ type +" es: ", element)
 
   useEffect(() => {
     setTitle(element.title)
     setDescription(element.description)
     switch(type){
       case 'externalActor': setExternalActor(element.externalActor); setOrganization(element.influencedOrganization); break;
-      case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTeam(teamProp);  break;
+      case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTeam(teamProp); setExternalInfluence(element.externalInfluence);  break;
       case 'tactic': setTeam(element.team); break;
       case 'objective': setRole(element.role); break;
       case 'relatedUnit': setIsInfluencer(element.isInfluencer); setRelatedUnit(element.associatedTeam); setTeam(teamProp); break;
     }
     
     switch(type){
-      case 'goal': setUntil(element.until); break;
+      case 'goal': setTitle(element.title); setUntil(element.until); break;
       case 'strategy': setUntil(element.until); break;
       case 'tactic': setUntil(element.until); break;
       case 'objective': setUntil(element.until); break;
@@ -293,6 +290,9 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
               break;
 
         }
+
+        console.log("New element created is::: ", newElement)
+
         setOpen(false)
         editElement(index, newElement, type)
         
@@ -381,7 +381,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
             break;
           case 'goal':
           case 'strategy':
-            if(!title  || !until){
+            if(!title  ){
               setError("Todos los campos deben ser llenados*")
               hasError = false
             } else {
@@ -581,9 +581,9 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
   
     const renderTitle = () => {
 
-      let title;
+      let renderTitle;
       if(type==='externalActor'){
-        title = (
+        renderTitle = (
           <div className="Creatable" style={styles.creatable}>
 
             {renderCreatableExternalActor()}
@@ -591,15 +591,23 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
           </div>
         )
       } else if(type==='relatedUnit'){
-        title = (
+        renderTitle = (
           <div className="Creatable" style={styles.creatable}>
 
             {renderCreatableRelatedUnit()}
 
           </div>
         )
+      } else if(type==='externalInfluence'){
+        renderTitle = (
+          <div className="Creatable" style={styles.creatable}>
+
+            {renderCreatableExternalInfluence()}
+
+          </div>
+        )
       } else {
-        title = (
+        renderTitle = (
           <FormControl style={{padding: 0, marginTop: '1em', width: '100%'}}>
             <TextField
                         
@@ -615,9 +623,35 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
         )
       }
 
-      return title
+      return renderTitle
         
       
+    }
+
+    const renderCreatableExternalInfluence = () => {
+      let optionsCreatable
+      if (isExternalInfluence){
+        
+        console.log("OPTIONS FOR External Influence Unit ARE: ", options)
+        //console.log(teams) 
+        //const {roles} = teams[0] //EQUIPO SELECCIONADO
+        //console.log("ROLES:  ",roles)
+        optionsCreatable = options.map((r) => {
+          return {
+            label: r.title,
+            value: r.title
+          }
+        })
+
+        let value = {
+          label: element.title,
+          value: element.title
+        }
+
+
+        return (<CreatableExternalInfluence value={value} options={optionsCreatable} type={type} setTitle={setTitle} setExternalInfluence={setExternalInfluence}/>)
+
+      }
     }
 
 
@@ -635,10 +669,9 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
             value: r.title
           }
         })
-        let value = null
-        console.log("ELEMENT ISSSSSSSS ZDASDA SD  ", element)
-        if(element.associatedTeam) {
-          value = element.associatedTeam.title
+        let value = {
+          label: element.title,
+          value: element.title
         }
 
         return (<CreatableRelatedUnit value={value} options={optionsCreatable} type={type} setTitle={setTitle} setRelatedUnit={setRelatedUnit}/>)

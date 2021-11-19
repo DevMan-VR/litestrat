@@ -77,11 +77,11 @@ const ObjectiveComponent = () => {
                     <AddBtnSVG_2 roles={scene.tacticSelected.team.roles} isFirst={scene.tacticSelected.objectives.length === 0} SVG={ObjectiveIcon} title="Nombre de Objetivo" description="Description" addElement={addElement} type="objective" />
                 
                     <div style={{position: 'relative'}}>
-                            <div className="ExternalInfluencedActorsContinaer" 
+                            <div className="ExternalInfluencedActorsContainer" 
                                 style={{
                                     position: 'absolute',
                                     top: '-350px',
-                                    left: '650px',
+                                    left: '720px',
                                     width: '300px'
                                     
                                 }}
@@ -89,7 +89,7 @@ const ObjectiveComponent = () => {
 
                                 <InfluencingActorComponent externalInfluences={scene.tacticSelected.externalInfluences} team={scene.tacticSelected.team} />
 
-                                <AddBtnSVG_2 teams={state.workspace.teams}  isFirst={scene.tacticSelected.externalInfluences.length === 0} SVG={ExternalActorIcon} title="Actor Influyente Externo" description="Description" addElement={addElement} type="externalInfluence" />
+                                <AddBtnSVG_2 teams={state.workspace.teams} externalInfluences={state.workspace.externalInfluences}  isFirst={scene.tacticSelected.externalInfluences.length === 0} SVG={ExternalActorIcon} title="Actor Influyente Externo" description="Description" addElement={addElement} type="externalInfluence" />
                             
 
                             </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import btnAdd from '../../../assets/png/btnAdd.png'
 import AddBtnWrapper from './AddBtnWrapper.js'
 
-const AddBtnSVG_2 = ({ roles=[], teams=[], isFirst, SVG, title, type, customStyle}) => {
+const AddBtnSVG_2 = ({ roles=[], teams=[], externalInfluences=[], isFirst, SVG, title, type, customStyle}) => {
 
     var addBtn
     let marginTop = "2em"
@@ -10,11 +10,15 @@ const AddBtnSVG_2 = ({ roles=[], teams=[], isFirst, SVG, title, type, customStyl
     if(roles.length > 0){
         //Quiere decir que viene con roles y se pasa este argumento options
         options = roles
-    } else if (teams.length > 0){
+    } else if (teams.length > 0 && type !== 'externalInfluence'){
         //Quiere decir que viene con teams y se pasa como argumento options
         options = teams
     } else {
         options = []
+    }
+
+    if(type=='externalInfluence'){
+        options = externalInfluences
     }
 
 

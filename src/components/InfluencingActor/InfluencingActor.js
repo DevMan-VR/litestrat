@@ -64,7 +64,7 @@ const InfluencingActorComponent = ({externalInfluences}) => {
                             
                             { isCurrentSelected ? 
                                 (
-                                    <EditWrapper options={state.workspace.teams} index={index}  element={externalInfluence} editElement={editElement} type={"externalInfluence"}>
+                                    <EditWrapper options={state.workspace.externalInfluences} index={index}  element={externalInfluence} editElement={editElement} type={"externalInfluence"}>
                                         <PencilIcon />
                                     </EditWrapper>
 
