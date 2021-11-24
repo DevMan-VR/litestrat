@@ -36,21 +36,21 @@ const OrganizationView = () => {
                 
             </div>
 
-            <div className="OrganizationBody" style={{position: 'relative', display: 'flex', alignItems: 'baseline', height: '700px', width: '100%'}}>
+            <div className="OrganizationBody" style={{position: 'relative', display: 'flex', alignItems: 'baseline', height: '700px', width: '2100px '}}>
             
-                <div className="GoalRow" style={styles.goalRow}>
+                <div className="GoalRow" className="GoalRow" style={styles.goalRow}>
                     <GoalsComponent/>
                 </div>
                 
-                <div className="StrategyRow" style={styles.strategyRow}> 
+                <div className="StrategyRow" className="StrategyRow" style={styles.strategyRow}> 
                     <StrategyComponent/>
                 </div>
 
-                <div className="TacticRow" style={styles.tacticRow}>
+                <div className="TacticRow" className="TacticRow" style={styles.tacticRow}>
                     <TacticComponent/>
                 </div>
                 
-                <div className="ObjectiveRow" style={styles.objectiveRow} >
+                <div className="ObjectiveRow" className="ObjectiveRow" style={styles.objectiveRow} >
                     <ObjectiveComponent/>
                 </div>
 
@@ -98,7 +98,6 @@ const styles = {
         width: '100%',
         zIndex: '1',
         overflow: 'auto',
-        whiteSpace: 'nowrap',
 
     },
     strategyRow: {
@@ -108,7 +107,6 @@ const styles = {
         marginTop: '2em',
         backgroundColor: Gray1,
         overflow: 'auto',
-        whiteSpace: 'nowrap',
     },
 
 }

@@ -47,7 +47,7 @@ const TacticComponent = () => {
                                             style={{
                                                 position: 'absolute',
                                                 top: '-75px',
-                                                left: '-127px',
+                                                left: '-197px',
                                                 display: 'flex',
                                                 zIndex: 50,
                                                 

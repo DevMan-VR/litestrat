@@ -38,8 +38,8 @@ const GoalsComponent = () => {
                                     <div 
                                         style={{
                                             position: 'absolute',
-                                            top: '-75px',
-                                            left: '-127px',
+                                            top: '-85px',
+                                            left: '-195px',
                                             display: 'flex',
                                             zIndex: 50,
                                             

@@ -71,7 +71,6 @@ const styles = {
         marginLeft: '15em',
         backgroundColor: 'white',
         minWidth: '1000px',
-        width: '100%',
         height: '970px',
         boxShadow: "-2px 2px 10px #9E9E9E",
         borderRadius: '4em'

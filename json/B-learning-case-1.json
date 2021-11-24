@@ -1,0 +1,1094 @@
+{
+    "id": 1,
+    "sceneId": 1,
+    "title": "Escenario 1",
+    "description": null,
+    "organization": {
+      "id": 1,
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "isVisible": false,
+      "currentSelect": false,
+      "name": "dummy",
+      "goals": [
+        {
+          "id": "g4",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": null,
+          "title": "Aprovechar las restricciones para aumentar el número de clientes",
+          "description": null,
+          "until": null,
+          "isSelected": true,
+          "isVisible": false,
+          "currentSelect": false,
+          "strategies": [
+            {
+              "id": "g4s2",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": "g4",
+              "title": "Aumentar la cantidad de estudiantes de cursos existentes",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "tactics": [],
+              "index": 0
+            },
+            {
+              "id": "g4s5",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": "g4",
+              "title": "Aumentar cantidad de cursos ofrecidos",
+              "description": null,
+              "until": null,
+              "isSelected": true,
+              "isVisible": false,
+              "currentSelect": false,
+              "tactics": [
+                {
+                  "id": "g4s5t0",
+                  "sceneId": null,
+                  "userId": null,
+                  "fatherId": "g4s5",
+                  "title": "Modularizar el diseño de cursos",
+                  "description": null,
+                  "until": null,
+                  "isSelected": false,
+                  "isVisible": false,
+                  "currentSelect": false,
+                  "objectives": [],
+                  "team": {
+                    "id": "Equipo 1",
+                    "department": "Por defecto TI",
+                    "title": "Equipo 1",
+                    "roles": []
+                  },
+                  "externalInfluences": [],
+                  "relatedUnits": [],
+                  "teamIndex": 1,
+                  "index": 1
+                },
+                {
+                  "id": "g4s5t0",
+                  "sceneId": null,
+                  "userId": null,
+                  "fatherId": "g4s5",
+                  "title": "Flexibilizar disponibilidad de profesores",
+                  "description": null,
+                  "until": null,
+                  "isSelected": false,
+                  "isVisible": false,
+                  "currentSelect": false,
+                  "objectives": [],
+                  "team": {
+                    "id": "Equipo 2",
+                    "department": "Por defecto TI",
+                    "title": "Equipo 2",
+                    "roles": []
+                  },
+                  "externalInfluences": [],
+                  "relatedUnits": [],
+                  "teamIndex": 2,
+                  "index": 1
+                },
+                {
+                  "id": "g4s5t2",
+                  "sceneId": null,
+                  "userId": null,
+                  "fatherId": "g4s5",
+                  "title": "Flexibilizar disponibilidad de espacios",
+                  "description": "",
+                  "until": null,
+                  "isSelected": false,
+                  "isVisible": false,
+                  "currentSelect": false,
+                  "objectives": [],
+                  "team": {
+                    "id": "Equipo 3",
+                    "department": "Por defecto TI",
+                    "title": "Equipo 3",
+                    "roles": []
+                  },
+                  "externalInfluences": [],
+                  "relatedUnits": [],
+                  "teamIndex": 3,
+                  "index": 1
+                },
+                {
+                  "id": "g4s5t0",
+                  "sceneId": null,
+                  "userId": null,
+                  "fatherId": "g4s5",
+                  "title": "Flexibilizar la inscripción de cursos",
+                  "description": "",
+                  "until": null,
+                  "isSelected": false,
+                  "isVisible": false,
+                  "currentSelect": false,
+                  "objectives": [],
+                  "team": {
+                    "id": "Equipo4",
+                    "department": "Por defecto TI",
+                    "title": "Equipo4",
+                    "roles": []
+                  },
+                  "externalInfluences": [],
+                  "relatedUnits": [],
+                  "teamIndex": 4,
+                  "index": 1
+                },
+                {
+                  "id": "g4s5t5",
+                  "sceneId": null,
+                  "userId": null,
+                  "fatherId": "g4s5",
+                  "title": "Flexibilizar horarios de actividades prácticas",
+                  "description": "",
+                  "until": null,
+                  "isSelected": false,
+                  "isVisible": false,
+                  "currentSelect": false,
+                  "objectives": [],
+                  "team": {
+                    "id": "Equipo 5",
+                    "department": "Por defecto TI",
+                    "title": "Equipo 5",
+                    "roles": []
+                  },
+                  "externalInfluences": [],
+                  "relatedUnits": [],
+                  "teamIndex": 5,
+                  "index": 1
+                },
+                {
+                  "id": "g4s5t0",
+                  "sceneId": null,
+                  "userId": null,
+                  "fatherId": "g4s5",
+                  "title": "Flexibilizar horarios de actividades síncronas",
+                  "description": "",
+                  "until": null,
+                  "isSelected": true,
+                  "isVisible": false,
+                  "currentSelect": true,
+                  "objectives": [],
+                  "team": {
+                    "id": "Equipo 6",
+                    "department": "Por defecto TI",
+                    "title": "Equipo 6",
+                    "roles": []
+                  },
+                  "externalInfluences": [],
+                  "relatedUnits": [],
+                  "teamIndex": 6,
+                  "index": 1
+                }
+              ],
+              "index": 1
+            }
+          ],
+          "index": 0
+        }
+      ]
+    },
+    "externalActorSelected": null,
+    "goalSelected": {
+      "id": "g4",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "title": "Aprovechar las restricciones para aumentar el número de clientes",
+      "description": null,
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": false,
+      "strategies": [
+        {
+          "id": "g4s2",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": "g4",
+          "title": "Aumentar la cantidad de estudiantes de cursos existentes",
+          "description": null,
+          "until": null,
+          "isSelected": false,
+          "isVisible": false,
+          "currentSelect": false,
+          "tactics": [],
+          "index": 0
+        },
+        {
+          "id": "g4s5",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": "g4",
+          "title": "Aumentar cantidad de cursos ofrecidos",
+          "description": null,
+          "until": null,
+          "isSelected": true,
+          "isVisible": false,
+          "currentSelect": false,
+          "tactics": [
+            {
+              "id": "g4s5t0",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": "g4s5",
+              "title": "Modularizar el diseño de cursos",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "objectives": [],
+              "team": {
+                "id": "Equipo 1",
+                "department": "Por defecto TI",
+                "title": "Equipo 1",
+                "roles": []
+              },
+              "externalInfluences": [],
+              "relatedUnits": [],
+              "teamIndex": 1,
+              "index": 1
+            },
+            {
+              "id": "g4s5t0",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": "g4s5",
+              "title": "Flexibilizar disponibilidad de profesores",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "objectives": [],
+              "team": {
+                "id": "Equipo 2",
+                "department": "Por defecto TI",
+                "title": "Equipo 2",
+                "roles": []
+              },
+              "externalInfluences": [],
+              "relatedUnits": [],
+              "teamIndex": 2,
+              "index": 1
+            },
+            {
+              "id": "g4s5t2",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": "g4s5",
+              "title": "Flexibilizar disponibilidad de espacios",
+              "description": "",
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "objectives": [],
+              "team": {
+                "id": "Equipo 3",
+                "department": "Por defecto TI",
+                "title": "Equipo 3",
+                "roles": []
+              },
+              "externalInfluences": [],
+              "relatedUnits": [],
+              "teamIndex": 3,
+              "index": 1
+            },
+            {
+              "id": "g4s5t0",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": "g4s5",
+              "title": "Flexibilizar la inscripción de cursos",
+              "description": "",
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "objectives": [],
+              "team": {
+                "id": "Equipo4",
+                "department": "Por defecto TI",
+                "title": "Equipo4",
+                "roles": []
+              },
+              "externalInfluences": [],
+              "relatedUnits": [],
+              "teamIndex": 4,
+              "index": 1
+            },
+            {
+              "id": "g4s5t5",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": "g4s5",
+              "title": "Flexibilizar horarios de actividades prácticas",
+              "description": "",
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "objectives": [],
+              "team": {
+                "id": "Equipo 5",
+                "department": "Por defecto TI",
+                "title": "Equipo 5",
+                "roles": []
+              },
+              "externalInfluences": [],
+              "relatedUnits": [],
+              "teamIndex": 5,
+              "index": 1
+            },
+            {
+              "id": "g4s5t0",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": "g4s5",
+              "title": "Flexibilizar horarios de actividades síncronas",
+              "description": "",
+              "until": null,
+              "isSelected": true,
+              "isVisible": false,
+              "currentSelect": true,
+              "objectives": [],
+              "team": {
+                "id": "Equipo 6",
+                "department": "Por defecto TI",
+                "title": "Equipo 6",
+                "roles": []
+              },
+              "externalInfluences": [],
+              "relatedUnits": [],
+              "teamIndex": 6,
+              "index": 1
+            }
+          ],
+          "index": 1
+        }
+      ],
+      "index": 0
+    },
+    "strategySelected": {
+      "id": "g4s5",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": "g4",
+      "title": "Aumentar cantidad de cursos ofrecidos",
+      "description": null,
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": false,
+      "tactics": [
+        {
+          "id": "g4s5t0",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": "g4s5",
+          "title": "Modularizar el diseño de cursos",
+          "description": null,
+          "until": null,
+          "isSelected": false,
+          "isVisible": false,
+          "currentSelect": false,
+          "objectives": [],
+          "team": {
+            "id": "Equipo 1",
+            "department": "Por defecto TI",
+            "title": "Equipo 1",
+            "roles": []
+          },
+          "externalInfluences": [],
+          "relatedUnits": [],
+          "teamIndex": 1,
+          "index": 1
+        },
+        {
+          "id": "g4s5t0",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": "g4s5",
+          "title": "Flexibilizar disponibilidad de profesores",
+          "description": null,
+          "until": null,
+          "isSelected": false,
+          "isVisible": false,
+          "currentSelect": false,
+          "objectives": [
+            {
+              "id": "g4s5t0g5",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "Inscripción on line de profesores",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "role": {
+                "id": "rol1",
+                "title": "rol1",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            },
+            {
+              "id": "g4s5t0g8",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "Validación de requisitos",
+              "description": "estudios, disponibilidad horaria mínima, disponibilidad de infraestructura y equipamiento para prácticas\n",
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "role": {
+                "id": "rol2",
+                "title": "rol2",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            },
+            {
+              "id": "g4s5t0g9",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "Compromiso horario calendarizado",
+              "description": "",
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "role": {
+                "id": "rol3",
+                "title": "rol3",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            }
+          ],
+          "team": {
+            "id": "Equipo 2",
+            "department": "Por defecto TI",
+            "title": "Equipo 2",
+            "roles": [
+              {
+                "id": "rol1",
+                "title": "rol1",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              },
+              {
+                "id": "rol2",
+                "title": "rol2",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              },
+              {
+                "id": "rol3",
+                "title": "rol3",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            ]
+          },
+          "externalInfluences": [],
+          "relatedUnits": [],
+          "teamIndex": 2,
+          "index": 1
+        },
+        {
+          "id": "g4s5t2",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": "g4s5",
+          "title": "Flexibilizar disponibilidad de espacios",
+          "description": "",
+          "until": null,
+          "isSelected": false,
+          "isVisible": false,
+          "currentSelect": false,
+          "objectives": [
+            {
+              "id": "g4s5t2g2",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "Compromiso horario calendarizado",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "role": {
+                "id": "rol1",
+                "title": "rol1",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            }
+          ],
+          "team": {
+            "id": "Equipo 3",
+            "department": "Por defecto TI",
+            "title": "Equipo 3",
+            "roles": [
+              {
+                "id": "rol1",
+                "title": "rol1",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            ]
+          },
+          "externalInfluences": [],
+          "relatedUnits": [],
+          "teamIndex": 3,
+          "index": 1
+        },
+        {
+          "id": "g4s5t0",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": "g4s5",
+          "title": "Flexibilizar la inscripción de cursos",
+          "description": "",
+          "until": null,
+          "isSelected": false,
+          "isVisible": false,
+          "currentSelect": false,
+          "objectives": [
+            {
+              "id": "g4s5t0g4",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "Oferta de cursos y módulos según disponibilidad de profesores y espacios",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "role": {
+                "id": "rol1",
+                "title": "rol1",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            },
+            {
+              "id": "g4s5t0g9",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "Inscripción on line de módulos de cursos, una vez al mes en vez de semestral",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "role": {
+                "id": "rol2",
+                "title": "rol2",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            }
+          ],
+          "team": {
+            "id": "Equipo4",
+            "department": "Por defecto TI",
+            "title": "Equipo4",
+            "roles": [
+              {
+                "id": "rol1",
+                "title": "rol1",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              },
+              {
+                "id": "rol2",
+                "title": "rol2",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            ]
+          },
+          "externalInfluences": [],
+          "relatedUnits": [],
+          "teamIndex": 4,
+          "index": 1
+        },
+        {
+          "id": "g4s5t5",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": "g4s5",
+          "title": "Flexibilizar horarios de actividades prácticas",
+          "description": "",
+          "until": null,
+          "isSelected": false,
+          "isVisible": false,
+          "currentSelect": false,
+          "objectives": [
+            {
+              "id": "g4s5t5g2",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "“Booking” de actividades presenciales y síncronas, según disponibilidad de profesores y espacios",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "role": {
+                "id": "rol1",
+                "title": "rol1",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            },
+            {
+              "id": "g4s5t5g7",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "Sistema de méritos (desempeño, constancia) para tener prioridad al calendarizar actividades",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "role": {
+                "id": "rol2",
+                "title": "rol2",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            }
+          ],
+          "team": {
+            "id": "Equipo 5",
+            "department": "Por defecto TI",
+            "title": "Equipo 5",
+            "roles": [
+              {
+                "id": "rol1",
+                "title": "rol1",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              },
+              {
+                "id": "rol2",
+                "title": "rol2",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            ]
+          },
+          "externalInfluences": [],
+          "relatedUnits": [],
+          "teamIndex": 5,
+          "index": 1
+        },
+        {
+          "id": "g4s5t0",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": "g4s5",
+          "title": "Flexibilizar horarios de actividades síncronas",
+          "description": "",
+          "until": null,
+          "isSelected": true,
+          "isVisible": false,
+          "currentSelect": true,
+          "objectives": [
+            {
+              "id": "g4s5t0g8",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "“Booking” de actividades presenciales y síncronas, según disponibilidad de profesores y espacios",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "role": {
+                "id": "rol1",
+                "title": "rol1",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            },
+            {
+              "id": "g4s5t0g8",
+              "sceneId": null,
+              "userId": null,
+              "fatherId": null,
+              "title": "Sistema de méritos (desempeño, constancia) para tener prioridad al calendarizar actividades",
+              "description": null,
+              "until": null,
+              "isSelected": false,
+              "isVisible": false,
+              "currentSelect": false,
+              "role": {
+                "id": "rol2",
+                "title": "rol2",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            }
+          ],
+          "team": {
+            "id": "Equipo 6",
+            "department": "Por defecto TI",
+            "title": "Equipo 6",
+            "roles": [
+              {
+                "id": "rol1",
+                "title": "rol1",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              },
+              {
+                "id": "rol2",
+                "title": "rol2",
+                "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+                "username": "John Von Neumann"
+              }
+            ]
+          },
+          "externalInfluences": [],
+          "relatedUnits": [],
+          "teamIndex": 6,
+          "index": 1
+        }
+      ],
+      "index": 1
+    },
+    "tacticSelected": {
+      "id": "g4s5t0",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": "g4s5",
+      "title": "Flexibilizar horarios de actividades síncronas",
+      "description": "",
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": true,
+      "objectives": [
+        {
+          "id": "g4s5t0g8",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": null,
+          "title": "“Booking” de actividades presenciales y síncronas, según disponibilidad de profesores y espacios",
+          "description": null,
+          "until": null,
+          "isSelected": false,
+          "isVisible": false,
+          "currentSelect": false,
+          "role": {
+            "id": "rol1",
+            "title": "rol1",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          }
+        },
+        {
+          "id": "g4s5t0g8",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": null,
+          "title": "Sistema de méritos (desempeño, constancia) para tener prioridad al calendarizar actividades",
+          "description": null,
+          "until": null,
+          "isSelected": false,
+          "isVisible": false,
+          "currentSelect": false,
+          "role": {
+            "id": "rol2",
+            "title": "rol2",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          }
+        }
+      ],
+      "team": {
+        "id": "Equipo 6",
+        "department": "Por defecto TI",
+        "title": "Equipo 6",
+        "roles": [
+          {
+            "id": "rol1",
+            "title": "rol1",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          },
+          {
+            "id": "rol2",
+            "title": "rol2",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          }
+        ]
+      },
+      "externalInfluences": [],
+      "relatedUnits": [],
+      "teamIndex": 6,
+      "index": 1
+    },
+    "objectiveSelected": null,
+    "teamSelected": null,
+    "roleSelected": null,
+    "externalInfluenceSelected": null,
+    "currentSelected": null,
+    "allTactics": [
+      {
+        "id": "g4s5t0",
+        "sceneId": null,
+        "userId": null,
+        "fatherId": "g4s5",
+        "title": "Modularizar el diseño de cursos",
+        "description": null,
+        "until": null,
+        "isSelected": false,
+        "isVisible": false,
+        "currentSelect": false,
+        "objectives": [],
+        "team": {
+          "id": "Equipo 1",
+          "department": "Por defecto TI",
+          "title": "Equipo 1",
+          "roles": []
+        },
+        "externalInfluences": [],
+        "relatedUnits": [],
+        "teamIndex": 1,
+        "index": 1
+      },
+      {
+        "id": "g4s5t0",
+        "sceneId": null,
+        "userId": null,
+        "fatherId": "g4s5",
+        "title": "Flexibilizar disponibilidad de profesores",
+        "description": null,
+        "until": null,
+        "isSelected": false,
+        "isVisible": false,
+        "currentSelect": false,
+        "objectives": [],
+        "team": {
+          "id": "Equipo 2",
+          "department": "Por defecto TI",
+          "title": "Equipo 2",
+          "roles": []
+        },
+        "externalInfluences": [],
+        "relatedUnits": [],
+        "teamIndex": 2,
+        "index": 1
+      },
+      {
+        "id": "g4s5t2",
+        "sceneId": null,
+        "userId": null,
+        "fatherId": "g4s5",
+        "title": "Flexibilizar disponibilidad de espacios",
+        "description": "",
+        "until": null,
+        "isSelected": false,
+        "isVisible": false,
+        "currentSelect": false,
+        "objectives": [],
+        "team": {
+          "id": "Equipo 3",
+          "department": "Por defecto TI",
+          "title": "Equipo 3",
+          "roles": []
+        },
+        "externalInfluences": [],
+        "relatedUnits": [],
+        "teamIndex": 3,
+        "index": 1
+      },
+      {
+        "id": "g4s5t0",
+        "sceneId": null,
+        "userId": null,
+        "fatherId": "g4s5",
+        "title": "Flexibilizar la inscripción de cursos",
+        "description": "",
+        "until": null,
+        "isSelected": false,
+        "isVisible": false,
+        "currentSelect": false,
+        "objectives": [],
+        "team": {
+          "id": "Equipo4",
+          "department": "Por defecto TI",
+          "title": "Equipo4",
+          "roles": []
+        },
+        "externalInfluences": [],
+        "relatedUnits": [],
+        "teamIndex": 4,
+        "index": 1
+      },
+      {
+        "id": "g4s5t5",
+        "sceneId": null,
+        "userId": null,
+        "fatherId": "g4s5",
+        "title": "Flexibilizar horarios de actividades prácticas",
+        "description": "",
+        "until": null,
+        "isSelected": false,
+        "isVisible": false,
+        "currentSelect": false,
+        "objectives": [],
+        "team": {
+          "id": "Equipo 5",
+          "department": "Por defecto TI",
+          "title": "Equipo 5",
+          "roles": []
+        },
+        "externalInfluences": [],
+        "relatedUnits": [],
+        "teamIndex": 5,
+        "index": 1
+      },
+      {
+        "id": "g4s5t0",
+        "sceneId": null,
+        "userId": null,
+        "fatherId": "g4s5",
+        "title": "Flexibilizar horarios de actividades síncronas",
+        "description": "",
+        "until": null,
+        "isSelected": true,
+        "isVisible": false,
+        "currentSelect": true,
+        "objectives": [],
+        "team": {
+          "id": "Equipo 6",
+          "department": "Por defecto TI",
+          "title": "Equipo 6",
+          "roles": []
+        },
+        "externalInfluences": [],
+        "relatedUnits": [],
+        "teamIndex": 6,
+        "index": 1
+      }
+    ],
+    "relatedUnits": [],
+    "externalInfluences": [],
+    "externalActor": {
+      "id": "EX_ACT9",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": null,
+      "title": "Restricciones de aforo y movilidad por MINSAL",
+      "description": null,
+      "until": null,
+      "isSelected": null,
+      "isVisible": false,
+      "currentSelect": false,
+      "influencedOrganization": "B-Learning",
+      "externalActor": {
+        "title": "Restricciones de aforo y movilidad por MINSAL"
+      }
+    },
+    "currentSelect": {
+      "id": "g4s5t0",
+      "sceneId": null,
+      "userId": null,
+      "fatherId": "g4s5",
+      "title": "Flexibilizar horarios de actividades síncronas",
+      "description": "",
+      "until": null,
+      "isSelected": true,
+      "isVisible": false,
+      "currentSelect": true,
+      "objectives": [
+        {
+          "id": "g4s5t0g8",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": null,
+          "title": "“Booking” de actividades presenciales y síncronas, según disponibilidad de profesores y espacios",
+          "description": null,
+          "until": null,
+          "isSelected": false,
+          "isVisible": false,
+          "currentSelect": false,
+          "role": {
+            "id": "rol1",
+            "title": "rol1",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          }
+        },
+        {
+          "id": "g4s5t0g8",
+          "sceneId": null,
+          "userId": null,
+          "fatherId": null,
+          "title": "Sistema de méritos (desempeño, constancia) para tener prioridad al calendarizar actividades",
+          "description": null,
+          "until": null,
+          "isSelected": false,
+          "isVisible": false,
+          "currentSelect": false,
+          "role": {
+            "id": "rol2",
+            "title": "rol2",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          }
+        }
+      ],
+      "team": {
+        "id": "Equipo 6",
+        "department": "Por defecto TI",
+        "title": "Equipo 6",
+        "roles": [
+          {
+            "id": "rol1",
+            "title": "rol1",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          },
+          {
+            "id": "rol2",
+            "title": "rol2",
+            "userId": "529458d0-b784-4c09-9bbb-4462a69ce323",
+            "username": "John Von Neumann"
+          }
+        ]
+      },
+      "externalInfluences": [],
+      "relatedUnits": [],
+      "teamIndex": 6,
+      "index": 1
+    }
+  }

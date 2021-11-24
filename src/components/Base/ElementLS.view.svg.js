@@ -124,7 +124,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
             alignItems: 'center',
             marginLeft: mLeft,
             marginTop: mTop,
-            width: '7em',
+            width: '12em',
 
            
 
@@ -174,7 +174,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
     const titleFx = () => {
         if(element.title.length >= maxLength){
-            return `${element.title.substring(0, maxLength)}...`
+            return element.title//`${element.title.substring(0, maxLength)}...`
         } else {
             return  element.title
         }
@@ -244,7 +244,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
                         <div style={styles.content}>
                             
-                            <div>{titleFx()}</div>
+                            <div><p>{titleFx()}</p></div>
 
                         </div>
 

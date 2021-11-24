@@ -81,7 +81,7 @@ const ObjectiveComponent = () => {
                                 style={{
                                     position: 'absolute',
                                     top: '-350px',
-                                    left: '720px',
+                                    left: '1420px',
                                     width: '300px'
                                     
                                 }}
