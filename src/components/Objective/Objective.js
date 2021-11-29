@@ -34,54 +34,12 @@ const ObjectiveComponent = () => {
         
                 <div className="ObjectiveArea" style={{display:'flex',alignItems:'flex-start', width: '85%', height: '100%', marginTop: '1em', marginLeft: '15%',flexWrap: 'wrap' }}>
     
-                    {scene.tacticSelected.objectives.map((objective, index) => {
-    
-                        var isCurrentSelected = false;
-                        if(objective.currentSelect){
-                            isCurrentSelected = true
-                        }
-    
-                        return (
-                            <Fragment>
-    
-                                <ObjectiveView options={scene.tacticSelected.team.roles} id={objective.id} key={objective.id} objective={objective} onClick={() => selectElement(index, objective, 'objective')} />
-    
-                                <div style={{position: 'relative'}}>
-                                    <div 
-                                        style={{
-                                            position: 'absolute',
-                                            top: '11px',
-                                            left: '-232px',
-                                            display: 'flex',
-                                            zIndex: 50,
-                                            
-                                            
-                                        }}
-                                    >
-                                        
-                                        { isCurrentSelected ? 
-                                            (
-                                                <EditWrapper index={index}  element={objective} editElement={editElement} type={"objective"}>
-                                                    <PencilIcon />
-                                                </EditWrapper>
-    
-                                            ) : <Fragment/>
-                                        }
-                                    </div>
-                                </div>
-    
-                            </Fragment>
-                        )
-                    })}
-                
-                    <AddBtnSVG_2 roles={scene.tacticSelected.team.roles} isFirst={scene.tacticSelected.objectives.length === 0} SVG={ObjectiveIcon} title="Nombre de Objetivo" description="Description" addElement={addElement} type="objective" />
-                
-                    <div style={{position: 'relative'}}>
+    <div style={{position: 'relative'}}>
                             <div className="ExternalInfluencedActorsContainer" 
                                 style={{
                                     position: 'absolute',
                                     top: '-350px',
-                                    left: '1420px',
+                                    left: '1700px',
                                     width: '300px'
                                     
                                 }}
@@ -101,7 +59,7 @@ const ObjectiveComponent = () => {
                                 style={{
                                     position: 'absolute',
                                     top: '270px',
-                                    left: '-400px',
+                                    left: '0px',
                                     width: '300px',
                                     display:'flex',
                                     flexDirection:'row',
@@ -118,6 +76,52 @@ const ObjectiveComponent = () => {
                             </div>
 
                     </div>
+
+                    {scene.tacticSelected.objectives.map((objective, index) => {
+    
+                        var isCurrentSelected = false;
+                        if(objective.currentSelect){
+                            isCurrentSelected = true
+                        }
+    
+                        return (
+                            <Fragment>
+
+                                <div style={{position: 'relative'}}>
+                                    <div 
+                                        style={{
+                                            position: 'absolute',
+                                            top: '11px',
+                                            left: '62px',
+                                            display: 'flex',
+                                            zIndex: 50,
+                                            
+                                            
+                                        }}
+                                    >
+                                        
+                                        { isCurrentSelected ? 
+                                            (
+                                                <EditWrapper index={index}  element={objective} editElement={editElement} type={"objective"}>
+                                                    <PencilIcon />
+                                                </EditWrapper>
+    
+                                            ) : <Fragment/>
+                                        }
+                                    </div>
+                                </div>
+    
+                                <ObjectiveView options={scene.tacticSelected.team.roles} id={objective.id} key={objective.id} objective={objective} onClick={() => selectElement(index, objective, 'objective')} />
+    
+                                
+    
+                            </Fragment>
+                        )
+                    })}
+                
+                    <AddBtnSVG_2 roles={scene.tacticSelected.team.roles} isFirst={scene.tacticSelected.objectives.length === 0} SVG={ObjectiveIcon} title="Nombre de Objetivo" description="Description" addElement={addElement} type="objective" />
+                
+                    
                 
                 </div>
             )

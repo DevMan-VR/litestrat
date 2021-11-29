@@ -138,7 +138,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
     
         absoluteDiv: {
             position: 'absolute',
-            top: '-4px',
+            top: '80px',
             backgroundColor: divColor,
             height: '40px',
             width: '100%',
@@ -232,27 +232,6 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
     return(
         <div  >
-            <ElementWrapper  element={element} onClick={onClick} style={style}>
-
-            
-                <div className="elementStyle" style={styles.elementStyle}>
-
-                        <div style={styles.icon}>
-                            {/** ICON ELEMENT SVG */}
-                            <SVG />
-                        </div>
-
-                        <div style={styles.content}>
-                            
-                            <div><p>{titleFx()}</p></div>
-
-                        </div>
-
-                        
-
-                        {renderRole()}
-                </div>
-            </ElementWrapper>
 
             {   isSelected && type !== 'objective' ?
                     <div style={styles.relativeDiv}>
@@ -278,6 +257,32 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
                     <Fragment/>
                 )
             }
+            
+            <ElementWrapper  element={element} onClick={onClick} style={style}>
+
+            
+                <div className="elementStyle" style={styles.elementStyle}>
+
+                        <div style={styles.icon}>
+                            {/** ICON ELEMENT SVG */}
+                            <SVG />
+                        </div>
+
+                        <div style={styles.content}>
+                            
+                            <div><p>{titleFx()}</p></div>
+
+                        </div>
+
+                        
+
+                        {renderRole()}
+                </div>
+            </ElementWrapper>
+
+            
+
+            
             
                         
         </div>

@@ -5,8 +5,8 @@ import AddBtnWrapper from './AddBtn/AddBtnWrapper';
 const ElementWrapper = ({onClick, children, style}) => {
 
     var wrapper = (
-            <div >
-                <button style={style} onClick={onClick}>{children}</button>
+            <div className="ElementWrapper" style={style} >
+                <button  onClick={onClick}>{children}</button>
             </div>
         )
 
