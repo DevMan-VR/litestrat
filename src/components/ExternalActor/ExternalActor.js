@@ -38,7 +38,7 @@ const ExternalActor = () => {
                 
 
                 <div style={{display:'flex', position:'relative'}}>
-                    <div 
+                    <div id="influencingText"
                         style={{
                             display: 'flex', 
                             position: 'absolute', 

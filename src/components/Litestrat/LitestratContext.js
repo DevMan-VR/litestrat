@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react'
-import { initialState } from './LitestratInitialState'
+import { initialState, tutorialState } from './LitestratInitialState'
 
 const LitestratContext = React.createContext()
 
@@ -7,8 +7,16 @@ export const useLitestratContext = () => {
     return useContext(LitestratContext)
 }
 
-const LitestratProvider = ({children}) => {
-    const [state, setState] = useState(initialState)
+const LitestratProvider = ({children, isTutorial=false}) => {
+
+
+    let theState
+    if(isTutorial){
+        theState = tutorialState
+    }else {
+        theState = initialState
+    }
+    const [state, setState] = useState(theState)
 
     useEffect(() => {
         console.log("El nuevo estado de Litestrat es: ", state)

@@ -9,7 +9,7 @@ import { Gray1, Gray0 } from '../../constants/Colors'
 const GoalView = ({goal, onClick}) => {
 
     return(
-            <ElementLSView  element={goal} onClick={onClick} SVG={GoalIcon} styling={btnStyles} type="goal"/>
+            <ElementLSView className="GoalElement" element={goal} onClick={onClick} SVG={GoalIcon} styling={btnStyles} type="goal"/>
     
     )
 }

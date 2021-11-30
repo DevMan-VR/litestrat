@@ -31,7 +31,7 @@ const GoalsComponent = () => {
             
                         return(
                             <Fragment>
-                                <GoalView id={goal.id} key={goal.id} goal={goal} onClick={() => selectElement(index, goal, 'goal')} />
+                                <GoalView id="goalElement" id={goal.id} key={goal.id} goal={goal} onClick={() => selectElement(index, goal, 'goal')} />
     
                                
                                 <div style={{position: 'relative'}}>
