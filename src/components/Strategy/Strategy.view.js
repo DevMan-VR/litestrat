@@ -6,9 +6,18 @@ import StrategyIcon from '../../assets/icons/StrategyIcon.js'
 
 import { Gray1, Gray2 } from '../../constants/Colors'
 
-const StrategyView = ({strategy, onClick}) => {
+const StrategyView = ({strategy, onClick, relTop, relLeft, index}) => {
     return(
-        <ElementLSView element={strategy} onClick={onClick} SVG={StrategyIcon} styling={btnStyles} type="strategy"/> 
+        <ElementLSView 
+            element={strategy} 
+            onClick={onClick} 
+            SVG={StrategyIcon} 
+            styling={btnStyles} 
+            type="strategy"
+            relTop={relTop}
+            relLeft={relLeft}
+            index={index}
+        /> 
     )
 }
 

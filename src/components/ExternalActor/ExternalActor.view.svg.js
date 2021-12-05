@@ -8,13 +8,23 @@ import { Gray0, Gray1 } from '../../constants/Colors'
 
 import { useLitestratCrudContext } from '../Litestrat/LitestratCrudContext'
 
-const ExternalActorView = ({externalActor, editElement, selectNode}) => {
+const ExternalActorView = ({externalActor, editElement, selectNode, relTop, relLeft}) => {
 
     const {selectElement} = useLitestratCrudContext()
 
 
     return(
-            <ElementLSView textPosition={"down"} element={externalActor} onClick={() => selectElement(null,externalActor,'externalActor') } SVG={ExternalActorIcon} styling={btnStyles} type="externalActor"/>
+            <ElementLSView 
+                textPosition={"down"} 
+                element={externalActor} 
+                onClick={() => selectElement(null,externalActor,'externalActor') } 
+                SVG={ExternalActorIcon} 
+                styling={btnStyles} 
+                type="externalActor"
+                relTop={relTop}
+                relLeft={relLeft}
+
+            />
     
     )
 }

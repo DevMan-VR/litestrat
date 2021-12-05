@@ -34,7 +34,7 @@ const ObjectiveComponent = () => {
         
                 <div className="ObjectiveArea" style={{display:'flex',alignItems:'flex-start', width: '85%', height: '100%', marginTop: '1em', marginLeft: '15%',flexWrap: 'wrap' }}>
     
-    <div style={{position: 'relative'}}>
+                    <div style={{position: 'relative'}}>
                             <div className="ExternalInfluencedActorsContainer" 
                                 style={{
                                     position: 'absolute',

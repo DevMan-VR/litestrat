@@ -301,7 +301,7 @@ const LitestratCrudProvider = ({children}) => {
             case 'role': updatedScene.selectedRole = {...updatedElement}; break;
         }
 
-        //console.log("This is the received element: ", updatedElement)
+        console.log("This is the received element: ", updatedElement)
         //console.log("This is the updatedScene after edited element: ", updatedScene)
 
         newState.workspace.scenes[sceneIndex] = {...updatedScene}

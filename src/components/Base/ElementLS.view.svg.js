@@ -5,13 +5,14 @@ import PencilIcon from '../../assets/icons/PencilIcon'
 
 import EditWrapper from './EditWrapper'
 import RoleIcon from '../../assets/icons/RoleIcon'
+import TeamIcon from '../../assets/icons/TeamIcon'
 
 import goodTime from '../../assets/png/goodTime.png'
 import warningTime from '../../assets/png/warningTime.png'
 import badTime from '../../assets/png/badTime.png'
 import { addSeconds } from 'date-fns'
 
-const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, type}) => {
+const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, type, index, relTop, relLeft}) => {
 
 
     const maxLength = 20;
@@ -43,7 +44,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
     if(textPosition === 'down'){
         flexDirection = 'column'
-        mTop = '0.5em'
+        mTop = '0px'
         mLeft = '0px'
     } else {
         flexDirection = 'row'
@@ -77,13 +78,16 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
     if(type === 'objective'){
         style = {
             ...style,
-            borderTopLeftRadius:'3em',
-            borderTopRightRadius: '3em',
+            //borderTopLeftRadius:'3em',
+            ///borderTopRightRadius: '3em',
             height: '100%',
-            borderTopLeftRadius: '1.5em',
-            borderBottomLeftRadius: '1.5em',
-            borderTopRightRadius: '2.5em',
-            borderBottomRightRadius: '2.5em',
+            //borderTopLeftRadius: '1.5em',
+            //borderBottomLeftRadius: '1.5em',
+            //borderTopRightRadius: '2.5em',
+            //borderBottomRightRadius: '2.5em',
+            display: 'flex',
+            justifyContent:'center',
+            alignItems: 'center'
         }
 
     } else if(type!== 'externalActor'){
@@ -95,7 +99,13 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
     
         }
     }
-
+    
+    let specialTop
+    if(type === 'objective'){
+        specialTop = '0px'
+    } else {
+        specialTop = '0.4em'
+    }
 
     const styles = {
         personIcon: {
@@ -103,8 +113,9 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            marginLeft: '2em',
-            marginRight: '1em'
+            marginLeft: '1em',
+            marginRight: '1em',
+            width: '5em'
         },
         icon: {
             display: 'flex',
@@ -114,7 +125,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
         elementStyle: {
             display: 'flex',
             flexDirection: flexDirection,
-            marginTop: '0.7em',
+            marginTop: specialTop,
             marginLeft: '1em'
         },
         content: {
@@ -124,9 +135,8 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
             alignItems: 'center',
             marginLeft: mLeft,
             marginTop: mTop,
-            width: '12em',
-
-           
+            width: '9em',
+            marginRight: '2em'
 
         },
         btnIconStyle: {
@@ -140,7 +150,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
             position: 'absolute',
             top: '80px',
             backgroundColor: divColor,
-            height: '40px',
+            height: '65px',
             width: '100%',
             zIndex: '5px',
             display: 'flex',
@@ -154,11 +164,11 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
     }
     
 
-    const renderRole = () => {
-        var role;
+    const renderRoleOrTeam = () => {
+        var roleOrTeam;
 
-        if(type === 'objective'){
-            role = (
+        if(type === 'objective'){ //Role case
+            roleOrTeam = (
                 <div style={styles.personIcon}>
 
                     <RoleIcon />
@@ -166,9 +176,18 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
                 </div>
             )
+        } else if(type === 'tactic'){ // Team case
+            roleOrTeam = (
+                <div style={styles.personIcon}>
+
+                    <TeamIcon />
+                    <div> {element.team.title} </div>
+
+                </div>
+            )
         }
 
-        return role
+        return roleOrTeam
     }
 
 
@@ -224,16 +243,76 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
         }
 
     }
+/*
+    let isSelected = false
+    if(type === 'goal' && element.isSelected){
+        isSelected = true;
+    } else if (type === 'strategy' && element.isSelected){
+        isSelected = true;
+    } else if (type === 'tactic' && element.isSelected){
+        isSelected = true;
+    }else if (type === 'objective' && element.isSelected){
+        isSelected = true;
+    }else if (type === 'externalActor' && element.isSelected){
+        isSelected = true;
+
+*/
             
-    
+    let isCurrentSelected = false
+    if(type === 'goal' && element.currentSelect){
+        isCurrentSelected = true;
+    } else if (type === 'strategy' && element.currentSelect){
+        isCurrentSelected = true;
+    } else if (type === 'tactic' && element.currentSelect){
+        isCurrentSelected = true;
+    }else if (type === 'objective' && element.currentSelect){
+        isCurrentSelected = true;
+    }else if (type === 'externalActor' && element.currentSelect){
+        isCurrentSelected = true;
+    } else {
+        console.log("Current select inside elementLS")
+        console.log("type is: ", type)
+        console.log("element is current selected is: ", element.isCurrentSelected)
+        console.log("element is: ", element)
+    }
 
 
-    
+    let containerWrapperStyle
 
+    if(type === 'objective'){
+        containerWrapperStyle =  {width: '100%', height: '100%'}
+    } else {
+        containerWrapperStyle = {}
+    }
+
+
+    let durationIconLeftPos
+    let durationIconTopPos
+
+    if(type === 'tactic'){
+        durationIconLeftPos = '305px'
+        durationIconTopPos = '5px'
+
+    } else if(type === 'objective'){
+        durationIconLeftPos = '295px'
+        durationIconTopPos = '-8px'
+    } else {
+        durationIconLeftPos = '210px'
+        durationIconTopPos = '10px'
+    }
+
+
+    console.log("My type is: ", type)
+    console.log("has duration is: ", hasTimeDuration())
+    console.log("is selected is: ", isSelected)
+    console.log("element is: ", element)
     return(
-        <div  >
+        <div style={containerWrapperStyle}  >
 
-            {   isSelected && type !== 'objective' ?
+            {/*   Este div conecta al elemento con el div de su categoria */}
+            {
+            
+                isSelected && type !== 'objective' ?
                     <div style={styles.relativeDiv}>
                         <div style={styles.absoluteDiv}>
                      
@@ -244,10 +323,10 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
             } 
 
             {
-                hasTimeDuration() ?
+                hasTimeDuration() && isSelected ?
                 (
                     <div className="ElementRelContainerTime" style={{display:'flex', position:'relative'}}>
-                        <div className="ElementAbsContainerTime"style={{display:'flex', position: 'absolute', left: type === 'objective' ? '255px': '164px', top:'-82px'}}>
+                        <div className="ElementAbsContainerTime"style={{display:'flex', position: 'absolute', left: durationIconLeftPos, top: durationIconTopPos}}>
                             <img src={imgTimeIcon} />
                         </div>
                     </div>
@@ -257,6 +336,36 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
                     <Fragment/>
                 )
             }
+
+            {
+                
+                    
+                isCurrentSelected ?
+                (
+                    <div style={{position: 'relative'}}>
+                        <div 
+                            style={{
+                                position: 'absolute',
+                                top: relTop,
+                                left: relLeft,
+                                display: 'flex',
+                                zIndex: 50,
+                                
+                                
+                            }}
+                        >
+                            <EditWrapper index={index}  element={element} type={type}>
+                                <PencilIcon />
+                            </EditWrapper>
+                        </div>
+                    </div> 
+    
+
+                ) : <Fragment/>
+            }
+               
+
+            
             
             <ElementWrapper  element={element} onClick={onClick} style={style}>
 
@@ -276,7 +385,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
                         
 
-                        {renderRole()}
+                        {renderRoleOrTeam()}
                 </div>
             </ElementWrapper>
 

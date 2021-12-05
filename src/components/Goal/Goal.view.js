@@ -6,21 +6,22 @@ import ElementLSView from '../Base/ElementLS.view.svg'
 
 import { Gray1, Gray0 } from '../../constants/Colors'
 
-const GoalView = ({goal, onClick}) => {
+const GoalView = ({goal, onClick, index,relTop,relLeft}) => {
 
     return(
-            <ElementLSView className="GoalElement" element={goal} onClick={onClick} SVG={GoalIcon} styling={btnStyles} type="goal"/>
+            <ElementLSView 
+                className="GoalElement" 
+                element={goal} 
+                onClick={onClick} 
+                SVG={GoalIcon} 
+                styling={btnStyles} 
+                type="goal"
+                index={index}
+                relTop={relTop}
+                relLeft={relLeft}
+            />
     
     )
-}
-
-const styles = {
-    containerStyle: {
-        display: 'flex',
-        flexDirection: 'row',
-        marginRight: '3em'
-        //backgroundColor: '#dcdcdc'
-    },
 }
 
 const btnStyles = {

@@ -98,7 +98,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
   const [error, setError] = useState('')
 
-  console.log("En EditWrapper, el "+ type +" es: ", element)
+  //console.log("En EditWrapper, el "+ type +" es: ", element)
 
   useEffect(() => {
     setTitle(element.title)
@@ -213,7 +213,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
         e.preventDefault()
 
         console.log("NOW TYPE IS ::: ", type)
-
+        console.log("Check errors is: ", !checkErrors(type) )
         if(!checkErrors(type)){ //Si el chequeo de errores sale negativo retorna vacio
           return
         }
@@ -291,7 +291,9 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
         }
 
-        console.log("New element created is::: ", newElement)
+        console.log("New element edited is::: ", newElement)
+        console.log("Index of element is: ", index)
+        console.log("Type of element is: ", type)
 
         setOpen(false)
         editElement(index, newElement, type)
@@ -334,7 +336,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
         } else if (isObjective){
           
-          console.log("OPTIONS FOR OBJECTIVE ARE: ", role)
+          //console.log("OPTIONS FOR OBJECTIVE ARE: ", role)
           //console.log(teams) 
           //const {roles} = teams[0] //EQUIPO SELECCIONADO
           //console.log("ROLES:  ",roles
@@ -659,7 +661,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
       let optionsCreatable
       if (isRelatedUnit){
         
-        console.log("OPTIONS FOR Related Unit ARE: ", options)
+        //console.log("OPTIONS FOR Related Unit ARE: ", options)
         //console.log(teams) 
         //const {roles} = teams[0] //EQUIPO SELECCIONADO
         //console.log("ROLES:  ",roles)

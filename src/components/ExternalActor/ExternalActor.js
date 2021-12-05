@@ -26,7 +26,12 @@ const ExternalActor = () => {
             <Fragment>
 
                 <div className="ExternalActorContainer" style={styles.influencerContainer}>
-                    <ExternalActorView  externalActor={externalActor}/>
+                    <ExternalActorView  
+                        externalActor={externalActor}
+                        relTop="7px"
+                        relLeft="100px"
+                     
+                    />
                     
                 </div>
 
@@ -42,41 +47,15 @@ const ExternalActor = () => {
                         style={{
                             display: 'flex', 
                             position: 'absolute', 
-                            top: '-35px',
-                            left: '-390px',
+                            top: '20px',
+                            left: '-10px',
                             height: '30px',
-                            width: '300px',
+                            width: '150px',
                         }}>
 
                         <p style={{fontSize: '0.9em'}}>{externalActor.description}</p>
 
                     </div>
-                </div>
-
-                <div style={{position: 'relative'}}>
-                        <div 
-                            style={{
-                                position: 'absolute',
-                                top: '7px',
-                                left: '-565px',
-                                display: 'flex',
-                                zIndex: 10,
-                                
-                                
-                            }}
-                        >
-                            
-                            { isCurrentSelected ? 
-                                (
-                                    <EditWrapper externalActors={externalActors}  element={externalActor} type={"externalActor"}>
-                                        <PencilIcon />
-                                    </EditWrapper>
-
-                                ) : <Fragment/>
-                            }
-                        </div> 
-
-                        
                 </div>
 
             </Fragment>
@@ -99,12 +78,10 @@ const ExternalActor = () => {
 
 
 const styles = {
-    influencerContainer: {
-        marginLeft: '3em'
-    },
     arrowContainer: {
-        marginLeft: '3em', 
-        marginTop: '0.2em'
+        display:'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 }
 
