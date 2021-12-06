@@ -52,6 +52,21 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
         mTop = '0px'
     }
 
+    let widthText
+    let mRight
+    if(type === 'relatedUnit'){
+        widthText = '7em'
+        mRight = '0em'
+        
+    } else if(type === 'externalInfluence'){
+        widthText = '7em'
+        mRight = '2em'
+
+    } else {
+        widthText = '9em'
+        mRight = '2em'
+    }
+
 
     
     var width = '15em'
@@ -135,8 +150,8 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
             alignItems: 'center',
             marginLeft: mLeft,
             marginTop: mTop,
-            width: '9em',
-            marginRight: '2em'
+            width: widthText,
+            marginRight: mRight
 
         },
         btnIconStyle: {
@@ -268,6 +283,8 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
     }else if (type === 'objective' && element.currentSelect){
         isCurrentSelected = true;
     }else if (type === 'externalActor' && element.currentSelect){
+        isCurrentSelected = true;
+    }else if (type === 'relatedUnit' && element.currentSelect){
         isCurrentSelected = true;
     } else {
         console.log("Current select inside elementLS")

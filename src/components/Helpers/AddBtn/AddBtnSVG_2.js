@@ -23,14 +23,33 @@ const AddBtnSVG_2 = ({ roles=[], teams=[], externalInfluences=[], isFirst, SVG, 
 
 
     if(type==="relatedUnit"){
-        marginTop = "6em"
+        marginTop = "4em"
+    }
+
+
+    let specialStyle = {
+        btnIconStyle: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: type === 'externalInfluence' ? '4em' : '100%',
+            marginRight: type === 'externalInfluence' ? '5.1em' : '0px'
+            
+            
+        },
+        containerStyle: {
+            display: 'flex',
+            opacity: 0.5,
+            marginLeft: type === 'externalInfluence' && isFirst ? '3em' : '0px'
+            //backgroundColor: '#dcdcdc'
+        },
     }
 
 
     if(isFirst){
        addBtn = ( 
            
-            <div style={{...styles.containerStyle, ...customStyle}}>
+            <div style={{...specialStyle.containerStyle, ...customStyle}}>
 
                 <div style={styles.icon}>
                
@@ -42,7 +61,7 @@ const AddBtnSVG_2 = ({ roles=[], teams=[], externalInfluences=[], isFirst, SVG, 
                         <div>{title}</div>
                         
                     </div>
-                    <div style={styles.btnIconStyle}>
+                    <div style={specialStyle.btnIconStyle}>
                        
                         <AddBtnWrapper options={options} type={type}>
                             <img src={btnAdd} alt="ADD" />
@@ -60,11 +79,11 @@ const AddBtnSVG_2 = ({ roles=[], teams=[], externalInfluences=[], isFirst, SVG, 
         if(type === 'objective'){
             height = 'initial';
         } else {
-            height = styles.btnIconStyle.height;
+            height = specialStyle.btnIconStyle.height;
         }
         addBtn = (
             <div style={{
-                    ...styles.btnIconStyle,
+                    ...specialStyle.btnIconStyle,
                     height: height
                 }}>
 
@@ -81,11 +100,7 @@ const AddBtnSVG_2 = ({ roles=[], teams=[], externalInfluences=[], isFirst, SVG, 
 }
 
 const styles = {
-    containerStyle: {
-        display: 'flex',
-        opacity: 0.5,
-        //backgroundColor: '#dcdcdc'
-    },
+    
     icon: {
         display: 'flex',
         justifyContent: 'center',
@@ -101,16 +116,10 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         marginLeft: '0.5em',
+        width:'7em'
 
     },
-    btnIconStyle: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
-        
-        
-    }
+    
 }
 
 const btnStyles = {

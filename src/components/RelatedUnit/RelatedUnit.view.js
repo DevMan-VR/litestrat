@@ -1,6 +1,5 @@
 import React, {Fragment} from 'react'
-import TeamIcon from '../../assets/icons/OrganizationIcon'
-
+import RelatedUnitIcon from '../../assets/icons/RelatedUnitIcon'
 import ElementLSView from '../Base/ElementLS.view.svg.js'
 
 import { Gray0 } from '../../constants/Colors'
@@ -9,7 +8,7 @@ const RelatedUnitView = ({relatedUnit, onClick}) => {
     
     return(
             <Fragment>
-                <ElementLSView element={relatedUnit} onClick={onClick} SVG={TeamIcon} styling={btnStyles} type="RelatedUnit"/>
+                <ElementLSView relLeft={'40px'} element={relatedUnit} onClick={onClick} SVG={RelatedUnitIcon} styling={btnStyles} type="relatedUnit"/>
             </Fragment>
 
         

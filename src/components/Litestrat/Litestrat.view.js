@@ -3,7 +3,6 @@ import ExternalActor from '../ExternalActor/ExternalActor.js'
 import OrganizationIcon from '../../assets/icons/OrganizationIcon';
 
 
-import ObjectiveComponent from '../Objective/Objective';
 import { Gray1 } from '../../constants/Colors';
 
 import { useLitestratContext } from './LitestratContext.js'
@@ -26,6 +25,15 @@ import TacticView from '../Tactic/Tactic.view.js';
 import ObjectiveIcon from '../../assets/icons/ObjectiveIcon.js';
 import ObjectiveView from '../Objective/Objective.view.js';
 
+//RelatedU elements
+import RelatedUnitComponent from '../RelatedUnit/RelatedUnit.js';
+import RelatedUnitIcon from '../../assets/icons/RelatedUnitIcon.js';
+
+//Exernal Influence Elements
+import InfluencingActorComponent from '../InfluencingActor/InfluencingActor.js';
+import InfluencingActorIcon from '../../assets/icons/InfluencingActorIcon.js';
+
+
 const LitestratView = () => {
 
     const {state} = useLitestratContext()
@@ -41,6 +49,55 @@ const LitestratView = () => {
     var externalActor = scene.externalActor
 
     console.log("Scene selected", scene)
+
+
+
+
+    const getBodySize = (minWidth) => {
+
+        let goalSelected = scene.goalSelected
+        let stratSelected = scene.strategySelected
+        let tactSelected = scene.tacticSelected
+      
+
+        let goalNumber = scene.organization && scene.organization.goals ? scene.organization.goals.length : 0
+        let stratNumber = goalSelected && goalSelected.strategies ? goalSelected.strategies.length : 0
+        let tactNumber = stratSelected && stratSelected.tactics ? stratSelected.tactics.length : 0
+        let objNumber = tactSelected && tactSelected.objectives ? tactSelected.objectives.length : 0
+        let ruNumber = tactSelected && tactSelected.relatedUnits ? tactSelected.relatedUnits.length : 0
+
+        let sumGoals = goalNumber * 300
+        let sumStrat = stratNumber * 300
+        let sumTact = tactNumber * 420
+        let sumObj = objNumber * 450;
+        let sumRU = ruNumber * 230
+
+        let sizes = [sumGoals, sumStrat, sumTact, sumObj, sumRU]
+
+        let finalSize =  Math.max.apply(null, sizes);
+
+        if(finalSize > minWidth){
+            return finalSize+"px"
+        } else {
+            return minWidth+"px"
+        }
+        
+    }
+
+    let bodySize = getBodySize(1000)
+
+    console.log("Body size is :::: ", bodySize)
+
+    let specialStyle ={
+        organizationBody: {
+            position: 'relative', 
+            display: 'flex', 
+            alignItems: 'baseline', 
+            height: '500px',
+            width: bodySize
+        }
+    }
+
 
     const renderOrganizationView = () => {
         var organization;
@@ -61,7 +118,7 @@ const LitestratView = () => {
                         
                     </div>
 
-                    <div className="OrganizationBody" style={styles.organizationBody}>
+                    <div className="OrganizationBody" style={specialStyle.organizationBody}>
 
                         <div className="GoalRow" className="GoalRow" style={styles.goalRow}>
                             <div className="GoalArea" style={styles.goalArea}>
@@ -204,8 +261,16 @@ const LitestratView = () => {
                         scene.tacticSelected ?
                         (
                             <div className="relatedUnitsContainer" style={styles.relatedUnitContainer}>
+                            
 
+                                    <RelatedUnitComponent relatedUnits={scene.tacticSelected.relatedUnits} team={scene.tacticSelected.team}  />
+
+                                    <AddBtnSVG_2 teams={state.workspace.teams} isFirst={scene.tacticSelected.relatedUnits.length === 0} SVG={RelatedUnitIcon} title="Unidad Organizacional Relacionada" description="Description" addElement={addElement} type="relatedUnit" customStyle={{display:'flex', alignItems:'flex-start'}} />
+                            
+                                
                             </div>
+
+                            
                         )
                         :
                         (
@@ -226,25 +291,50 @@ const LitestratView = () => {
     
     return(
         
+        <div className="LitestratWrapper" style={{display:'flex'}}>
+            <div className="LitestratBody" style={styles.litestratBody}>
+                <div className="ExternalActorRow" style={styles.flex}>
+                    <ExternalActor/>
+                </div>
 
-        <div className="LitestratBody" style={styles.litestratBody}>
-            <div className="ExternalActorRow" style={styles.flex}>
-                <ExternalActor/>
+                {renderOrganizationView()}
+
             </div>
+            {
+                scene.tacticSelected? 
+                (
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems:'center',height:'620px', width:'300px', marginTop: '16em'}}>
+                        <InfluencingActorComponent externalInfluences={scene.tacticSelected.externalInfluences} team={scene.tacticSelected.team} />
 
-            {renderOrganizationView()}
+                        <AddBtnSVG_2 teams={state.workspace.teams} externalInfluences={state.workspace.externalInfluences}  isFirst={scene.tacticSelected.externalInfluences.length === 0} SVG={InfluencingActorIcon} title="Actor Influyente Externo" description="Description" addElement={addElement} type="externalInfluence" />
 
+                    </div>
+                )
+                :
+                (
+                    <Fragment/>
+                )
+            }
+
+            
         </div>
 
     )
+
+
+
+    
     
 }
+
+
 
 const styles = {
     litestratBody: {
         display: 'flex',
         flexDirection: 'column',
-        padding: '2em',
+        paddingLeft: '2em',
+        paddingTop: '2em',
         height: '100%',
         marginLeft:'15em'
     },
@@ -262,7 +352,7 @@ const styles = {
         boxShadow: "-2px 2px 10px #9E9E9E",
         borderRadius: '4em',
         marginTop: '1em',
-        width: '65vw',
+        //width: '65vw',
 
     },
     organizationCard: {
@@ -286,12 +376,7 @@ const styles = {
 
     },
 
-    organizationBody: {
-        position: 'relative', 
-        display: 'flex', 
-        alignItems: 'baseline', 
-        height: '500px'
-    },
+    
     goalRow: {
         position: 'absolute',
         bottom: '0px',
@@ -312,7 +397,7 @@ const styles = {
         width: '85%', 
         height: '100px', 
         marginTop: '1em', 
-        marginLeft: '1.3em'
+        marginLeft: '2%'
     },
 
     strategyRow: {
@@ -333,7 +418,7 @@ const styles = {
         width: '85%', 
         height: '100px', 
         marginTop: '1em', 
-        marginLeft: '1.3em'
+        marginLeft: '2%'
     },
     tacticRow: {
         position: 'absolute',
@@ -350,10 +435,10 @@ const styles = {
     tacticArea: {
         display:'flex',
         alignItems:'flex-end',
-        width: '85%', 
+        width: '90%', 
         height: '100px', 
         marginTop: '1em', 
-        marginLeft: '1.3em'
+        marginLeft: '2%'
     },
     objectiveRow: {
         position: 'absolute',
@@ -373,7 +458,7 @@ const styles = {
         width: '100%', 
         height: '100%', 
         marginTop: '1em', 
-        marginLeft: '1.3em', 
+        marginLeft: '2%'
     },
     organizationInfoCard: {
         display: 'flex',
@@ -399,8 +484,12 @@ const styles = {
         alignItems:'center',
         justifyContent:'flex-start',
         width:'100%',
-        height:'120px'
+        height:'120px',
+        marginLeft: '8%',
+        padding: '0.3em'
     }
 }
+
+
 
 export default LitestratView

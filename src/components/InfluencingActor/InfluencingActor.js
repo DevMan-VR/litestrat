@@ -48,32 +48,10 @@ const InfluencingActorComponent = ({externalInfluences}) => {
                         <InfluencingActorView externalInfluence={externalInfluence} onClick={() => selectElement(index,externalInfluence,'externalInfluence')} />
                     </div>
 
-                    {/** Edit Icon */}
-                    <div style={{position: 'relative'}}>
-                        <div 
-                            style={{
-                                position: 'absolute',
-                                top: '-10px',
-                                left: '-130px',
-                                display: 'flex',
-                                zIndex: 10,
-                                
-                                
-                            }}
-                        >
-                            
-                            { isCurrentSelected ? 
-                                (
-                                    <EditWrapper options={state.workspace.externalInfluences} index={index}  element={externalInfluence} editElement={editElement} type={"externalInfluence"}>
-                                        <PencilIcon />
-                                    </EditWrapper>
-
-                                ) : <Fragment/>
-                            }
-                    </div> 
+                   
 
                         
-                </div>
+    
                 </div>
         )
             

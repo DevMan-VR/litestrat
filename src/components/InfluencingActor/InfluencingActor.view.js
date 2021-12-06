@@ -1,6 +1,5 @@
 import React, {Fragment} from 'react'
-import ExternalActorIcon from '../../assets/icons/ExternalActorIcon.js'
-
+import InfluencingActorIcon from '../../assets/icons/InfluencingActorIcon.js'
 import ElementLSView from '../Base/ElementLS.view.svg.js'
 
 import { Gray0 } from '../../constants/Colors'
@@ -9,7 +8,7 @@ const InfluencingActorView = ({externalInfluence, onClick}) => {
     
     return(
             <Fragment>
-                <ElementLSView element={externalInfluence} onClick={onClick} SVG={ExternalActorIcon} styling={btnStyles} type="influencingActor"/>
+                <ElementLSView element={externalInfluence} onClick={onClick} SVG={InfluencingActorIcon} styling={btnStyles} type="influencingActor"/>
             </Fragment>
 
         
