@@ -84,7 +84,7 @@ const LitestratView = () => {
         
     }
 
-    let bodySize = getBodySize(1000)
+    let bodySize = getBodySize(1450)
 
     console.log("Body size is :::: ", bodySize)
 
@@ -336,7 +336,8 @@ const styles = {
         paddingLeft: '2em',
         paddingTop: '2em',
         height: '100%',
-        marginLeft:'15em'
+        marginLeft:'15em',
+        minWidth: '1250px',
     },
     flex: {
         display: 'flex',
@@ -347,7 +348,7 @@ const styles = {
         flexDirection: 'column',
         //marginTop: '3em',
         backgroundColor: 'white',
-        minWidth: '1000px',
+        minWidth: '1250px',
         //height: '970px',
         boxShadow: "-2px 2px 10px #9E9E9E",
         borderRadius: '4em',
