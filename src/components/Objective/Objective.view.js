@@ -5,7 +5,7 @@ import ElementLSView from '../Base/ElementLS.view.svg.js'
 
 import { Gray3, Gray0 } from '../../constants/Colors'
 
-const ObjectiveView = ({objective, onClick, relTop, relLeft, index}) => {
+const ObjectiveView = ({objective, onClick, relTop, relLeft, index, className}) => {
 
     console.log("OBJECTIVE IN OBJECTIVEVIEW IS: ", objective)
     return(
@@ -19,6 +19,7 @@ const ObjectiveView = ({objective, onClick, relTop, relLeft, index}) => {
                 relTop={relTop}
                 relLeft={relLeft}
                 index={index}
+                className={className}
             /> 
 
         </div>  

@@ -4,11 +4,11 @@ import ElementLSView from '../Base/ElementLS.view.svg.js'
 
 import { Gray0 } from '../../constants/Colors'
 
-const RelatedUnitView = ({relatedUnit, onClick}) => {
+const RelatedUnitView = ({relatedUnit, onClick, className}) => {
     
     return(
             <Fragment>
-                <ElementLSView relLeft={'40px'} element={relatedUnit} onClick={onClick} SVG={RelatedUnitIcon} styling={btnStyles} type="relatedUnit"/>
+                <ElementLSView className={className} relLeft={'40px'} element={relatedUnit} onClick={onClick} SVG={RelatedUnitIcon} styling={btnStyles} type="relatedUnit"/>
             </Fragment>
 
         

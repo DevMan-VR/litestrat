@@ -12,7 +12,7 @@ import warningTime from '../../assets/png/warningTime.png'
 import badTime from '../../assets/png/badTime.png'
 import { addSeconds } from 'date-fns'
 
-const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, type, index, relTop, relLeft}) => {
+const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, type, index, relTop, relLeft, className}) => {
 
 
     const maxLength = 20;
@@ -384,7 +384,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
 
             
             
-            <ElementWrapper  element={element} onClick={onClick} style={style}>
+            <ElementWrapper className={className}  element={element} onClick={onClick} style={style}>
 
             
                 <div className="elementStyle" style={styles.elementStyle}>

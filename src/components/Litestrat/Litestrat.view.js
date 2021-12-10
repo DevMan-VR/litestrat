@@ -136,6 +136,7 @@ const LitestratView = () => {
                                                 relTop="7px"
                                                 relLeft="57px"
                                                 index={index}
+                                                className={"goal_"+index}
                                             />
                     
                                             
@@ -166,6 +167,7 @@ const LitestratView = () => {
                                                             relTop="7px"
                                                             relLeft="57px"
                                                             index={index}
+                                                            className={"strategy_"+index}
                                                         />
                                                     )
                                                 })}
@@ -198,6 +200,7 @@ const LitestratView = () => {
                                                 relTop="7px"
                                                 relLeft="57px"
                                                 index={index}
+                                                className={"tactic_"+index}
                                                 
                                             />
                                         ))}
@@ -236,6 +239,7 @@ const LitestratView = () => {
                                                         relTop="7px"
                                                         relLeft="40px"
                                                         index={index}
+                                                        className={"objective_"+index}
                                                     />
                                             )
                                         })}

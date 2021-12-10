@@ -6,7 +6,7 @@ import StrategyIcon from '../../assets/icons/StrategyIcon.js'
 
 import { Gray1, Gray2 } from '../../constants/Colors'
 
-const StrategyView = ({strategy, onClick, relTop, relLeft, index}) => {
+const StrategyView = ({strategy, onClick, relTop, relLeft, index, className}) => {
     return(
         <ElementLSView 
             element={strategy} 
@@ -17,6 +17,7 @@ const StrategyView = ({strategy, onClick, relTop, relLeft, index}) => {
             relTop={relTop}
             relLeft={relLeft}
             index={index}
+            className={className}
         /> 
     )
 }

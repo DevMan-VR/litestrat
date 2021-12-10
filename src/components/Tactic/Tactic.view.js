@@ -6,7 +6,7 @@ import { Gray2, Gray3 } from '../../constants/Colors'
 import TacticIcon from '../../assets/icons/TacticIcon.js'
 
 
-const TacticView = ({tactic, onClick, relTop, relLeft, index}) => {
+const TacticView = ({tactic, onClick, relTop, relLeft, index, className}) => {
     return(
         <ElementLSView 
             element={tactic} 
@@ -17,6 +17,7 @@ const TacticView = ({tactic, onClick, relTop, relLeft, index}) => {
             relTop={relTop}
             relLeft={relLeft}
             index={index}
+            className={className}
         /> 
 
     )

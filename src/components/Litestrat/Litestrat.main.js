@@ -28,7 +28,7 @@ const LitestratApp = () => {
             {
 
                 content: 'Esta pantalla es la zona de trabajo y donde podras modelar tu estrategia de negocio',
-                placement: 'left',
+                placement: 'right',
                 target: '.OrganizationContainer',
                 title: 'Zona de Trabajo',
 
@@ -45,28 +45,17 @@ const LitestratApp = () => {
             },
             {
 
-                content: 'Aquí podras crear nuevas escenas, renombrar escenas o eliminarlas',
-                placement: 'right',
-                target: '#dbIcon',
-                title: 'Manejo de Escenas',
-
-                
-            },
-            {
-
-                content: 'Aqui podras guardar y cargar escenas a Litestrat web',
-                placement: 'right',
-                target: '#sceneIcon',
-                title: 'Gestión de Datos versión alfa',
-
-                
-            },
-            {
-
-                content: 'El método Litestrat definido por Prof. Rene Nôel cuenta con conceptos de estrategia de negocio que te permitirán ir desde la definición de metas que es el mas alto nivel, hasta la definición de objetivos que es el nivel de especificidad mas concreto. Primero que todo se debe definir el Actor Externo que esta provocando una influencia sobre la organización para poder definir una estrategia que permita reaccionar ante esta influencia.',
+                content: 'El método Litestrat cuenta con conceptos de estrategia de negocio que te permitirán ir desde la definición de metas que es el mas alto nivel, hasta la definición de objetivos que es el nivel de especificidad mas concreto. Primero que todo se debe definir el Actor Externo que esta provocando una influencia sobre la organización para poder definir una estrategia de negocio que permita reaccionar ante esta influencia.',
                 placement: 'center',
                 target: '#sceneIcon',
                 title: 'Sobre el método Litestrat',
+                styles: {
+                    options: {
+                    width: 900,
+                    height: 700,
+                    fontSize: '2em'
+                    },
+                },
 
                 
             },
@@ -74,7 +63,7 @@ const LitestratApp = () => {
 
                 content: 'El Actor Externo es quien influye sobre la organización provocando un efecto negativo sobre la ultima. Puede ser un nuevo competidor que está provocando disminución de clientes con una campaña viral, puede ser un factor externo también como la pandemia Covid19 o bien un conglomerado de entidades externas que provocan una influencia en común sobre la organización.',
                 placement: 'bottom',
-                target: '#ExternalActor',
+                target: '.ExternalActorContainer',
                 title: 'El Actor Externo',
 
                 
@@ -91,9 +80,9 @@ const LitestratApp = () => {
             {
 
                 content: 'En esta sección se encuentra definido el metodo litestrat. Iremos punto por punto explicando cada uno de sus niveles.',
-                placement: 'left',
+                placement: 'right',
                 target: '.OrganizationContainer',
-                title: 'Tu Organización y Estrategia',
+                title: 'Tu Organización y la Estrategia de Negocio',
 
                 
             },
@@ -101,16 +90,16 @@ const LitestratApp = () => {
 
                 content: 'La meta representa aquello que se desea alcanzar, en este caso, en respuesta a la influencia que ejerce el actor externo sobre la organización. Que mostramos un ejemplo de Meta: "Ser tendencia en la juventud"',
                 placement: 'bottom',
-                target: '#GoalContainer',
+                target: '.goal_0',
                 title: 'La Meta',
 
                 
             },
             {
 
-                content: 'La estrategia define el como se va a alvanzar esa meta, todavia la estrategia de es de alto nivel por lo que no se debiese ser muy especifico en el como, si no mas bien representa una ruta a seguir. En este caso la estrategia de ejemplo se define como "Aumentar las presencias en redes sociales" como una forma de alcanzar la meta definida',
+                content: 'La estrategia define el como se va a alcanzar esa meta, todavia la estrategia de es de alto nivel por lo que no se debiese ser muy especifico en el como, si no mas bien representa una ruta a seguir. En este caso la estrategia de ejemplo se define como "Aumentar las presencias en redes sociales" como una forma de alcanzar la meta definida',
                 placement: 'bottom',
-                target: '#StrategyContainer',
+                target: '.strategy_0',
                 title: 'La Estrategia',
 
                 
@@ -119,26 +108,60 @@ const LitestratApp = () => {
 
                 content: 'La tactica define una manera mas concreta de aterrizar la estrategia y quien se va a hacer cargo de llevarla a cabo. En este caso de ejemplo tenemos que la táctica es "Entrar a TikTok y utilizar Neuromarketing"',
                 placement: 'bottom',
-                target: '#TacticContainer',
+                target: '.tactic_0',
                 title: 'La Tactica',
 
                 
             },
             {
 
-                content: 'El objetivo es una tarea concreta que deriva de la tactica, representa un paso para llevarla a cabo. En este caso uno de los objetivos definidos es "Creación de Perfil de TikTok"',
+                content: 'El objetivo es un cuantificable o un medible que deriva de la tactica y representa un paso para llevarla a cabo. En este caso uno de los objetivos definidos es "Publicación de 5 reels que alcancen un total de 2500 vistas cada uno"',
                 placement: 'bottom',
-                target: '#ObjectiveContainer',
+                target: '.objective_1',
                 title: 'El Objetivo',
 
                 
             },
             {
 
-                content: 'A continuación tenemos... Unidades Relacionadas y Otros Actores Influyentes',
+                content: 'El siguiente nivel te permite analizar las consecuencias dentro y fuera de la organización de la estrategia de negocio desplegada, desde la meta seleccionada hasta sus objetivos. En este sentido, se pueden agregar las unidades organizacionales relacionadas y otras influencias externas que son de interes para la estrategia de negocio planteada.',
                 placement: 'center',
                 target: '#ObjectiveContainer',
+                title: 'Modelando las reacciones y consecuencias',
+                styles: {
+                    options: {
+                    width: 900,
+                    height: 700,
+                    fontSize: '2em'
+                    },
+                },
+
+                
+            },
+            {
+
+                content: 'La unidad organizacional relacionada es el equipo, departamento o grupo humano que tiene una relación con la presente táctica desplegada y sus objetivos. En este caso se muestra de ejemplo el equipo de Diseño Gráfico, ya que para poder llegar a una audiencia joven en tik tok se necesitará generar contenido especial, logos, animaciones, etc. Tiene 2 posibles tipos de relaciones, la unidad relacionada influencia sobre la estrategia de negocio desplegada o bien es influenciada por ella, eso definira el sentido de su flecha.',
+                placement: 'top',
+                target: '.relatedUnit_0',
                 title: 'Ademas...',
+
+                
+            },
+            {
+
+                content: 'La influencia externa puede ser un individuo, una organización, una entidad o incluso una situación que se ve afectada por la táctica desplegada o bien genera una influencia sobre la táctica desplegada, lo que también define el sentido de la flecha. Las influencias pueden ser positivas o negativas, eso se puede definir en la descripción de la influencia. Un ejemplo de esto podria ser una 3era organziación que se ha quedado atras en la adopción de nuevas tecnologias y está perdiendo sus clientes mas jovenes debido a la estrategia de negocio desplegada ',
+                placement: 'left',
+                target: '.externalInfluence_0',
+                title: 'Ademas...',
+
+                
+            },
+            {
+
+                content: 'Te invitamos a definir una nueva estrategia de negocio para que puedas utilizar el método Litestrat y modelar tu estrategia de negocio ',
+                placement: 'center',
+                target: '.externalInfluence_0',
+                title: '¿Listo para empezar?',
 
                 
             },
@@ -190,7 +213,8 @@ const LitestratApp = () => {
                         styles={{
                             options: {
                             zIndex: 10000,
-                            top: '163px'
+                            top: '163px',
+        
                             },
                         }}
                     />    

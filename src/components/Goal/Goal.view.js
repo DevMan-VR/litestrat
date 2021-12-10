@@ -6,7 +6,7 @@ import ElementLSView from '../Base/ElementLS.view.svg'
 
 import { Gray1, Gray0 } from '../../constants/Colors'
 
-const GoalView = ({goal, onClick, index,relTop,relLeft}) => {
+const GoalView = ({goal, onClick, index,relTop,relLeft, className}) => {
 
     return(
             <ElementLSView 
@@ -19,6 +19,7 @@ const GoalView = ({goal, onClick, index,relTop,relLeft}) => {
                 index={index}
                 relTop={relTop}
                 relLeft={relLeft}
+                className={className}
             />
     
     )

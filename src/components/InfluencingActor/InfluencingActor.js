@@ -45,7 +45,11 @@ const InfluencingActorComponent = ({externalInfluences}) => {
 
                     <div>
                         {/**Element ICON */}
-                        <InfluencingActorView externalInfluence={externalInfluence} onClick={() => selectElement(index,externalInfluence,'externalInfluence')} />
+                        <InfluencingActorView 
+                            externalInfluence={externalInfluence} 
+                            onClick={() => selectElement(index,externalInfluence,'externalInfluence')} 
+                            className={"externalInfluence_"+index}
+                        />
                     </div>
 
                    

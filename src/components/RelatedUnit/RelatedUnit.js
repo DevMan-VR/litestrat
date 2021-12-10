@@ -46,7 +46,13 @@ const RelatedUnitComponent = ({team, relatedUnits}) => {
 
                     <div>
                         {/**Element ICON */}
-                        <RelatedUnitView options={state.workspace.teams} teams={state.workspace.teams} relatedUnit={relatedUnit} onClick={() => selectElement(index,relatedUnit,'relatedUnit')} />
+                        <RelatedUnitView 
+                            options={state.workspace.teams} 
+                            teams={state.workspace.teams} 
+                            relatedUnit={relatedUnit} 
+                            onClick={() => selectElement(index,relatedUnit,'relatedUnit')} 
+                            className={"relatedUnit_"+index}
+                        />
                     </div>
 
                             
