@@ -47,6 +47,7 @@ const RelatedUnitComponent = ({team, relatedUnits}) => {
                     <div>
                         {/**Element ICON */}
                         <RelatedUnitView 
+                            index={index}
                             options={state.workspace.teams} 
                             teams={state.workspace.teams} 
                             relatedUnit={relatedUnit} 

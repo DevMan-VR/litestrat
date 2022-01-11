@@ -12,7 +12,7 @@ import warningTime from '../../assets/png/warningTime.png'
 import badTime from '../../assets/png/badTime.png'
 import { addSeconds } from 'date-fns'
 
-const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, type, index, relTop, relLeft, className}) => {
+const ElementLSView = ({options,textPosition="right", element, onClick, SVG, styling, type, index, relTop, relLeft, className}) => {
 
 
     const maxLength = 20;
@@ -286,12 +286,18 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
         isCurrentSelected = true;
     }else if (type === 'relatedUnit' && element.currentSelect){
         isCurrentSelected = true;
-    } else {
-        console.log("Current select inside elementLS")
-        console.log("type is: ", type)
-        console.log("element is current selected is: ", element.isCurrentSelected)
-        console.log("element is: ", element)
-    }
+
+    } else if (type === 'influencingActor' && element.currentSelect){
+        isCurrentSelected = true;
+    
+    
+    } 
+
+
+    console.log("Current select inside elementLS")
+    console.log("type is: ", type)
+    console.log("element is current selected is: ", element.isCurrentSelected)
+    console.log("element is: ", element)
 
 
     let containerWrapperStyle
@@ -324,7 +330,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
     console.log("is selected is: ", isSelected)
     console.log("element is: ", element)
     return(
-        <div style={containerWrapperStyle}  >
+        <div className="EDITWRAPPER" style={containerWrapperStyle}  >
 
             {/*   Este div conecta al elemento con el div de su categoria */}
             {
@@ -371,7 +377,7 @@ const ElementLSView = ({textPosition="right", element, onClick, SVG, styling, ty
                                 
                             }}
                         >
-                            <EditWrapper index={index}  element={element} type={type}>
+                            <EditWrapper options={options} index={index}  element={element} type={type}>
                                 <PencilIcon />
                             </EditWrapper>
                         </div>

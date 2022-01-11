@@ -4,11 +4,24 @@ import ElementLSView from '../Base/ElementLS.view.svg.js'
 
 import { Gray0 } from '../../constants/Colors'
 
-const InfluencingActorView = ({externalInfluence, onClick, className}) => {
+const InfluencingActorView = ({options,index,externalInfluence, onClick, className}) => {
     
     return(
             <Fragment>
-                <ElementLSView className={className} element={externalInfluence} onClick={onClick} SVG={InfluencingActorIcon} styling={btnStyles} type="influencingActor"/>
+                <ElementLSView 
+                    options={options}
+                    index={index} 
+                    className={className} 
+                    element={externalInfluence} 
+                    onClick={onClick} 
+                    SVG={InfluencingActorIcon} 
+                    styling={btnStyles} 
+                    type="influencingActor"
+                    relTop={'1px'}
+                    relLeft={'42px'}
+                    
+                    
+                />
             </Fragment>
 
         

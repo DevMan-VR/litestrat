@@ -18,7 +18,7 @@ import './EditWrapper.css'
 
 import { useLitestratCrudContext } from '../Litestrat/LitestratCrudContext';
 
-
+import { useLitestratContext } from '../Litestrat/LitestratContext';
 
 
 
@@ -76,7 +76,7 @@ const style = {
 const EditWrapper = ({index=null, options=[], element, children, type, teamProp}) => {
 
   const {editElement, removeElement} = useLitestratCrudContext()
-
+  const {state, setState} = useLitestratContext()
 
 
   const [isHover, setIsHover] = useState(true)
@@ -105,7 +105,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
     setDescription(element.description)
     switch(type){
       case 'externalActor': setExternalActor(element.externalActor); setOrganization(element.influencedOrganization); break;
-      case 'externalInfluence': setIsInfluencer(element.isInfluencer); setTeam(teamProp); setExternalInfluence(element.externalInfluence);  break;
+      case 'influencingActor': setIsInfluencer(element.isInfluencer); setTeam(teamProp); setExternalInfluence(element.externalInfluence);  break;
       case 'tactic': setTeam(element.team); break;
       case 'objective': setRole(element.role); break;
       case 'relatedUnit': setIsInfluencer(element.isInfluencer); setRelatedUnit(element.associatedTeam); setTeam(teamProp); break;
@@ -118,7 +118,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
       case 'objective': setUntil(element.until); break;
     }
     
-    
+    console.log("TYPE ISSSSS: ", type)
 
 }, [])
 
@@ -168,7 +168,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
             elementType = "Objetivo"
             isObjective = true
             break;
-        case 'externalInfluence':
+        case 'influencingActor':
           elementTitle = "Editar Actor Influyente Externo"
           elementType = "Actor Influyente Externo"
           isExternalInfluence = true
@@ -230,12 +230,12 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
               }
               break;
-            case 'externalInfluence':
+            case 'influencingActor':
               newElement = {
                 ...element,
                 title: title,
                 description: description,
-                associatedTeam: team,
+                associatedTeam: externalInfluence,
                 isInfluencer: isInfluencer
               }
               break;
@@ -245,7 +245,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
                 ...element,
                 title: title,
                 description: description,
-                associatedTeam: team,
+                associatedTeam: relatedUnit,
                 isInfluencer: isInfluencer
               }
               break;
@@ -291,12 +291,18 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
         }
 
+
+
         console.log("New element edited is::: ", newElement)
         console.log("Index of element is: ", index)
         console.log("Type of element is: ", type)
 
         setOpen(false)
         editElement(index, newElement, type)
+            
+
+
+        
         
       }
 
@@ -411,7 +417,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
     
             break;
     
-            case 'externalInfluence':
+            case 'influencingActor':
             if(!title ){
               setError("Todos los campos deben ser llenados*")
               hasError = false
@@ -600,7 +606,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
           </div>
         )
-      } else if(type==='externalInfluence'){
+      } else if(type==='influencingActor'){
         renderTitle = (
           <div className="Creatable" style={styles.creatable}>
 
@@ -661,12 +667,14 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
       let optionsCreatable
       if (isRelatedUnit){
         
-        //console.log("OPTIONS FOR Related Unit ARE: ", options)
+        console.log("OPTIONS FOR Related Unit ARE: ", state.workspace.teams)
         //console.log(teams) 
         //const {roles} = teams[0] //EQUIPO SELECCIONADO
         //console.log("ROLES:  ",roles)
-        optionsCreatable = options.map((r) => {
+        options = state.workspace.teams
+        optionsCreatable = options.map((r, indx) => {
           return {
+            index: indx,
             label: r.title,
             value: r.title
           }

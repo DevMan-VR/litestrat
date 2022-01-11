@@ -296,7 +296,7 @@ const LitestratCrudProvider = ({children}) => {
             case 'strategy': updatedScene.organization.goals[scene.goalSelected.index].strategies[index] = {...updatedElement}; break;
             case 'tactic': updatedScene.organization.goals[scene.goalSelected.index].strategies[scene.strategySelected.index].tactics[index] = {...updatedElement}; break;
             case 'objective': updatedScene.organization.goals[scene.goalSelected.index].strategies[scene.strategySelected.index].tactics[scene.tacticSelected.index].objectives[index] = {...updatedElement}; break;
-            case 'externalInfluence': updatedScene.tacticSelected.externalInfluences[index] = {...updatedElement}; break;
+            case 'influencingActor': updatedScene.tacticSelected.externalInfluences[index] = {...updatedElement}; break;
             case 'team': updatedScene.selectedTeam = {...updatedElement}; break;
             case 'role': updatedScene.selectedRole = {...updatedElement}; break;
         }
