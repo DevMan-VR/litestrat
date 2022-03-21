@@ -48,7 +48,7 @@ const LitestratView = () => {
     var scene = state.workspace.scenes[state.workspace.sceneIndex]
     var externalActor = scene.externalActor
 
-    console.log("Scene selected", scene)
+    //console.log("Scene selected", scene)
 
 
 
@@ -86,7 +86,7 @@ const LitestratView = () => {
 
     let bodySize = getBodySize(1450)
 
-    console.log("Body size is :::: ", bodySize)
+    //console.log("Body size is :::: ", bodySize)
 
     let specialStyle ={
         organizationBody: {
@@ -120,7 +120,7 @@ const LitestratView = () => {
 
                     <div className="OrganizationBody" style={specialStyle.organizationBody}>
 
-                        <div className="GoalRow" className="GoalRow" style={styles.goalRow}>
+                        <div className="GoalRow" style={styles.goalRow}>
                             <div className="GoalArea" style={styles.goalArea}>
                                 
                                 {scene.organization.goals.map((goal, index) => {
@@ -128,7 +128,6 @@ const LitestratView = () => {
                                         return(
                                             
                                             <GoalView 
-                                                id="goalElement" 
                                                 id={goal.id} 
                                                 key={goal.id}
                                                 goal={goal} 
@@ -151,7 +150,7 @@ const LitestratView = () => {
                         </div>
 
                         {
-                            scene.goalSelected ?
+                            scene.goalSelected  && scene.goalSelected.strategies ?
                                 (
                                      
                                     <div className="StrategyRow" style={styles.strategyRow}>
@@ -186,9 +185,9 @@ const LitestratView = () => {
 
 
                         {
-                            scene.strategySelected ? 
+                            scene.strategySelected && scene.strategySelected.tactics? 
                             (
-                                <div className="TacticRow" className="TacticRow" style={styles.tacticRow}>
+                                <div className="TacticRow" style={styles.tacticRow}>
                                     <div className="TacticArea" style={styles.tacticArea}>
                                         {scene.strategySelected.tactics.map((tactic, index) => (
                                             <TacticView 
@@ -218,9 +217,9 @@ const LitestratView = () => {
                         }
                        
 
-                        { scene.tacticSelected ?
+                        { scene.tacticSelected && scene.tacticSelected.objectives ?
                             (
-                                <div className="ObjectiveRow" className="ObjectiveRow" style={styles.objectiveRow} >
+                                <div className="ObjectiveRow" style={styles.objectiveRow} >
                                     
                                     
                                     

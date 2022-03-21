@@ -20,7 +20,7 @@ const ElementLSView = ({options,textPosition="right", element, onClick, SVG, sty
     const goodRange = 7; //days
     const warningRange = 3; //days
 
-    const {isSelected} = element
+    const {isSelected,currentSelect} = element
 
     const isHover = false
 
@@ -30,7 +30,7 @@ const ElementLSView = ({options,textPosition="right", element, onClick, SVG, sty
 
     if(isHover){
         style = isHoverColor
-    } else if (isSelected){
+    } else if (currentSelect || isSelected){
         style = isSelectedColor
     } else {
         style = normalColor
@@ -294,10 +294,10 @@ const ElementLSView = ({options,textPosition="right", element, onClick, SVG, sty
     } 
 
 
-    console.log("Current select inside elementLS")
-    console.log("type is: ", type)
-    console.log("element is current selected is: ", element.isCurrentSelected)
-    console.log("element is: ", element)
+    ////console.log("Current select inside elementLS")
+    ////console.log("type is: ", type)
+    ////console.log("element is current selected is: ", element.isCurrentSelected)
+    ////console.log("element is: ", element)
 
 
     let containerWrapperStyle
@@ -325,10 +325,10 @@ const ElementLSView = ({options,textPosition="right", element, onClick, SVG, sty
     }
 
 
-    console.log("My type is: ", type)
-    console.log("has duration is: ", hasTimeDuration())
-    console.log("is selected is: ", isSelected)
-    console.log("element is: ", element)
+    ////console.log("My type is: ", type)
+    ////console.log("has duration is: ", hasTimeDuration())
+    ////console.log("is selected is: ", isSelected)
+    ////console.log("element is: ", element)
     return(
         <div className="EDITWRAPPER" style={containerWrapperStyle}  >
 

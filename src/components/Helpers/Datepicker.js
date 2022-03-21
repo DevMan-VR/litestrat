@@ -14,7 +14,7 @@ const  Datepicker = ({setUntil, until}) => {
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setUntil(date)
-    console.log("FECHA ES: ", date)
+    //console.log("FECHA ES: ", date)
     //handleChangeUntil
   };
 

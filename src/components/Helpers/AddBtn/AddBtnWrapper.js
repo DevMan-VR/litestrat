@@ -182,7 +182,7 @@ const style = {
     }
 
     const handleChangeOrgname = (e) => {
-      console.log("Orgname change is: ", e.target.value)
+      //////console.log("Orgname change is: ", e.target.value)
       setOrganization(e.target.value)
     }
 
@@ -260,7 +260,7 @@ const style = {
     }
 
     const handleSubmitExternalActor = (e) => {
-      console.log("CREATING AN EXTERNAL ACTOR!")
+      ////console.log("CREATING AN EXTERNAL ACTOR!")
       e.preventDefault()
 
       if(!checkErrors('externalActor')){ //Si el chequeo de errores sale negativo retorna vacio
@@ -277,7 +277,7 @@ const style = {
         }
       }
 
-      console.log("ACTOR IS: ", element)
+      ////console.log("ACTOR IS: ", element)
 
       addElement(type, element)
       setOpen(false)
@@ -288,7 +288,7 @@ const style = {
     }
 
     const handleSubmit = (e) => {
-      console.log("CREATING AN ELEMENT!")
+      ////console.log("CREATING AN ELEMENT!")
       e.preventDefault()
 
       if(!checkErrors(type)){ //Si el chequeo de errores sale negativo retorna vacio (no submit)
@@ -345,7 +345,7 @@ const style = {
 
       if(isTactic){
          //data dummy, aqui se deberia hacer un fetch para obtener la data acerca de los equipos de la organizacion
-        console.log("OPTIONS IN CREATABLE FOR TACTIC ARE: ", options)
+        ////console.log("OPTIONS IN CREATABLE FOR TACTIC ARE: ", options)
         optionsCreatable = options.map((t) => {
           return {
             label: t.title,
@@ -357,10 +357,10 @@ const style = {
 
       } else if (isObjective){
         
-        console.log("OPTIONS FOR OBJECTIVE ARE: ", options)
-        //console.log(teams) 
+        ////console.log("OPTIONS FOR OBJECTIVE ARE: ", options)
+        //////console.log(teams) 
         //const {roles} = teams[0] //EQUIPO SELECCIONADO
-        //console.log("ROLES:  ",roles)
+        //////console.log("ROLES:  ",roles)
         optionsCreatable = options.map((r) => {
           return {
             label: r.title,
@@ -378,10 +378,10 @@ const style = {
       let optionsCreatable
       if (isExternalActor){
         
-        console.log("OPTIONS FOR External Actor ARE: ", options)
-        //console.log(teams) 
+        ////console.log("OPTIONS FOR External Actor ARE: ", options)
+        //////console.log(teams) 
         //const {roles} = teams[0] //EQUIPO SELECCIONADO
-        //console.log("ROLES:  ",roles)
+        //////console.log("ROLES:  ",roles)
         optionsCreatable = options.map((r) => {
           return {
             label: r.title,
@@ -399,10 +399,10 @@ const style = {
       let optionsCreatable
       if (isRelatedUnit){
         
-        console.log("OPTIONS FOR Related Unit ARE: ", options)
-        //console.log(teams) 
+        ////console.log("OPTIONS FOR Related Unit ARE: ", options)
+        //////console.log(teams) 
         //const {roles} = teams[0] //EQUIPO SELECCIONADO
-        //console.log("ROLES:  ",roles)
+        //////console.log("ROLES:  ",roles)
         optionsCreatable = options.map((r) => {
           return {
             label: r.title,
@@ -419,10 +419,10 @@ const style = {
       let optionsCreatable
       if (isExternalInfluence){
         
-        console.log("OPTIONS FOR External Influence Unit ARE: ", options)
-        //console.log(teams) 
+        ////console.log("OPTIONS FOR External Influence Unit ARE: ", options)
+        //////console.log(teams) 
         //const {roles} = teams[0] //EQUIPO SELECCIONADO
-        //console.log("ROLES:  ",roles)
+        //////console.log("ROLES:  ",roles)
         optionsCreatable = options.map((r) => {
           return {
             label: r.title,
@@ -549,7 +549,7 @@ const style = {
 
 
     const renderTitle = () => {
-      console.log("RENDER TITLE OPTION IS = ", type)
+      ////console.log("RENDER TITLE OPTION IS = ", type)
       let renderTitle;
       if(type==='externalActor'){
         renderTitle = (

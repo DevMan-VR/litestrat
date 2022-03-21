@@ -65,7 +65,7 @@ const InfluencingActorComponent = ({externalInfluences}) => {
             
     })
 
-    console.log(iActors)
+    //console.log(iActors)
 
     return iActors
 

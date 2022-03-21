@@ -7,7 +7,7 @@ import { Gray3, Gray0 } from '../../constants/Colors'
 
 const ObjectiveView = ({objective, onClick, relTop, relLeft, index, className}) => {
 
-    console.log("OBJECTIVE IN OBJECTIVEVIEW IS: ", objective)
+    //console.log("OBJECTIVE IN OBJECTIVEVIEW IS: ", objective)
     return(
         <div style={styles.containerStyle}>
             <ElementLSView 

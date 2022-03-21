@@ -12,11 +12,11 @@ const RelatedUnitComponent = ({team, relatedUnits}) => {
     const {state} = useLitestratContext()
     const {addElement, editElement, selectElement} = useLitestratCrudContext()
  
-    console.log("Entering into RelatedUnitComponent, Team Props inside is: ",team)
+    //console.log("Entering into RelatedUnitComponent, Team Props inside is: ",team)
 
     var iRelUnits =  relatedUnits.map((relatedUnit,index) => {
 
-        console.log("Present Related Unit inside Map: ",relatedUnit)
+        //console.log("Present Related Unit inside Map: ",relatedUnit)
 
         var icon
         if(relatedUnit.isInfluencer){
@@ -65,7 +65,7 @@ const RelatedUnitComponent = ({team, relatedUnits}) => {
             
     })
 
-    console.log(iRelUnits)
+    //console.log(iRelUnits)
 
     return iRelUnits
 

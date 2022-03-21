@@ -98,7 +98,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
   const [error, setError] = useState('')
 
-  //console.log("En EditWrapper, el "+ type +" es: ", element)
+  ////console.log("En EditWrapper, el "+ type +" es: ", element)
 
   useEffect(() => {
     setTitle(element.title)
@@ -118,7 +118,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
       case 'objective': setUntil(element.until); break;
     }
     
-    console.log("TYPE ISSSSS: ", type)
+    //console.log("TYPE ISSSSS: ", type)
 
 }, [])
 
@@ -205,15 +205,15 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
       }
 
       const handleChangeOrgname = (e) => {
-        console.log("Orgname change is: ", e.target.value)
+        //console.log("Orgname change is: ", e.target.value)
         setOrganization(e.target.value)
       }
 
       const handleSubmit = (e) => {
         e.preventDefault()
 
-        console.log("NOW TYPE IS ::: ", type)
-        console.log("Check errors is: ", !checkErrors(type) )
+        //console.log("NOW TYPE IS ::: ", type)
+        //console.log("Check errors is: ", !checkErrors(type) )
         if(!checkErrors(type)){ //Si el chequeo de errores sale negativo retorna vacio
           return
         }
@@ -293,9 +293,9 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
 
 
-        console.log("New element edited is::: ", newElement)
-        console.log("Index of element is: ", index)
-        console.log("Type of element is: ", type)
+        //console.log("New element edited is::: ", newElement)
+        //console.log("Index of element is: ", index)
+        //console.log("Type of element is: ", type)
 
         setOpen(false)
         editElement(index, newElement, type)
@@ -320,7 +320,7 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
         if(isTactic){
            //data dummy, aqui se deberia hacer un fetch para obtener la data acerca de los equipos de la organizacion
-          console.log("OPTIONS IN CREATABLE FOR TACTIC ARE: ", team)
+          //console.log("OPTIONS IN CREATABLE FOR TACTIC ARE: ", team)
           var value
           if(team){
             value =  {
@@ -342,10 +342,10 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
 
         } else if (isObjective){
           
-          //console.log("OPTIONS FOR OBJECTIVE ARE: ", role)
-          //console.log(teams) 
+          ////console.log("OPTIONS FOR OBJECTIVE ARE: ", role)
+          ////console.log(teams) 
           //const {roles} = teams[0] //EQUIPO SELECCIONADO
-          //console.log("ROLES:  ",roles
+          ////console.log("ROLES:  ",roles
 
           var value;
           if(role){
@@ -563,10 +563,10 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
         let value
         if (isExternalActor){
           
-          console.log("OPTIONS FOR OBJECTIVE ARE: ", options)
-          //console.log(teams) 
+          //console.log("OPTIONS FOR OBJECTIVE ARE: ", options)
+          ////console.log(teams) 
           //const {roles} = teams[0] //EQUIPO SELECCIONADO
-          //console.log("ROLES:  ",roles)
+          ////console.log("ROLES:  ",roles)
           optionsCreatable = options.map((r) => {
             return {
               label: r.title,
@@ -640,10 +640,10 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
       let optionsCreatable
       if (isExternalInfluence){
         
-        console.log("OPTIONS FOR External Influence Unit ARE: ", options)
-        //console.log(teams) 
+        //console.log("OPTIONS FOR External Influence Unit ARE: ", options)
+        ////console.log(teams) 
         //const {roles} = teams[0] //EQUIPO SELECCIONADO
-        //console.log("ROLES:  ",roles)
+        ////console.log("ROLES:  ",roles)
         optionsCreatable = options.map((r) => {
           return {
             label: r.title,
@@ -667,10 +667,10 @@ const EditWrapper = ({index=null, options=[], element, children, type, teamProp}
       let optionsCreatable
       if (isRelatedUnit){
         
-        console.log("OPTIONS FOR Related Unit ARE: ", state.workspace.teams)
-        //console.log(teams) 
+        //console.log("OPTIONS FOR Related Unit ARE: ", state.workspace.teams)
+        ////console.log(teams) 
         //const {roles} = teams[0] //EQUIPO SELECCIONADO
-        //console.log("ROLES:  ",roles)
+        ////console.log("ROLES:  ",roles)
         options = state.workspace.teams
         optionsCreatable = options.map((r, indx) => {
           return {

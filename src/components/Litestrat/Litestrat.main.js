@@ -183,7 +183,7 @@ const LitestratApp = () => {
         }
     
         console.groupCollapsed(type);
-        console.log(data);
+        //console.log(data);
         console.groupEnd();
       };
 

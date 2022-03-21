@@ -114,7 +114,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
       }
 
       const handleSubmitExternalActor = (e) => {
-        console.log("CREATING AN EXTERNAL ACTOR!")
+        //console.log("CREATING AN EXTERNAL ACTOR!")
         e.preventDefault()
 
         //Preparing the object
@@ -133,7 +133,7 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
       }
 
       const handleSubmit = (e) => {
-        console.log("CREATING AN ELEMENT!")
+        //console.log("CREATING AN ELEMENT!")
         e.preventDefault()
 
         //Preparing the object
@@ -185,9 +185,9 @@ const ButtonWrapper = ({addElement, children, type, element}) => {
           return (<CreatableTactic options={options} setData={setTeam}/>)
 
         } else if (isObjective){
-          console.log("FOR OBJECTIVE OPTIONS ARE:: ", options) 
+          //console.log("FOR OBJECTIVE OPTIONS ARE:: ", options) 
           const {roles} = teams[0] //EQUIPO SELECCIONADO
-          console.log("ROLES:  ",roles)
+          //console.log("ROLES:  ",roles)
           options = roles.map((r) => {
             return {
               label: r.title,

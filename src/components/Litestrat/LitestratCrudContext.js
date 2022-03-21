@@ -11,6 +11,16 @@ import ExternalActor from '../ExternalActor/ExternalActor.model.js';
 import ExternalInfluence from '../InfluencingActor/InfluencingActor.model.js';
 import RelatedUnit from '../RelatedUnit/RelatedUnit.model';
 
+import {
+    cleanObjective, 
+    cleanExternaInfluence, 
+    cleanExternalUnit,
+    cleanGoal,
+    cleanScene,
+    cleanStrategy,
+    cleanTactic
+} from './Cleaner';
+
 const LitestratCrudContext = React.createContext()
 
 export const useLitestratCrudContext = () => {
@@ -180,7 +190,7 @@ const LitestratCrudProvider = ({children}) => {
                 var newState = {...state}
 
                 if(teamIndex === -1){
-                    //console.log("Se ha creado un nuevo team")
+                    ////console.log("Se ha creado un nuevo team")
                     var team = {
                         id: data.team.value,
                         department: 'Por defecto TI',
@@ -196,7 +206,7 @@ const LitestratCrudProvider = ({children}) => {
 
 
                 } else {
-                    //console.log("Se ha encontrado el team que se buscaba")
+                    ////console.log("Se ha encontrado el team que se buscaba")
                     tactic.teamIndex = teamIndex
                     tactic.team = newState.workspace.teams[teamIndex]
                 }
@@ -243,7 +253,7 @@ const LitestratCrudProvider = ({children}) => {
                 var role
                 if(roleIndex === -1){
                     //No encontró el rol y por lo tanto se debe crear
-                    console.log("Se crea un nuevo rol")
+                    //console.log("Se crea un nuevo rol")
                     role = {
                         id: roleName,
                         title: roleName,
@@ -255,7 +265,7 @@ const LitestratCrudProvider = ({children}) => {
 
                 } else {
                     //Si encontró el rol por lo tanto lo relaciona
-                    console.log("Se encuentra el rol y se asigna")
+                    //console.log("Se encuentra el rol y se asigna")
                     role = updatedScene.tacticSelected.team.roles[roleIndex]
                 }
 
@@ -265,8 +275,8 @@ const LitestratCrudProvider = ({children}) => {
                 var newState = {...state}
                 newState.workspace.scenes[newState.workspace.sceneIndex] = updatedScene
                 //newState.workspace.scenes[state.workspace.sceneIndex].organization.goals[goalSelected.index].strategies[strategySelected.index].tactics[tacticSelected.index].objectives.push(objective)
-                console.log("NEW OBJECTIVE")
-                console.log(newState)
+                //console.log("NEW OBJECTIVE")
+                //console.log(newState)
                 setState(newState)
                 break;
                 
@@ -285,8 +295,8 @@ const LitestratCrudProvider = ({children}) => {
         var updatedScene = {...scene}
         var newState = {...state}
 
-        console.log("This is the type of editing element === ", type)
-        console.log("This is the index received: ", index)
+        //console.log("This is the type of editing element === ", type)
+        //console.log("This is the index received: ", index)
 
         switch(type){
             case 'scene': updatedScene.title = updatedElement; break;
@@ -301,15 +311,15 @@ const LitestratCrudProvider = ({children}) => {
             case 'role': updatedScene.selectedRole = {...updatedElement}; break;
         }
 
-        console.log("This is the received element: ", updatedElement)
-        //console.log("This is the updatedScene after edited element: ", updatedScene)
+        //console.log("This is the received element: ", updatedElement)
+        ////console.log("This is the updatedScene after edited element: ", updatedScene)
 
         newState.workspace.scenes[sceneIndex] = {...updatedScene}
 
         setState(newState)
     }
 
-    const currentSelect = (oldScene, newScene, element) => {
+    const currentSelect = (oldScene, newScene, element, type) => {
         if(oldScene.currentSelect){
             oldScene.currentSelect.currentSelect = false
         }
@@ -320,6 +330,8 @@ const LitestratCrudProvider = ({children}) => {
         return newScene
     }
 
+
+    
 
 
 
@@ -349,10 +361,15 @@ const LitestratCrudProvider = ({children}) => {
                 }
             }
         }
+
+
+        //Cleaning own branch of childrens currentSelect and isSelected
+        goal = cleanGoal(goal)
+
         
         goal.isSelected = true
         scene.goalSelected = goal
-        scene = currentSelect(oldScene, scene, goal)
+        scene = currentSelect(oldScene, scene, goal, "goal")
 
 
         return scene
@@ -383,10 +400,12 @@ const LitestratCrudProvider = ({children}) => {
             }
         }
         
+        //Cleaning own branch of childrens currentSelect and isSelected
+        strategy = cleanStrategy(strategy)
         
         strategy.isSelected = true
         scene.strategySelected = strategy
-        scene = currentSelect(oldScene, scene, strategy)
+        scene = currentSelect(oldScene, scene, strategy, "strategy")
 
 
         return scene
@@ -407,6 +426,8 @@ const LitestratCrudProvider = ({children}) => {
 
             }
         }
+
+        tactic = cleanTactic(tactic)
         
         tactic.isSelected = true
 
@@ -414,7 +435,7 @@ const LitestratCrudProvider = ({children}) => {
 
         scene.tacticSelected = tactic
 
-        scene = currentSelect(oldScene, scene, tactic)
+        scene = currentSelect(oldScene, scene, tactic, "tactic")
 
        return scene
     }
@@ -442,9 +463,9 @@ const LitestratCrudProvider = ({children}) => {
                 externalActor.isSelected = !externalActor.isSelected;
                 scene.externalActorSelected = externalActor
 
-                scene = currentSelect(oldScene, scene, externalActor)
+                scene = currentSelect(oldScene, scene, externalActor, "externalActor")
 
-                console.log("Selecting external actor: ", element)
+                //console.log("Selecting external actor: ", element)
                 updatedScenes[state.workspace.sceneIndex] = scene
 
             break;
@@ -456,9 +477,9 @@ const LitestratCrudProvider = ({children}) => {
                 relatedUnit.isSelected = !relatedUnit.isSelected;
                 scene.relatedUnitSelected = relatedUnit
 
-                scene = currentSelect(oldScene, scene, relatedUnit)
+                scene = currentSelect(oldScene, scene, relatedUnit, "relatedUnit")
 
-                console.log("Selecting related unit: ", element)
+                //console.log("Selecting related unit: ", element)
                 updatedScenes[state.workspace.sceneIndex] = scene
 
             break;
@@ -471,9 +492,9 @@ const LitestratCrudProvider = ({children}) => {
                 scene.externalInfluenceSelected = externalInfluence
                 scene.externalInfluences[index] = externalInfluence
 
-                scene = currentSelect(oldScene, scene, externalInfluence)
+                scene = currentSelect(oldScene, scene, externalInfluence, "externalInfluence")
 
-                console.log("Selecting external influence: ", element)
+                //console.log("Selecting external influence: ", element)
                 updatedScenes[state.workspace.sceneIndex] = scene
 
             break;
@@ -502,7 +523,7 @@ const LitestratCrudProvider = ({children}) => {
 
             scene.objectiveSelected = objective
 
-            scene = currentSelect(oldScene, scene, objective)
+            scene = currentSelect(oldScene, scene, objective, "objective")
 
             
             updatedScenes[state.workspace.sceneIndex] = scene
@@ -528,7 +549,7 @@ const LitestratCrudProvider = ({children}) => {
 
 
     const removeElement = (type, index=null) => {
-        console.log("[CRUD CONTEXT] Remove element is implemented")
+        //console.log("[CRUD CONTEXT] Remove element is implemented")
         var sceneIndex = state.workspace.sceneIndex
         var scene = state.workspace.scenes[sceneIndex]
         var updatedScene = {...scene}

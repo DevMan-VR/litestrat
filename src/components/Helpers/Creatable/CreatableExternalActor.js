@@ -6,16 +6,16 @@ export const CreatableExternalActor = ({options=null,placeholder, setTitle, setE
 
   const handleChange = (newValue, actionMeta) => {
     console.group('Value Changed');
-    console.log(newValue.value);
+    //console.log(newValue.value);
     setTitle(newValue.value)
     setExternalActor(newValue)
-    console.log(`action: ${actionMeta.action}`);
+    //console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
   };
   const handleInputChange = (inputValue, actionMeta) => {
     console.group('Input Changed');
-    console.log(inputValue);
-    console.log(`action: ${actionMeta.action}`);
+    //console.log(inputValue);
+    //console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
   };
 

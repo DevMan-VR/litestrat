@@ -6,16 +6,16 @@ export const CreatableExternalInfluence = ({value,options=null,placeholder, setT
 
   const handleChange = (newValue, actionMeta) => {
     console.group('Value Changed');
-    console.log(newValue);
+    //console.log(newValue);
     setTitle(newValue.value)
     setExternalInfluence(newValue)
-    console.log(`action: ${actionMeta.action}`);
+    //console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
   };
   const handleInputChange = (inputValue, actionMeta) => {
     console.group('Input Changed');
-    console.log(inputValue);
-    console.log(`action: ${actionMeta.action}`);
+    //console.log(inputValue);
+    //console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
   };
 
