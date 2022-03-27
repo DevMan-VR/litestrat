@@ -66,11 +66,11 @@ const LitestratView = () => {
         let objNumber = tactSelected && tactSelected.objectives ? tactSelected.objectives.length : 0
         let ruNumber = tactSelected && tactSelected.relatedUnits ? tactSelected.relatedUnits.length : 0
 
-        let sumGoals = goalNumber * 300
-        let sumStrat = stratNumber * 300
-        let sumTact = tactNumber * 420
-        let sumObj = objNumber * 450;
-        let sumRU = ruNumber * 230
+        let sumGoals = goalNumber * 240
+        let sumStrat = stratNumber * 240
+        let sumTact = tactNumber * 336
+        let sumObj = objNumber * 336;
+        let sumRU = ruNumber * 184
 
         let sizes = [sumGoals, sumStrat, sumTact, sumObj, sumRU]
 
@@ -84,7 +84,7 @@ const LitestratView = () => {
         
     }
 
-    let bodySize = getBodySize(1450)
+    let bodySize = getBodySize(1160)
 
     //console.log("Body size is :::: ", bodySize)
 
@@ -93,7 +93,7 @@ const LitestratView = () => {
             position: 'relative', 
             display: 'flex', 
             alignItems: 'baseline', 
-            height: '500px',
+            height: '400px',
             width: bodySize
         }
     }
@@ -337,25 +337,25 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         paddingLeft: '2em',
-        paddingTop: '2em',
+        paddingTop: '0.2em',
         height: '100%',
         marginLeft:'15em',
-        minWidth: '1250px',
+        minWidth: '1160',
     },
     flex: {
         display: 'flex',
-        height:'7em'
+        height:'5.5em',
+        marginBottom:'1em'
     },
     litestratContainer: {
         display: 'flex',
         flexDirection: 'column',
         //marginTop: '3em',
         backgroundColor: 'white',
-        minWidth: '1250px',
+        minWidth: '1160px',
         //height: '970px',
         boxShadow: "-2px 2px 10px #9E9E9E",
         borderRadius: '4em',
-        marginTop: '1em',
         //width: '65vw',
 
     },
@@ -375,7 +375,8 @@ const styles = {
         borderTopLeftRadius:'2em',
         borderTopRightRadius: '2em',
         color: 'whitesmoke',
-        fontWeight: '700'
+        fontWeight: '700',
+        marginBottom:'1em'
         
 
     },
@@ -399,8 +400,7 @@ const styles = {
         display:'flex',
         alignItems:'flex-end', 
         width: '85%', 
-        height: '100px', 
-        marginTop: '1em', 
+        height: '80px', 
         marginLeft: '2%'
     },
 
@@ -408,7 +408,7 @@ const styles = {
         position: 'absolute',
         bottom: '0px',
         right: '0px',
-        height: '75%',
+        height: '81%',
         width: '98%',
         borderTopLeftRadius: '4em',
         borderBottomLeftRadius: '4em',
@@ -420,8 +420,7 @@ const styles = {
         display:'flex',
         alignItems:'flex-end', 
         width: '85%', 
-        height: '100px', 
-        marginTop: '1em', 
+        height: '80px', 
         marginLeft: '2%'
     },
     tacticRow: {
@@ -432,7 +431,7 @@ const styles = {
         borderBottomLeftRadius: '4em',
         borderBottomRightRadius: '4em',
         backgroundColor: '#DCDCDC',
-        height: '50%',
+        height: '62%',
         width: '96%',
         zIndex: 3
     },
@@ -440,8 +439,7 @@ const styles = {
         display:'flex',
         alignItems:'flex-end',
         width: '90%', 
-        height: '100px', 
-        marginTop: '1em', 
+        height: '80px', 
         marginLeft: '2%'
     },
     objectiveRow: {
@@ -452,7 +450,7 @@ const styles = {
         borderBottomLeftRadius: '4em',
         borderBottomRightRadius: '4em',
         backgroundColor: '#D0D0D0',
-        height: '25%',
+        height: '43%',
         width: '94%',
         zIndex: 4
     },
@@ -488,7 +486,7 @@ const styles = {
         alignItems:'center',
         justifyContent:'flex-start',
         width:'100%',
-        height:'120px',
+        height:'96px',
         marginLeft: '8%',
         padding: '0.3em'
     }

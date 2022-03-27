@@ -1,7 +1,7 @@
 import React from 'react'
 
 const InfluencedActorIcon = () => (
-    <svg width="70" height="76" viewBox="0 0 70 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="56" height="56" viewBox="0 0 70 76" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g id="InfluencedActor">
     <g id="ExternalActor">
     <circle id="External-Actor-Container" cx="35" cy="40.3918" r="35" fill="#1E4E79"/>

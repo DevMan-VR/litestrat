@@ -1,7 +1,7 @@
 import React from 'react'
 
 const PencilIcon = () => (
-<svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="28" height="28" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d)">
 <rect x="4" y="1.95361" width="26.5553" height="26.0465" rx="13.0233" fill="white"/>
 </g>

@@ -128,8 +128,6 @@ const ElementLSView = ({options,textPosition="right", element, onClick, SVG, sty
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            marginLeft: '1em',
-            marginRight: '1em',
             width: '5em'
         },
         icon: {
@@ -163,7 +161,7 @@ const ElementLSView = ({options,textPosition="right", element, onClick, SVG, sty
     
         absoluteDiv: {
             position: 'absolute',
-            top: '80px',
+            top: '64px',
             backgroundColor: divColor,
             height: '65px',
             width: '100%',

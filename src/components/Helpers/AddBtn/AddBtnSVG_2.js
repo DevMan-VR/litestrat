@@ -5,7 +5,7 @@ import AddBtnWrapper from './AddBtnWrapper.js'
 const AddBtnSVG_2 = ({ roles=[], teams=[], externalInfluences=[], isFirst, SVG, title, type, customStyle}) => {
 
     var addBtn
-    let marginTop = "2em"
+    let marginTop = "0.7em"
     var options
     if(roles.length > 0){
         //Quiere decir que viene con roles y se pasa este argumento options
@@ -116,7 +116,8 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         marginLeft: '0.5em',
-        width:'7em'
+        width:'7em',
+        fontSize:'0.93em'
 
     },
     

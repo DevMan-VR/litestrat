@@ -1,7 +1,7 @@
 import React from 'react'
 
 const PlusButtonIcon = () => (
-<svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="46" height="46" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="PlusBtnIcon" filter="url(#filter0_d)">
 <rect id="PlusContainer" x="4" width="50" height="50" rx="25" fill="white"/>
 <g id="Plus">

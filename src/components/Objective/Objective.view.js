@@ -36,7 +36,7 @@ const styles = {
         //borderBottomRightRadius: '2.5em',
         borderStyle: 'dashed',
         marginRight: '1em',
-        height:'82px'
+        height:'65px'
     }
 }
 

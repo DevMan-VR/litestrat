@@ -1,179 +1,177 @@
-
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap"); 
-html, body {
-    margin: 0;
-    font-size: 16px;
-    font-family: 'roboto';
-  }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap');
+html,
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'roboto';
+}
 
 a {
-    text-decoration: none;
-    color: #3d3d3d; /* For Example */
-  }
+  text-decoration: none;
+  color: #3d3d3d; /* For Example */
+}
 
+p {
+  font-size: 0.93em;
+}
 
-.rootBody{
-    display: flex;
-    flex-direction: row;
+.rootBody {
+  display: flex;
+  flex-direction: row;
 }
 
 .NavBarRel {
-    display: flex;
-    position: relative;
-    z-index: 10;
+  display: flex;
+  position: relative;
+  z-index: 10;
 }
 
 .NavBarAbsContainer {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    left: 0px;
-    background-color: #23232e; 
-    width: 6rem; 
-    height: 100%;
-    min-height: 100vh;
-    z-index: 20;
-    transition: width 444ms ease-in;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  left: 0px;
+  background-color: #23232e;
+  width: 6rem;
+  height: 100%;
+  min-height: 100vh;
+  z-index: 20;
+  transition: width 444ms ease-in;
 }
 
 .NavBarAbsContainer:hover {
-    width: 25rem;
+  width: 25rem;
 }
 
 .NavItem {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 1rem;
-    transition: all 333ms ease-in-out;
-    background: #23232e;
-
-
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem;
+  transition: all 333ms ease-in-out;
+  background: #23232e;
 }
 
 .NavItem:hover {
-    background: #0f0f14; 
-    cursor: pointer;
+  background: #0f0f14;
+  cursor: pointer;
 }
 
 .link-text-logo {
-    color: whitesmoke;
-    font-size: 1.3em;
-    margin-left: 1em;
-    opacity: 0%;
-    transition: all 700ms ease-in-out;
-
+  color: whitesmoke;
+  font-size: 1.3em;
+  margin-left: 1em;
+  opacity: 0%;
+  transition: all 700ms ease-in-out;
 }
 
 .NavBarAbsContainer:hover .link-text-logo {
-    opacity: 100%;
+  opacity: 100%;
 }
 
 .nav-icon {
-    display: flex;
-    justify-content: flex-start;
-    margin-left: 1rem;
-    width:50px;
-    height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 1rem;
+  width: 50px;
+  height: 50px;
 }
 
 .link-text {
-    color: whitesmoke;
-    font-size: 1.3em;
-    margin-left: 1em;
-    opacity: 0%;
-    transition: all 700ms ease-in-out;
-
+  color: whitesmoke;
+  font-size: 1.3em;
+  margin-left: 1em;
+  opacity: 0%;
+  transition: all 700ms ease-in-out;
 }
 
 .NavBarAbsContainer:hover .link-text {
-    opacity: 100%;
+  opacity: 100%;
 }
 
 .isDropdown {
-    display: flex;
-    flex-direction: column !important;
+  display: flex;
+  flex-direction: column !important;
 }
 .dropdown {
-    margin-top: 1em;
-    display: flex;
-    flex-direction: column;
-    opacity: 0%;
-    height: 1rem;
-    width: 20rem;
-    margin-left: 1em;
-    transform: translateX(-400px);
-    transition: all 400ms ease-in;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  opacity: 0%;
+  height: 1rem;
+  width: 20rem;
+  margin-left: 1em;
+  transform: translateX(-400px);
+  transition: all 400ms ease-in;
 }
 
 .NavItem:hover .isDropdown .dropdown {
-    transform: translateX(0px);
-    opacity: 100%;
-    height: 100%;
+  transform: translateX(0px);
+  opacity: 100%;
+  height: 100%;
 }
 
-
 .navContent {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .dropdownContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .subItem {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    background-color: whitesmoke;
-    height: 3em;
-    margin-top: 0.3em;
-    border-radius: 0.2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: whitesmoke;
+  height: 3em;
+  margin-top: 0.3em;
+  border-radius: 0.2em;
 
-    transition: background-color 400ms ease-in;
+  transition: background-color 400ms ease-in;
 }
 
 .subItem:hover {
-    background-color: #cacaca;
-    cursor: pointer;
+  background-color: #cacaca;
+  cursor: pointer;
 }
 
 .subItemActionsContainer {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
-.subItemAction{
-    margin-left: 0.5em;
+.subItemAction {
+  margin-left: 0.5em;
 }
 
 .subItemAction:hover {
-    color:wheat;
-    font-weight: 900;
+  color: wheat;
+  font-weight: 900;
 }
 
 .itemSelected {
-    background-color: rgb(148, 148, 148);
+  background-color: rgb(148, 148, 148);
 }
 
 .subItemActionIcon {
-    margin-left: 1em;
-    border-radius: 0.2em;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px black solid;
-    background-color: whitesmoke;
-    transition: background-color 111ms ease-in;
+  margin-left: 1em;
+  border-radius: 0.2em;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px black solid;
+  background-color: whitesmoke;
+  transition: background-color 111ms ease-in;
 }
 
 .subItemActionIcon:hover {
-    background-color: wheat;
+  background-color: wheat;
 }

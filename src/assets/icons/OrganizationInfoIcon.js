@@ -1,7 +1,7 @@
 import React from 'react'
 
 const OrganizationInfoIcon = () => (
-    <svg width="201" height="144" viewBox="0 0 201 144" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="161" height="115" viewBox="0 0 201 144" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="OrganizationInfo">
 <g id="OrganizationHolder" filter="url(#filter0_d)">
 <path d="M4 25C4 11.1929 15.1929 0 29 0H148.511C153.396 0 158.185 1.40908 161.979 4.48708C173.063 13.4781 195.745 35.3217 196.5 64C197.247 92.404 174.25 118.573 162.587 129.979C158.457 134.017 152.843 136 147.067 136H29C15.1929 136 4 124.807 4 111V25Z" fill="#F2F2F2"/>
